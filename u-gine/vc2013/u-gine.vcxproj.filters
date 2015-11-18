@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="data">
+      <UniqueIdentifier>{6852de7d-b0a0-446d-a551-0f084b72bab7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\array.h">
@@ -68,5 +71,19 @@
     <ClCompile Include="..\src\resourcemanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\data\ball.png">
+      <Filter>data</Filter>
+    </Image>
+    <Image Include="..\data\box.jpg">
+      <Filter>data</Filter>
+    </Image>
+    <Image Include="..\data\light.png">
+      <Filter>data</Filter>
+    </Image>
+    <Image Include="..\data\soccer_npot.png">
+      <Filter>data</Filter>
+    </Image>
   </ItemGroup>
 </Project>
