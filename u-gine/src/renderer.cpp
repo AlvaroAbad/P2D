@@ -11,16 +11,16 @@ Renderer* Renderer::renderer = NULL;
 void Renderer::SetBlendMode(BlendMode blendMode) const {
     switch ( blendMode ) {
 	case SOLID:
-		// TAREA: Implementar solid blending gl_one|gl_zero
+		glBlendFunc(GL_ONE, GL_ZERO);
 		break;
 	case ALPHA:
-		// TAREA: Implementar alpha blending gl_src_alpha|gl_one_minus_src_alpha
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		break;
 	case MULTIPLICATIVE:
-		// TAREA: Implementar multiplicative blending gl_dst_color|gl_zero
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
 		break;
 	case ADDITIVE:
-		// TAREA: Implementar additive blending gl_src_alpha|gl_one
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 		break;
 	}
 }

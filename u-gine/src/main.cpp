@@ -10,14 +10,17 @@ int main(int argc, char* argv[]) {
 	String * title = new String();
 	int32 distance;*/
 
-	String *fileName = new String();
+/*	String *fileName = new String();
 	*fileName = "data/soccer_npot.png";
 	Image * ballTex=ResourceManager::Instance().LoadImage(*fileName);
 	ballTex->SetMidHandle();
 	double rotation = 0;
 	double scale = 0;
-	int increment = 1;
-	int elapsed = 0;
+	int increment = 1;*/
+
+	uint16 thirdOfWidth = Screen::Instance().GetWidth() / 3;
+	uint16 eighthOfHeight = Screen::Instance().GetHeight() / 8;
+	uint16 sixthdOfWidth = Screen::Instance().GetWidth() / 6;
 	while ( Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)){
 
 		#pragma region Practica 1 
@@ -55,9 +58,7 @@ int main(int argc, char* argv[]) {
 		#pragma endregion
 
 		#pragma region Practica 2
-
-
-		scale += ((2 * increment) * Screen::Instance().ElapsedTime());
+		/*scale += ((2 * increment) * Screen::Instance().ElapsedTime());
 		rotation += (30 * Screen::Instance().ElapsedTime());
 		if (scale >= 5) {
 			increment = -1;
@@ -65,8 +66,56 @@ int main(int argc, char* argv[]) {
 		else if (scale <= 0.5) {
 			increment = 1;
 		}
+		Renderer::Instance().DrawImage(ballTex, Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY(),0, ballTex->GetWidth()*scale, ballTex->GetHeight()*scale,rotation);*/
+		#pragma endregion
 
-		Renderer::Instance().DrawImage(ballTex, Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY(),0, ballTex->GetWidth()*scale, ballTex->GetHeight()*scale,rotation);
+		#pragma region Practica 3
+		Renderer::Instance().SetBlendMode(Renderer::SOLID);
+		Renderer::Instance().SetColor(255, 255, 255, 255);
+		Renderer::Instance().DrawRect(thirdOfWidth, 0, thirdOfWidth, Screen::Instance().GetHeight());
+		//SOLID
+			//RED
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(3 * sixthdOfWidth, eighthOfHeight, 37, 37);
+			//GREEN
+		Renderer::Instance().SetColor(0, 255, 0, 255);
+		Renderer::Instance().DrawEllipse(3 * sixthdOfWidth-18, eighthOfHeight + 37, 37, 37);
+			//BLUE
+		Renderer::Instance().SetColor(0, 0, 255, 255);
+		Renderer::Instance().DrawEllipse(3 * sixthdOfWidth + 18, eighthOfHeight + 37, 37, 37);
+		//ALPHA
+		Renderer::Instance().SetBlendMode(Renderer::ALPHA);
+			//RED
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(sixthdOfWidth, 4*eighthOfHeight-37, 37, 37);
+			//GREEN
+		Renderer::Instance().SetColor(0, 255, 0, 128);
+		Renderer::Instance().DrawEllipse(sixthdOfWidth - 18, 4 * eighthOfHeight, 37, 37);
+			//BLUE
+		Renderer::Instance().SetColor(0, 0, 255, 128);
+		Renderer::Instance().DrawEllipse(sixthdOfWidth + 18, 4 * eighthOfHeight, 37, 37);
+		//MULTIPLICATIVE
+		Renderer::Instance().SetBlendMode(Renderer::MULTIPLICATIVE);
+			//RED
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(3*sixthdOfWidth, 7 * eighthOfHeight-37, 37, 37);
+			//GREEN
+		Renderer::Instance().SetColor(0, 255, 0, 255);
+		Renderer::Instance().DrawEllipse(3*sixthdOfWidth - 18, 7 * eighthOfHeight, 37, 37);
+			//BLUE
+		Renderer::Instance().SetColor(0, 0, 255, 255);
+		Renderer::Instance().DrawEllipse(3*sixthdOfWidth + 18, 7 * eighthOfHeight , 37, 37);
+		//ADDITIVE
+		Renderer::Instance().SetBlendMode(Renderer::ADDITIVE);
+			//RED
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(5*sixthdOfWidth, 4 * eighthOfHeight-37, 37, 37);
+			//GREEN
+		Renderer::Instance().SetColor(0, 255, 0, 255);
+		Renderer::Instance().DrawEllipse(5 * sixthdOfWidth - 18, 4 * eighthOfHeight, 37, 37);
+			//BLUE
+		Renderer::Instance().SetColor(0, 0, 255, 255);
+		Renderer::Instance().DrawEllipse(5 * sixthdOfWidth + 18, 4 * eighthOfHeight , 37, 37);
 		#pragma endregion
 		// Refrescamos la pantalla
 		Screen::Instance().Refresh();
