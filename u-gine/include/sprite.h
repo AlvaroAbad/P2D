@@ -21,59 +21,74 @@ public:
 	Sprite(Image* image);
 	virtual ~Sprite();
 
-    virtual void SetImage(Image* image) { /* TAREA: Implementar */ }
-    virtual const Image* GetImage() const { /* TAREA: Implementar */ }
+	virtual void SetImage(Image* image) { this->image = image; }
+    virtual const Image* GetImage() const { return this->image;}
 
-    virtual void SetPosition(double x, double y, double z = 0) { /* TAREA: Implementar */ }
-    virtual void SetX(double x) { /* TAREA: Implementar */ }
-    virtual void SetY(double y) { /* TAREA: Implementar */ }
-    virtual void SetZ(double z) { /* TAREA: Implementar */ }
-    virtual double GetX() const { /* TAREA: Implementar */ }
-    virtual double GetY() const { /* TAREA: Implementar */ }
-    virtual double GetZ() const { /* TAREA: Implementar */ }
-    virtual double GetScreenX() const { /* TAREA: Implementar */ }
-    virtual double GetScreenY() const { /* TAREA: Implementar */ }
+	virtual void SetPosition(double x, double y, double z = 0) { 
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
+    virtual void SetX(double x) { this->x = x;}
+    virtual void SetY(double y) { this->y = y;}
+    virtual void SetZ(double z) { this->z = z; }
+    virtual double GetX() const { return this->x;}
+    virtual double GetY() const { return this->y;}
+    virtual double GetZ() const { return this->z;}
+    virtual double GetScreenX() const { return this->x;}
+    virtual double GetScreenY() const { return this->y;}
 
-    virtual void SetAngle(double angle) { /* TAREA: Implementar */ }
-    virtual double GetAngle() const { /* TAREA: Implementar */ }
+	virtual void SetAngle(double angle) { this->angle = angle;}
+    virtual double GetAngle() const { return this->angle;}
 
-    virtual void SetScale(double sx, double sy) { /* TAREA: Implementar */ }
-    virtual void SetScaleX(double sx) { /* TAREA: Implementar */ }
-    virtual void SetScaleY(double sy) { /* TAREA: Implementar */ }
-    virtual double GetScaleX() const { /* TAREA: Implementar */ }
-    virtual double GetScaleY() const { /* TAREA: Implementar */ }
+	virtual void SetScale(double sx, double sy) { 
+		this->scalex = sx;
+		this->scaley = sy;
+	}
+    virtual void SetScaleX(double sx) { this->scalex = sx;}
+    virtual void SetScaleY(double sy) { this->scaley = sy; }
+    virtual double GetScaleX() const { return this->scalex; /* TAREA: Implementar */ }
+    virtual double GetScaleY() const { return this->scaley;/* TAREA: Implementar */ }
 
-    virtual void SetFPS(int16 fps) { /* TAREA: Implementar */ }
-    virtual int16 GetFPS() const { /* TAREA: Implementar */ }
-    virtual void SetFrameRange(uint16 firstFrame, uint16 lastFrame) { /* TAREA: Implementar */ }
-    virtual uint16 GetFirstFrame() const { /* TAREA: Implementar */ }
-    virtual uint16 GetLastFrame() { /* TAREA: Implementar */ }
-    virtual void SetCurrentFrame(uint16 frame) { /* TAREA: Implementar */ }
-    virtual uint16 GetCurrentFrame() const { /* TAREA: Implementar */ }
+	virtual void SetFPS(int16 fps) { this->animFPS = fps;}
+    virtual int16 GetFPS() const { return this->animFPS;}
+    virtual void SetFrameRange(uint16 firstFrame, uint16 lastFrame) { 
+		this->firstFrame = firstFrame;
+		this->lastFrame = lastFrame;
+	}
+    virtual uint16 GetFirstFrame() const { return this->firstFrame;}
+    virtual uint16 GetLastFrame() { return this->lastFrame;}
+	virtual void SetCurrentFrame(uint16 frame) { this->currentFrame = currentFrame;}
+    virtual uint16 GetCurrentFrame() const { return this->currentFrame;}
 
-    virtual void SetBlendMode(Renderer::BlendMode blend) { /* TAREA: Implementar */ }
-    virtual Renderer::BlendMode GetBlendMode() const { /* TAREA: Implementar */ }
-    virtual void SetColor(uint8 r, uint8 g, uint8 b, uint8 alpha = 255) { /* TAREA: Implementar */ }
-    virtual uint8 GetRed() const { /* TAREA: Implementar */ }
-    virtual uint8 GetGreen() const { /* TAREA: Implementar */ }
-    virtual uint8 GetBlue() const { /* TAREA: Implementar */ }
-    virtual uint8 GetAlpha() const { /* TAREA: Implementar */ }
+	virtual void SetBlendMode(Renderer::BlendMode blend) { this->blendMode = blend;}
+    virtual Renderer::BlendMode GetBlendMode() const { return this->blendMode;/* TAREA: Implementar */ }
+    virtual void SetColor(uint8 r, uint8 g, uint8 b, uint8 alpha = 255) {
+		this->r = r;
+		this->g = g;
+		this->b = b;
+		this->a = a;
+	}
+    virtual uint8 GetRed() const { return this->r;}
+    virtual uint8 GetGreen() const { return this->g;}
+    virtual uint8 GetBlue() const { return this->b;}
+    virtual uint8 GetAlpha() const { return this->a;}
 
-    virtual void SetRadius(double radius) { /* TAREA: Implementar */ }
-    virtual double GetRadius() const { /* TAREA: Implementar */ }
+	virtual void SetRadius(double radius) { this->radius = radius;}
+    virtual double GetRadius() const { return this->radius;}
 
 	virtual void SetCollision(CollisionMode mode);
-    virtual void SetCollisionPixelData(const CollisionPixelData* colPixelData) { /* TAREA: Implementar */ }
-    virtual const Collision* GetCollision() const { /* TAREA: Implementar */ }
+	virtual void SetCollisionPixelData(const CollisionPixelData* colPixelData) { this->colPixelData = colPixelData;}
+    virtual const Collision* GetCollision() const { return this->collision; /* TAREA: Implementar */ }
     virtual bool CheckCollision(Sprite* sprite);
     virtual bool CheckCollision(const Map* map);
-    virtual const Sprite* CollisionSprite() const { /* TAREA: Implementar */ }
-    virtual bool DidCollide() const { /* TAREA: Implementar */ }
+    virtual const Sprite* CollisionSprite() const { return NULL; /* TAREA: Implementar */ }
+    virtual bool DidCollide() const { return false; /* TAREA: Implementar */ }
 
     virtual void RotateTo(int32 angle, double speed);
     virtual void MoveTo(double x, double y, double speed);
-    virtual bool IsRotating() const { /* TAREA: Implementar */ }
-    virtual bool IsMoving() const { /* TAREA: Implementar */ }
+    virtual bool IsRotating() const { return false;/* TAREA: Implementar */ }
+    virtual bool IsMoving() const { return false; /* TAREA: Implementar */ }
 
     virtual void Update(double elapsed, const Map* map = NULL);
     virtual void Render() const;

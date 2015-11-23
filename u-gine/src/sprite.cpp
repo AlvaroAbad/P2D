@@ -1,11 +1,11 @@
 #include "../include/sprite.h"
-#include "../include/rectcollision.h"
+//#include "../include/rectcollision.h"
 #include "../include/image.h"
-#include "../include/map.h"
+//#include "../include/map.h"
 #include "../include/math.h"
-#include "../include/pixelcollision.h"
+//#include "../include/pixelcollision.h"
 #include "../include/renderer.h"
-#include "../include/circlecollision.h"
+//#include "../include/circlecollision.h"
 #include <math.h>
 
 Sprite::Sprite(Image* image) {
@@ -17,14 +17,16 @@ Sprite::~Sprite() {
 }
 
 void Sprite::SetCollision(CollisionMode mode) {
-	// TAREA: Implementar
+	this->collision = nullptr;
 }
 
 bool Sprite::CheckCollision(Sprite* sprite) {
+	return false;
 	// TAREA: Implementar
 }
 
 bool Sprite::CheckCollision(const Map* map) {
+	return false;
 	// TAREA: Implementar
 }
 
