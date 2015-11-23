@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 2 INIT
 		String *fileName = new String();
-		*fileName = "data/soccer_npot.png";
+		*fileName = "../data/soccer_npot.png";
 		Image * ballTex=ResourceManager::Instance().LoadImage(*fileName);
 		ballTex->SetMidHandle();
 		double rotation = 0;
