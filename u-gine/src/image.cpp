@@ -33,7 +33,7 @@ Image::Image(const String &filename, uint16 hframes, uint16 vframes) {
 		}
 		else {
 			uint8 * newBuffer = (uint8 *)malloc(newWidth*newHeight * 4);
-			memset(newBuffer, 255, newWidth*newHeight * 4);
+			memset(newBuffer, 0, newWidth*newHeight * 4);
 			uint16 newBuffermargin = 0;
 			uint16 bufferMargin = 0;
 			for (uint32 h = 0; h < height; h++)

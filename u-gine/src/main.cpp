@@ -1,6 +1,8 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 #include "../include/u-gine.h"
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 
 int main(int argc, char* argv[]) {
 	Screen::Instance().Open(800, 600, false);
@@ -13,13 +15,13 @@ int main(int argc, char* argv[]) {
 #pragma endregion
 
 #pragma region Practica 2 INIT
-		String *fileName = new String();
-		*fileName = "../data/soccer_npot.png";
-		Image * ballTex=ResourceManager::Instance().LoadImage(*fileName);
-		ballTex->SetMidHandle();
-		double rotation = 0;
-		double scale = 0;
-		int increment = 1;
+	/*String *fileName = new String();
+	*fileName = "../data/soccer_npot.png";
+	Image * ballTex=ResourceManager::Instance().LoadImage(*fileName);
+	ballTex->SetMidHandle();
+	double rotation = 0;
+	double scale = 0;
+	int increment = 1;*/
 #pragma endregion
 
 #pragma region Practica 3 INIT
@@ -35,6 +37,55 @@ int main(int argc, char* argv[]) {
 	uint16 eighthOfHeight = Screen::Instance().GetHeight() / 8;
 	uint16 sixthdOfWidth = Screen::Instance().GetWidth() / 6;
 	uint16 eighthOfWidth = Screen::Instance().GetWidth() / 8;*/
+#pragma endregion
+
+#pragma region Practica 4 INIT
+	srand(time(0));
+	Array<Sprite *> *spriteArray = new Array<Sprite *>(4);
+	struct spriteSpeed {
+		double x, y;
+		spriteSpeed(double x, double y) {
+			this->x = x;
+			this->y = y;
+		}
+	};
+	spriteSpeed * userData;
+	Sprite * currentSprite;
+	double incX, incY;
+	String *fileName = new String();
+	//Basquetball
+	*fileName = "../data/ball.png";
+	Image * bBallTex = ResourceManager::Instance().LoadImage(*fileName);
+	bBallTex->SetMidHandle();
+	spriteArray->Add(new Sprite(bBallTex));
+	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - bBallTex->GetWidth())) + bBallTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- bBallTex->GetHeight()))+ bBallTex->GetHeight() / 2);
+	spriteArray->Last()->SetUserData(new spriteSpeed((rand()%100)+100, (rand() % 100) + 100));
+
+	//Football
+	*fileName = "../data/soccer_npot.png";
+	Image * fBallTex = ResourceManager::Instance().LoadImage(*fileName);
+	fBallTex->SetMidHandle();
+	spriteArray->Add(new Sprite(fBallTex));
+	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - fBallTex->GetWidth())) + fBallTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- fBallTex->GetHeight())) + fBallTex->GetHeight() / 2);
+	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
+	//Box
+	*fileName = "../data/box.jpg";
+	Image * boxTex = ResourceManager::Instance().LoadImage(*fileName);
+	boxTex->SetMidHandle();
+	spriteArray->Add(new Sprite(boxTex));
+	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth()- boxTex->GetWidth())) + boxTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- boxTex->GetHeight())) + boxTex->GetHeight() / 2);
+	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
+	//Alien
+	*fileName = "../data/alien.png";
+	Image * alienTex = ResourceManager::Instance().LoadImage(*fileName);
+	alienTex->SetMidHandle();
+	spriteArray->Add(new Sprite(alienTex));
+	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth()- alienTex->GetWidth())) + alienTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- alienTex->GetHeight())) + alienTex->GetHeight() / 2);
+	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
 #pragma endregion
 
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
@@ -74,15 +125,15 @@ int main(int argc, char* argv[]) {
 #pragma endregion
 
 #pragma region Practica 2
-scale += ((2 * increment) * Screen::Instance().ElapsedTime());
-rotation += (30 * Screen::Instance().ElapsedTime());
-if (scale >= 5) {
-	increment = -1;
-}
-else if (scale <= 0.5) {
-	increment = 1;
-}
-Renderer::Instance().DrawImage(ballTex, Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY(),0, ballTex->GetWidth()*scale, ballTex->GetHeight()*scale,rotation);
+//scale += ((2 * increment) * Screen::Instance().ElapsedTime());
+//rotation += (30 * Screen::Instance().ElapsedTime());
+//if (scale >= 5) {
+//	increment = -1;
+//}
+//else if (scale <= 0.5) {
+//	increment = 1;
+//}
+//Renderer::Instance().DrawImage(ballTex, Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY(),0, ballTex->GetWidth()*scale, ballTex->GetHeight()*scale,rotation);
 #pragma endregion
 
 #pragma region Practica 3-1
@@ -376,6 +427,30 @@ Renderer::Instance().DrawImage(ballTex, Screen::Instance().GetMouseX(), Screen::
 
 #pragma endregion
 
+#pragma region Practica 4
+		for (unsigned int i = 0; i < spriteArray->Size(); i++)
+		{
+			currentSprite = (*spriteArray)[i];
+			userData = static_cast<spriteSpeed *>(currentSprite->GetUserData());
+			incX = userData->x*Screen::Instance().ElapsedTime();
+			incY = userData->y*Screen::Instance().ElapsedTime();
+			if ((currentSprite->GetX() + incX) + (currentSprite->GetImage()->GetWidth() / 2)>Screen::Instance().GetWidth() || (currentSprite->GetX() + incX) - (currentSprite->GetImage()->GetWidth() / 2) < 0) {
+				currentSprite->SetX(currentSprite->GetX() + (incX*-1));
+				userData->x = userData->x*-1;
+			}
+			else {
+				currentSprite->SetX(currentSprite->GetX() + incX);
+			}
+			if ((currentSprite->GetY() + incY) + (currentSprite->GetImage()->GetHeight() / 2) > Screen::Instance().GetHeight() || (currentSprite->GetY() + incY) - (currentSprite->GetImage()->GetHeight() / 2) < 0) {
+				currentSprite->SetY(currentSprite->GetY() + (incY*-1));
+				userData->y = userData->y*-1;
+			}
+			else {
+				currentSprite->SetY(currentSprite->GetY() + incY);
+			}
+			currentSprite->Render();
+		}
+#pragma endregion
 		// Refrescamos la pantalla
 		Screen::Instance().Refresh();
 		Renderer::Instance().Clear(0, 0, 0);
