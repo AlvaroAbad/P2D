@@ -25,18 +25,18 @@ int main(int argc, char* argv[]) {
 #pragma endregion
 
 #pragma region Practica 3 INIT
-	/*uint32 blendModeSRC;
-	uint32 blendModeDST;
-	String *boxFileName = new String();
-	*boxFileName = "data/box.jpg";
-	Image * boxTex = ResourceManager::Instance().LoadImage(*boxFileName);
-	String *LightFileName = new String();
-	*LightFileName = "data/light.png";
-	Image * lightTex = ResourceManager::Instance().LoadImage(*LightFileName);
-	uint16 thirdOfWidth = Screen::Instance().GetWidth() / 3;
-	uint16 eighthOfHeight = Screen::Instance().GetHeight() / 8;
-	uint16 sixthdOfWidth = Screen::Instance().GetWidth() / 6;
-	uint16 eighthOfWidth = Screen::Instance().GetWidth() / 8;*/
+	//uint32 blendModeSRC;
+	//uint32 blendModeDST;
+	//String *boxFileName = new String();
+	//*boxFileName = "../data/box.jpg";
+	//Image * boxTex = ResourceManager::Instance().LoadImage(*boxFileName);
+	//String *LightFileName = new String();
+	//*LightFileName = "../data/light.png";
+	//Image * lightTex = ResourceManager::Instance().LoadImage(*LightFileName);
+	//uint16 thirdOfWidth = Screen::Instance().GetWidth() / 3;
+	//uint16 eighthOfHeight = Screen::Instance().GetHeight() / 8;
+	//uint16 sixthdOfWidth = Screen::Instance().GetWidth() / 6;
+	//uint16 eighthOfWidth = Screen::Instance().GetWidth() / 8;
 #pragma endregion
 
 #pragma region Practica 4 INIT
@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
 	String *fileName = new String();
 	int32 mouseX, mouseY;
 	//Basquetball
-	*fileName = "data/ball.png";
+	*fileName = "../data/ball.png";
 	Image * bBallTex = ResourceManager::Instance().LoadImage(*fileName);
 	bBallTex->SetMidHandle();
 	spriteArray->Add(new Sprite(bBallTex));
@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
 	spriteArray->Last()->SetUserData(new spriteSpeed((rand()%100)+100, (rand() % 100) + 100));
 
 	//Football
-	*fileName = "data/soccer_npot.png";
+	*fileName = "../data/soccer_npot.png";
 	Image * fBallTex = ResourceManager::Instance().LoadImage(*fileName);
 	fBallTex->SetMidHandle();
 	spriteArray->Add(new Sprite(fBallTex));
@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
 	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
 	
 	//Box
-	*fileName = "data/box.jpg";
+	*fileName = "../data/box.jpg";
 	Image * boxTex = ResourceManager::Instance().LoadImage(*fileName);
 	boxTex->SetMidHandle();
 	spriteArray->Add(new Sprite(boxTex));
@@ -82,7 +82,7 @@ int main(int argc, char* argv[]) {
 	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
 	
 	//Alien
-	*fileName = "data/alien.png";
+	*fileName = "../data/alien.png";
 	Image * alienTex = ResourceManager::Instance().LoadImage(*fileName);
 	alienTex->SetMidHandle();
 	spriteArray->Add(new Sprite(alienTex));
@@ -432,8 +432,7 @@ int main(int argc, char* argv[]) {
 #pragma endregion
 
 #pragma region Practica 4-1
-		//for (unsigned int i = 0; i < spriteArray->Size(); i++)
-		//{
+		//for (unsigned int i = 0; i < spriteArray->Size(); i++){
 		//	currentSprite = (*spriteArray)[i];
 		//	userData = static_cast<spriteSpeed *>(currentSprite->GetUserData());
 		//	incX = userData->x*Screen::Instance().ElapsedTime();
@@ -483,11 +482,15 @@ else {
 currentSprite->Update(Screen::Instance().ElapsedTime());
 currentSprite->Render();
 #pragma endregion
+
 		// Refrescamos la pantalla
 		Screen::Instance().Refresh();
 		Renderer::Instance().Clear(0, 0, 0);
 	}
-
+	for (unsigned int i = 0; i < spriteArray->Size(); i++) {
+		delete((*spriteArray)[i]->GetUserData());
+		(*spriteArray)[i]->SetUserData(nullptr);
+	}
 	ResourceManager::Instance().FreeResources();
 	//delete(title);
 	return 0;

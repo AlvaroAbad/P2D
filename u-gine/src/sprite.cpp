@@ -68,26 +68,37 @@ bool Sprite::CheckCollision(const Map* map) {
 
 void Sprite::RotateTo(int32 angle, double speed) {
 	this->toAngle = WrapValue(angle, 360);
-	this->rotating = true;
-	double ccw = WrapValue(this->toAngle - this->angle, 360);
-	double cw = WrapValue(this->angle - this->toAngle, 360);
-	if (ccw < cw) {
-		this->degreesToRotate = ccw;
-		this->rotatingSpeed = fabs(speed);
+	if (this->toAngle == this->angle || !speed) {
+		this->rotating = false;
 	}
 	else {
-		this->degreesToRotate = cw;
-		this->rotatingSpeed = -fabs(speed);
+		this->rotating = true;
+		double ccw = WrapValue(this->toAngle - this->angle, 360);
+		double cw = WrapValue(this->angle - this->toAngle, 360);
+		if (ccw < cw) {
+			this->degreesToRotate = ccw;
+			this->rotatingSpeed = fabs(speed);
+		}
+		else {
+			this->degreesToRotate = cw;
+			this->rotatingSpeed = -fabs(speed);
+		}
 	}
 }
 
 void Sprite::MoveTo(double x, double y, double speed) {
-	int angle = Angle(this->x, this->y, x, y);
-	this->toX = x;
-	this->toY = y;
-	this->moving = true;
-	this->movingSpeedX = speed * DegCos(angle);
-	this->movingSpeedY = speed * DegSin(angle)*-1;
+	if (!speed) {
+		this->x = x;
+		this->y = y;
+	}
+	else {
+		int angle = Angle(this->x, this->y, x, y);
+		this->toX = x;
+		this->toY = y;
+		this->moving = true;
+		this->movingSpeedX = speed * DegCos(angle);
+		this->movingSpeedY = speed * DegSin(angle)*-1;
+	}
 
 }
 
@@ -129,7 +140,7 @@ void Sprite::Update(double elapsed, const Map* map) {
 			this->y += this->movingSpeedY*elapsed;
 			if (this->prevY < this->y) {
 				if (this->y > this->toY) {
-					this->y = this->toY;	
+					this->y = this->toY;
 				}
 			}
 			else {
