@@ -41,7 +41,8 @@ Sprite::Sprite(Image* image) {
 	this->moving = false;
 	this->toX = 0;
 	this->toY = 0;
-	this->movingSpeedX = 0; this->movingSpeedY = 0;
+	this->movingSpeedX = 0;
+	this->movingSpeedY = 0;
 	this->prevX = 0;
 	this->prevY = 0;
 	this->userData = nullptr;
@@ -66,23 +67,22 @@ bool Sprite::CheckCollision(const Map* map) {
 }
 
 void Sprite::RotateTo(int32 angle, double speed) {
-	this->toAngle = WrapValue(angle,360);
+	this->toAngle = WrapValue(angle, 360);
 	this->rotating = true;
-	/*if (angle > 180) {
-		angle =angle-360;
-	}*/
-	if (angle - this->angle < this->angle - angle) {
-		this->degreesToRotate = abs(angle - this->angle);
-		this->rotatingSpeed = speed*-1;
+	double ccw = WrapValue(this->toAngle - this->angle, 360);
+	double cw = WrapValue(this->angle - this->toAngle, 360);
+	if (ccw < cw) {
+		this->degreesToRotate = ccw;
+		this->rotatingSpeed = fabs(speed);
 	}
 	else {
-		this->degreesToRotate = abs(this->angle - angle);
-		this->rotatingSpeed = speed;
+		this->degreesToRotate = cw;
+		this->rotatingSpeed = -fabs(speed);
 	}
 }
 
 void Sprite::MoveTo(double x, double y, double speed) {
-	int angle = Angle(this->x, this->y, x,y);
+	int angle = Angle(this->x, this->y, x, y);
 	this->toX = x;
 	this->toY = y;
 	this->moving = true;
@@ -97,10 +97,10 @@ void Sprite::Update(double elapsed, const Map* map) {
 	collided = false;
 
 	// TAREA: Actualizar animacion
-	
+
 	// TAREA: Actualizar rotacion animada
 	if (this->rotating) {
-		this->degreesToRotate-= abs(this->rotatingSpeed)*elapsed;
+		this->degreesToRotate -= abs(this->rotatingSpeed)*elapsed;
 		this->angle += this->rotatingSpeed*elapsed;
 		if (degreesToRotate <= 0) {
 			this->angle = this->toAngle;
@@ -112,11 +112,36 @@ void Sprite::Update(double elapsed, const Map* map) {
 	if (this->moving) {
 		if (this->x - this->toX != 0) {
 			this->x += this->movingSpeedX*elapsed;
+			if (this->prevX < this->x) {
+				if (this->x > this->toX) {
+					this->x = this->toX;
+				}
+			}
+			else {
+				if (this->x < this->toX) {
+					this->x = this->toX;
+				}
+			}
+			this->prevX = this->x;
 		}
-		if(this->y - this->toY != 0){
-		this->y += this->movingSpeedY*elapsed;
+
+		if (this->y - this->toY != 0) {
+			this->y += this->movingSpeedY*elapsed;
+			if (this->prevY < this->y) {
+				if (this->y > this->toY) {
+					this->y = this->toY;	
+				}
+			}
+			else {
+				if (this->y < this->toY) {
+					this->y = this->toY;
+
+				}
+			}
+			this->prevY = this->y;
 		}
-		if (this->x - this->toX ==0 && this->y-this->toY ==0 ) {
+
+		if (this->x - this->toX == 0 && this->y - this->toY == 0) {
 			this->moving = false;
 		}
 	}
