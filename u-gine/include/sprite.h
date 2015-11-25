@@ -87,8 +87,8 @@ public:
 
     virtual void RotateTo(int32 angle, double speed);
     virtual void MoveTo(double x, double y, double speed);
-    virtual bool IsRotating() const { return false;/* TAREA: Implementar */ }
-    virtual bool IsMoving() const { return false; /* TAREA: Implementar */ }
+    virtual bool IsRotating() const { return this->rotating;}
+    virtual bool IsMoving() const { return this->moving;}
 
     virtual void Update(double elapsed, const Map* map = NULL);
     virtual void Render() const;

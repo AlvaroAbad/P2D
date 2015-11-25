@@ -52,6 +52,11 @@ int main(int argc, char* argv[]) {
 	spriteSpeed * userData;
 	Sprite * currentSprite;
 	double incX, incY;
+	String *title = new String();
+	int32 angleTo=0;
+	int32 x, y;
+	char boolean = 1;
+	x = y = 0;
 	String *fileName = new String();
 	//Basquetball
 	*fileName = "../data/ball.png";
@@ -84,7 +89,8 @@ int main(int argc, char* argv[]) {
 	alienTex->SetMidHandle();
 	spriteArray->Add(new Sprite(alienTex));
 	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth()- alienTex->GetWidth())) + alienTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- alienTex->GetHeight())) + alienTex->GetHeight() / 2);
+	//spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth()- alienTex->GetWidth())) + alienTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- alienTex->GetHeight())) + alienTex->GetHeight() / 2);
+	spriteArray->Last()->SetPosition(50,50);
 	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
 #pragma endregion
 
@@ -427,8 +433,8 @@ int main(int argc, char* argv[]) {
 
 #pragma endregion
 
-#pragma region Practica 4
-		for (unsigned int i = 0; i < spriteArray->Size(); i++)
+#pragma region Practica 4-1
+		/*for (unsigned int i = 0; i < spriteArray->Size(); i++)
 		{
 			currentSprite = (*spriteArray)[i];
 			userData = static_cast<spriteSpeed *>(currentSprite->GetUserData());
@@ -449,7 +455,40 @@ int main(int argc, char* argv[]) {
 				currentSprite->SetY(currentSprite->GetY() + incY);
 			}
 			currentSprite->Render();
-		}
+		}*/
+#pragma endregion
+
+#pragma region Practica4-2
+currentSprite = spriteArray->Last();
+*title = "Current angle: ";
+*title += String::FromInt(currentSprite->GetAngle());
+//*title += ",";
+//*title += String::FromInt(currentSprite->GetY());
+*title += " Destination: ";
+*title += String::FromInt(angleTo);
+//*title += ",";
+//*title += String::FromInt(100);
+Screen::Instance().SetTitle(title->ToCString());
+//if (!currentSprite->IsMoving()) {
+//	//x = currentSprite->GetX()+((rand() % 200) - 100);
+//	//y = currentSprite->GetY()+((rand() % 200) - 100);
+//	currentSprite->MoveTo(100, 100, 10);
+//}
+
+if (!currentSprite->IsRotating()) {
+	if (boolean) {
+		angleTo = (270);
+		currentSprite->RotateTo(angleTo, 30);
+		boolean = 0;
+	}
+	else {
+		angleTo = (124);
+		currentSprite->RotateTo(angleTo, 30);
+		boolean = 1;
+	}
+}
+currentSprite->Update(Screen::Instance().ElapsedTime());
+currentSprite->Render();
 #pragma endregion
 		// Refrescamos la pantalla
 		Screen::Instance().Refresh();

@@ -25,30 +25,30 @@ Sprite::Sprite(Image* image) {
 	this->firstFrame = 0;
 	this->lastFrame = 0;
 	this->currentFrame = 0;
-	this->blendMode=Renderer::SOLID;
-	this->r=255; 
+	this->blendMode = Renderer::SOLID;
+	this->r = 255;
 	this->g = 255;
 	this->b = 255;
 	this->a = 255;
-	this->collision=nullptr;
-	this->colPixelData=nullptr;
-	this->colSprite=nullptr;
-	this->collided=false;
-	this->rotating=false;
-	this->toAngle=0;
-	this->rotatingSpeed=0;
-	this->degreesToRotate=0;
-	this->moving=false;
+	this->collision = nullptr;
+	this->colPixelData = nullptr;
+	this->colSprite = nullptr;
+	this->collided = false;
+	this->rotating = false;
+	this->toAngle = 0;
+	this->rotatingSpeed = 0;
+	this->degreesToRotate = 0;
+	this->moving = false;
 	this->toX = 0;
-	this->toY=0;
-	this->movingSpeedX = 0; this->movingSpeedY=0;
-	this->prevX = 0; 
+	this->toY = 0;
+	this->movingSpeedX = 0; this->movingSpeedY = 0;
+	this->prevX = 0;
 	this->prevY = 0;
-	this->userData=nullptr;
+	this->userData = nullptr;
 }
 
 Sprite::~Sprite() {
-    // TAREA: Implementar
+	// TAREA: Implementar
 }
 
 void Sprite::SetCollision(CollisionMode mode) {
@@ -66,11 +66,29 @@ bool Sprite::CheckCollision(const Map* map) {
 }
 
 void Sprite::RotateTo(int32 angle, double speed) {
-	// TAREA: Implementar
+	this->toAngle = WrapValue(angle,360);
+	this->rotating = true;
+	/*if (angle > 180) {
+		angle =angle-360;
+	}*/
+	if (angle - this->angle < this->angle - angle) {
+		this->degreesToRotate = abs(angle - this->angle);
+		this->rotatingSpeed = speed*-1;
+	}
+	else {
+		this->degreesToRotate = abs(this->angle - angle);
+		this->rotatingSpeed = speed;
+	}
 }
 
 void Sprite::MoveTo(double x, double y, double speed) {
-	// TAREA: Implementar
+	int angle = Angle(this->x, this->y, x,y);
+	this->toX = x;
+	this->toY = y;
+	this->moving = true;
+	this->movingSpeedX = speed * DegCos(angle);
+	this->movingSpeedY = speed * DegSin(angle)*-1;
+
 }
 
 void Sprite::Update(double elapsed, const Map* map) {
@@ -79,11 +97,29 @@ void Sprite::Update(double elapsed, const Map* map) {
 	collided = false;
 
 	// TAREA: Actualizar animacion
-
+	
 	// TAREA: Actualizar rotacion animada
+	if (this->rotating) {
+		this->degreesToRotate-= abs(this->rotatingSpeed)*elapsed;
+		this->angle += this->rotatingSpeed*elapsed;
+		if (degreesToRotate <= 0) {
+			this->angle = this->toAngle;
+			this->rotating = false;
+		}
+	}
 
 	// TAREA: Actualizar movimiento animado
-
+	if (this->moving) {
+		if (this->x - this->toX != 0) {
+			this->x += this->movingSpeedX*elapsed;
+		}
+		if(this->y - this->toY != 0){
+		this->y += this->movingSpeedY*elapsed;
+		}
+		if (this->x - this->toX ==0 && this->y-this->toY ==0 ) {
+			this->moving = false;
+		}
+	}
 	// Informacion final de colision
 	UpdateCollisionBox();
 }
