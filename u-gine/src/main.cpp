@@ -123,6 +123,40 @@ int main(int argc, char* argv[]) {
 	//spriteArray->Last()->SetPosition(800 - alienTex->GetWidth() / 2, 600 - alienTex->GetHeight() / 2);
 #pragma endregion
 
+#pragma region Practica 5-1 INIT
+	Array<Sprite *> *spriteArray = new Array<Sprite *>(4);
+	Sprite * currentSprite;
+	String *fileName = new String();
+	int32 mouseX, mouseY;
+
+	*fileName = "data/alienanim.png";
+	Image * alienTex = ResourceManager::Instance().LoadImage(*fileName,8,1);
+	alienTex->SetMidHandle();
+
+	//Alien 1
+	spriteArray->Add(new Sprite(alienTex));
+	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	spriteArray->Last()->SetPosition(0 + alienTex->GetWidth()/2,0 + alienTex->GetHeight() / 2);
+	spriteArray->Last()->SetFPS(16);
+
+	//Alien 2
+	spriteArray->Add(new Sprite(alienTex));
+	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	spriteArray->Last()->SetPosition(800 - alienTex->GetWidth() / 2, 0 + alienTex->GetHeight() / 2);
+	spriteArray->Last()->SetFPS(16);
+
+	//Alien 3
+	spriteArray->Add(new Sprite(alienTex));
+	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	spriteArray->Last()->SetPosition(0 + alienTex->GetWidth() / 2, 600 - alienTex->GetHeight() / 2);
+	spriteArray->Last()->SetFPS(16);
+
+	//Alien 4
+	spriteArray->Add(new Sprite(alienTex));
+	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	spriteArray->Last()->SetPosition(800 - alienTex->GetWidth() / 2, 600 - alienTex->GetHeight() / 2);
+	spriteArray->Last()->SetFPS(16);
+#pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
 
 #pragma region Practica 1 
@@ -513,7 +547,28 @@ int main(int argc, char* argv[]) {
 #pragma endregion
 
 #pragma region Practica 5-1
+mouseX = Screen::Instance().GetMouseX();
+mouseY = Screen::Instance().GetMouseY();
 
+for (unsigned int i = 0; i < spriteArray->Size(); i++) {
+		currentSprite = (*spriteArray)[i];
+		currentSprite->MoveTo(mouseX, mouseY, 100+(i*100));
+
+		if (currentSprite->GetX() == mouseX && currentSprite->GetY() == mouseY) {
+			currentSprite->RotateTo(0, 30);
+		}
+		else {
+			if (currentSprite->GetX() < mouseX) {
+				currentSprite->RotateTo(-15, 30);
+			}
+			else {
+				currentSprite->RotateTo(15, 30);
+			}
+		}
+
+		currentSprite->Update(Screen::Instance().ElapsedTime());
+		currentSprite->Render();
+}
 #pragma endregion
 		// Refrescamos la pantalla
 		Screen::Instance().Refresh();

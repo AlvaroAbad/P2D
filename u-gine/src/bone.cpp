@@ -132,5 +132,6 @@ void Bone::GetFrame(int32 f, const Frame** frame, const Frame** prevFrame, const
 }
 
 double Bone::Interpolate(int32 id, int32 prevId, int32 nextId, double prevVal, double nextVal) const {
+	return NULL;
 	// TAREA: Implementar la especificacion del enunciado
 }

@@ -23,7 +23,7 @@ Sprite::Sprite(Image* image) {
 	this->radius = 0;
 	this->animFPS = 0;
 	this->firstFrame = 0;
-	this->lastFrame = 0;
+	this->lastFrame = this->image->GetNumFrames();
 	this->currentFrame = 0;
 	this->blendMode = Renderer::SOLID;
 	this->r = 255;
@@ -108,6 +108,13 @@ void Sprite::Update(double elapsed, const Map* map) {
 	collided = false;
 
 	// TAREA: Actualizar animacion
+	this->currentFrame += this->animFPS*elapsed;
+	if (this->currentFrame > this->lastFrame) {
+		this->currentFrame -= (this->lastFrame - this->firstFrame);
+	}
+	if (this->currentFrame < this->lastFrame) {
+		this->currentFrame += (this->lastFrame - this->firstFrame);
+	}
 
 	if (this->rotating) {
 		this->degreesToRotate -= abs(this->rotatingSpeed)*elapsed;
