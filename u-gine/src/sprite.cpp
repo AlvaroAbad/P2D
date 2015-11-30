@@ -109,7 +109,6 @@ void Sprite::Update(double elapsed, const Map* map) {
 
 	// TAREA: Actualizar animacion
 
-	// TAREA: Actualizar rotacion animada
 	if (this->rotating) {
 		this->degreesToRotate -= abs(this->rotatingSpeed)*elapsed;
 		this->angle += this->rotatingSpeed*elapsed;
@@ -119,11 +118,10 @@ void Sprite::Update(double elapsed, const Map* map) {
 		}
 	}
 
-	// TAREA: Actualizar movimiento animado
 	if (this->moving) {
 		if (this->x - this->toX != 0) {
 			this->x += this->movingSpeedX*elapsed;
-			if (this->prevX < this->x) {
+			if (this->movingSpeedX>0) {
 				if (this->x > this->toX) {
 					this->x = this->toX;
 				}
@@ -133,12 +131,11 @@ void Sprite::Update(double elapsed, const Map* map) {
 					this->x = this->toX;
 				}
 			}
-			this->prevX = this->x;
 		}
 
 		if (this->y - this->toY != 0) {
 			this->y += this->movingSpeedY*elapsed;
-			if (this->prevY < this->y) {
+			if (this->movingSpeedY>0) {
 				if (this->y > this->toY) {
 					this->y = this->toY;
 				}
@@ -149,7 +146,6 @@ void Sprite::Update(double elapsed, const Map* map) {
 
 				}
 			}
-			this->prevY = this->y;
 		}
 
 		if (this->x - this->toX == 0 && this->y - this->toY == 0) {

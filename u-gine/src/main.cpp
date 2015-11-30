@@ -39,57 +39,88 @@ int main(int argc, char* argv[]) {
 	//uint16 eighthOfWidth = Screen::Instance().GetWidth() / 8;
 #pragma endregion
 
-#pragma region Practica 4 INIT
+#pragma region Practica 4-1 INIT
+	//srand(time(0));
+	//Array<Sprite *> *spriteArray = new Array<Sprite *>(4);
+	//struct spriteSpeed {
+	//	double x, y;
+	//	spriteSpeed(double x, double y) {
+	//		this->x = x;
+	//		this->y = y;
+	//	}
+	//};
+	//spriteSpeed * userData;
+	//Sprite * currentSprite;
+	//double incX, incY;
+	//String *fileName = new String();
+	//int32 mouseX, mouseY;
+	////Basquetball
+	//*fileName = "data/ball.png";
+	//Image * bBallTex = ResourceManager::Instance().LoadImage(*fileName);
+	//bBallTex->SetMidHandle();
+	//spriteArray->Add(new Sprite(bBallTex));
+	//spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	//spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - bBallTex->GetWidth())) + bBallTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- bBallTex->GetHeight()))+ bBallTex->GetHeight() / 2);
+	//spriteArray->Last()->SetUserData(new spriteSpeed((rand()%100)+100, (rand() % 100) + 100));
+
+	////Football
+	//*fileName = "data/soccer_npot.png";
+	//Image * fBallTex = ResourceManager::Instance().LoadImage(*fileName);
+	//fBallTex->SetMidHandle();
+	//spriteArray->Add(new Sprite(fBallTex));
+	//spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	//spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - fBallTex->GetWidth())) + fBallTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- fBallTex->GetHeight())) + fBallTex->GetHeight() / 2);
+	//spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
+	//
+	////Box
+	//*fileName = "data/box.jpg";
+	//Image * boxTex = ResourceManager::Instance().LoadImage(*fileName);
+	//boxTex->SetMidHandle();
+	//spriteArray->Add(new Sprite(boxTex));
+	//spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	//spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth()- boxTex->GetWidth())) + boxTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- boxTex->GetHeight())) + boxTex->GetHeight() / 2);
+	//spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
+	//
+	////Alien
+	//*fileName = "data/alien.png";
+	//Image * alienTex = ResourceManager::Instance().LoadImage(*fileName);
+	//alienTex->SetMidHandle();
+	//spriteArray->Add(new Sprite(alienTex));
+	//spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	//spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth()- alienTex->GetWidth())) + alienTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- alienTex->GetHeight())) + alienTex->GetHeight() / 2);
+	//spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
+#pragma endregion
+
+#pragma region Practica 4-2 INIT
 	srand(time(0));
 	Array<Sprite *> *spriteArray = new Array<Sprite *>(4);
-	struct spriteSpeed {
-		double x, y;
-		spriteSpeed(double x, double y) {
-			this->x = x;
-			this->y = y;
-		}
-	};
-	spriteSpeed * userData;
 	Sprite * currentSprite;
-	double incX, incY;
 	String *fileName = new String();
 	int32 mouseX, mouseY;
-	//Basquetball
-	*fileName = "../data/ball.png";
-	Image * bBallTex = ResourceManager::Instance().LoadImage(*fileName);
-	bBallTex->SetMidHandle();
-	spriteArray->Add(new Sprite(bBallTex));
-	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - bBallTex->GetWidth())) + bBallTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- bBallTex->GetHeight()))+ bBallTex->GetHeight() / 2);
-	spriteArray->Last()->SetUserData(new spriteSpeed((rand()%100)+100, (rand() % 100) + 100));
 
-	//Football
-	*fileName = "../data/soccer_npot.png";
-	Image * fBallTex = ResourceManager::Instance().LoadImage(*fileName);
-	fBallTex->SetMidHandle();
-	spriteArray->Add(new Sprite(fBallTex));
-	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - fBallTex->GetWidth())) + fBallTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- fBallTex->GetHeight())) + fBallTex->GetHeight() / 2);
-	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
-	
-	//Box
-	*fileName = "../data/box.jpg";
-	Image * boxTex = ResourceManager::Instance().LoadImage(*fileName);
-	boxTex->SetMidHandle();
-	spriteArray->Add(new Sprite(boxTex));
-	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth()- boxTex->GetWidth())) + boxTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- boxTex->GetHeight())) + boxTex->GetHeight() / 2);
-	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
-	
-	//Alien
-	*fileName = "../data/alien.png";
+	*fileName = "data/alien.png";
 	Image * alienTex = ResourceManager::Instance().LoadImage(*fileName);
 	alienTex->SetMidHandle();
+
+	//Alien 1
 	spriteArray->Add(new Sprite(alienTex));
 	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	//spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth()- alienTex->GetWidth())) + alienTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- alienTex->GetHeight())) + alienTex->GetHeight() / 2);
-	spriteArray->Last()->SetPosition(50,50);
-	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
+	spriteArray->Last()->SetPosition(0 + alienTex->GetWidth()/2,0 + alienTex->GetHeight() / 2);
+
+	//Alien 2
+	spriteArray->Add(new Sprite(alienTex));
+	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	spriteArray->Last()->SetPosition(800 - alienTex->GetWidth() / 2, 0 + alienTex->GetHeight() / 2);
+
+	//Alien 3
+	spriteArray->Add(new Sprite(alienTex));
+	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	spriteArray->Last()->SetPosition(0 + alienTex->GetWidth() / 2, 600 - alienTex->GetHeight() / 2);
+
+	//Alien 4
+	spriteArray->Add(new Sprite(alienTex));
+	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	spriteArray->Last()->SetPosition(800 - alienTex->GetWidth() / 2, 600 - alienTex->GetHeight() / 2);
 #pragma endregion
 
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
@@ -432,55 +463,53 @@ int main(int argc, char* argv[]) {
 #pragma endregion
 
 #pragma region Practica 4-1
-		//for (unsigned int i = 0; i < spriteArray->Size(); i++){
-		//	currentSprite = (*spriteArray)[i];
-		//	userData = static_cast<spriteSpeed *>(currentSprite->GetUserData());
-		//	incX = userData->x*Screen::Instance().ElapsedTime();
-		//	incY = userData->y*Screen::Instance().ElapsedTime();
-		//	if ((currentSprite->GetX() + incX) + (currentSprite->GetImage()->GetWidth() / 2)>Screen::Instance().GetWidth() || (currentSprite->GetX() + incX) - (currentSprite->GetImage()->GetWidth() / 2) < 0) {
-		//		currentSprite->SetX(currentSprite->GetX() + (incX*-1));
-		//		userData->x = userData->x*-1;
-		//	}
-		//	else {
-		//		currentSprite->SetX(currentSprite->GetX() + incX);
-		//	}
-		//	if ((currentSprite->GetY() + incY) + (currentSprite->GetImage()->GetHeight() / 2) > Screen::Instance().GetHeight() || (currentSprite->GetY() + incY) - (currentSprite->GetImage()->GetHeight() / 2) < 0) {
-		//		currentSprite->SetY(currentSprite->GetY() + (incY*-1));
-		//		userData->y = userData->y*-1;
-		//	}
-		//	else {
-		//		currentSprite->SetY(currentSprite->GetY() + incY);
-		//	}
-		//	currentSprite->Render();
-		//}
+		/*for (unsigned int i = 0; i < spriteArray->Size(); i++){
+			currentSprite = (*spriteArray)[i];
+			userData = static_cast<spriteSpeed *>(currentSprite->GetUserData());
+			incX = userData->x*Screen::Instance().ElapsedTime();
+			incY = userData->y*Screen::Instance().ElapsedTime();
+			if ((currentSprite->GetX() + incX) + (currentSprite->GetImage()->GetWidth() / 2)>Screen::Instance().GetWidth() || (currentSprite->GetX() + incX) - (currentSprite->GetImage()->GetWidth() / 2) < 0) {
+				currentSprite->SetX(currentSprite->GetX() + (incX*-1));
+				userData->x = userData->x*-1;
+			}
+			else {
+				currentSprite->SetX(currentSprite->GetX() + incX);
+			}
+			if ((currentSprite->GetY() + incY) + (currentSprite->GetImage()->GetHeight() / 2) > Screen::Instance().GetHeight() || (currentSprite->GetY() + incY) - (currentSprite->GetImage()->GetHeight() / 2) < 0) {
+				currentSprite->SetY(currentSprite->GetY() + (incY*-1));
+				userData->y = userData->y*-1;
+			}
+			else {
+				currentSprite->SetY(currentSprite->GetY() + incY);
+			}
+			currentSprite->Render();
+		}*/
 #pragma endregion
 
-#pragma region Practica4-2
-currentSprite = spriteArray->Last();
+#pragma region Practica 4-2
 mouseX = Screen::Instance().GetMouseX();
 mouseY = Screen::Instance().GetMouseY();
-if (mouseX < 0) {
-	mouseX = 0;
-}
-if (mouseY < 0) {
-	mouseY = 0;
-}
-currentSprite->MoveTo(mouseX, mouseY, 100);
 
-if (currentSprite->GetX() == mouseX && currentSprite->GetY() == mouseY) {
-	currentSprite->RotateTo(0, 30);
-}
-else {
-	if (currentSprite->GetX() < mouseX) {
-		currentSprite->RotateTo(-15, 30);
-	}
-	else {
-		currentSprite->RotateTo(15, 30);
-	}
+for (unsigned int i = 0; i < spriteArray->Size(); i++) {
+		currentSprite = (*spriteArray)[i];
+		currentSprite->MoveTo(mouseX, mouseY, 100+(i*100));
+
+		if (currentSprite->GetX() == mouseX && currentSprite->GetY() == mouseY) {
+			currentSprite->RotateTo(0, 30);
+		}
+		else {
+			if (currentSprite->GetX() < mouseX) {
+				currentSprite->RotateTo(-15, 30);
+			}
+			else {
+				currentSprite->RotateTo(15, 30);
+			}
+		}
+
+		currentSprite->Update(Screen::Instance().ElapsedTime());
+		currentSprite->Render();
 }
 
-currentSprite->Update(Screen::Instance().ElapsedTime());
-currentSprite->Render();
 #pragma endregion
 
 		// Refrescamos la pantalla
