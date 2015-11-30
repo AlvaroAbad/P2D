@@ -92,35 +92,35 @@ int main(int argc, char* argv[]) {
 #pragma endregion
 
 #pragma region Practica 4-2 INIT
-	srand(time(0));
-	Array<Sprite *> *spriteArray = new Array<Sprite *>(4);
-	Sprite * currentSprite;
-	String *fileName = new String();
-	int32 mouseX, mouseY;
+	//srand(time(0));
+	//Array<Sprite *> *spriteArray = new Array<Sprite *>(4);
+	//Sprite * currentSprite;
+	//String *fileName = new String();
+	//int32 mouseX, mouseY;
 
-	*fileName = "data/alien.png";
-	Image * alienTex = ResourceManager::Instance().LoadImage(*fileName);
-	alienTex->SetMidHandle();
+	//*fileName = "data/alien.png";
+	//Image * alienTex = ResourceManager::Instance().LoadImage(*fileName);
+	//alienTex->SetMidHandle();
 
-	//Alien 1
-	spriteArray->Add(new Sprite(alienTex));
-	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition(0 + alienTex->GetWidth()/2,0 + alienTex->GetHeight() / 2);
+	////Alien 1
+	//spriteArray->Add(new Sprite(alienTex));
+	//spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	//spriteArray->Last()->SetPosition(0 + alienTex->GetWidth()/2,0 + alienTex->GetHeight() / 2);
 
-	//Alien 2
-	spriteArray->Add(new Sprite(alienTex));
-	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition(800 - alienTex->GetWidth() / 2, 0 + alienTex->GetHeight() / 2);
+	////Alien 2
+	//spriteArray->Add(new Sprite(alienTex));
+	//spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	//spriteArray->Last()->SetPosition(800 - alienTex->GetWidth() / 2, 0 + alienTex->GetHeight() / 2);
 
-	//Alien 3
-	spriteArray->Add(new Sprite(alienTex));
-	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition(0 + alienTex->GetWidth() / 2, 600 - alienTex->GetHeight() / 2);
+	////Alien 3
+	//spriteArray->Add(new Sprite(alienTex));
+	//spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	//spriteArray->Last()->SetPosition(0 + alienTex->GetWidth() / 2, 600 - alienTex->GetHeight() / 2);
 
-	//Alien 4
-	spriteArray->Add(new Sprite(alienTex));
-	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition(800 - alienTex->GetWidth() / 2, 600 - alienTex->GetHeight() / 2);
+	////Alien 4
+	//spriteArray->Add(new Sprite(alienTex));
+	//spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
+	//spriteArray->Last()->SetPosition(800 - alienTex->GetWidth() / 2, 600 - alienTex->GetHeight() / 2);
 #pragma endregion
 
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
@@ -487,40 +487,44 @@ int main(int argc, char* argv[]) {
 #pragma endregion
 
 #pragma region Practica 4-2
-mouseX = Screen::Instance().GetMouseX();
-mouseY = Screen::Instance().GetMouseY();
-
-for (unsigned int i = 0; i < spriteArray->Size(); i++) {
-		currentSprite = (*spriteArray)[i];
-		currentSprite->MoveTo(mouseX, mouseY, 100+(i*100));
-
-		if (currentSprite->GetX() == mouseX && currentSprite->GetY() == mouseY) {
-			currentSprite->RotateTo(0, 30);
-		}
-		else {
-			if (currentSprite->GetX() < mouseX) {
-				currentSprite->RotateTo(-15, 30);
-			}
-			else {
-				currentSprite->RotateTo(15, 30);
-			}
-		}
-
-		currentSprite->Update(Screen::Instance().ElapsedTime());
-		currentSprite->Render();
-}
+//mouseX = Screen::Instance().GetMouseX();
+//mouseY = Screen::Instance().GetMouseY();
+//
+//for (unsigned int i = 0; i < spriteArray->Size(); i++) {
+//		currentSprite = (*spriteArray)[i];
+//		currentSprite->MoveTo(mouseX, mouseY, 100+(i*100));
+//
+//		if (currentSprite->GetX() == mouseX && currentSprite->GetY() == mouseY) {
+//			currentSprite->RotateTo(0, 30);
+//		}
+//		else {
+//			if (currentSprite->GetX() < mouseX) {
+//				currentSprite->RotateTo(-15, 30);
+//			}
+//			else {
+//				currentSprite->RotateTo(15, 30);
+//			}
+//		}
+//
+//		currentSprite->Update(Screen::Instance().ElapsedTime());
+//		currentSprite->Render();
+//}
 
 #pragma endregion
 
+#pragma region Practica 5-1
+
+#pragma endregion
 		// Refrescamos la pantalla
 		Screen::Instance().Refresh();
 		Renderer::Instance().Clear(0, 0, 0);
 	}
-	for (unsigned int i = 0; i < spriteArray->Size(); i++) {
-		delete((*spriteArray)[i]->GetUserData());
-		(*spriteArray)[i]->SetUserData(nullptr);
-	}
+	
 	ResourceManager::Instance().FreeResources();
 	//delete(title);
+	/*for (unsigned int i = 0; i < spriteArray->Size(); i++) {
+		delete((*spriteArray)[i]->GetUserData());
+		(*spriteArray)[i]->SetUserData(nullptr);
+	}*/
 	return 0;
 }
