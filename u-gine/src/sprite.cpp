@@ -107,7 +107,7 @@ void Sprite::Update(double elapsed, const Map* map) {
 	colSprite = NULL;
 	collided = false;
 
-	// TAREA: Actualizar animacion
+	//Actualizar animacion
 	this->currentFrame += this->animFPS*elapsed;
 	if (this->currentFrame > this->lastFrame) {
 		this->currentFrame -= (this->lastFrame - this->firstFrame);
@@ -115,7 +115,7 @@ void Sprite::Update(double elapsed, const Map* map) {
 	if (this->currentFrame < this->firstFrame) {
 		this->currentFrame += (this->lastFrame - this->firstFrame);
 	}
-
+	//Actualizar angulo
 	if (this->rotating) {
 		this->degreesToRotate -= abs(this->rotatingSpeed)*elapsed;
 		this->angle += this->rotatingSpeed*elapsed;
@@ -124,7 +124,7 @@ void Sprite::Update(double elapsed, const Map* map) {
 			this->rotating = false;
 		}
 	}
-
+	//actualizar posicion
 	if (this->moving) {
 		if (this->x - this->toX != 0) {
 			this->x += this->movingSpeedX*elapsed;
