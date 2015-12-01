@@ -56,9 +56,15 @@ SkeletonSprite::~SkeletonSprite() {
 }
 
 void SkeletonSprite::Update(double elapsed, Map* map) {
-	// TAREA: Implementar la especificacion del enunciado
+	Sprite::Update(elapsed, map);
+	root->Update(this->GetCurrentFrame());
 }
 
 void SkeletonSprite::Render() const {
-	// TAREA: Implementar la especificacion del enunciado
+	Renderer::Instance().SetColor(this->GetRed(), this->GetGreen(), this->GetBlue(), this->GetAlpha());
+	Renderer::Instance().SetBlendMode(this->GetBlendMode());
+	Renderer::Instance().PushMatrix();
+	Renderer::Instance().TranslateMatrix(this->GetX(), this->GetY(), 0);
+	root->Render();
+	Renderer::Instance().PopMatrix();
 }

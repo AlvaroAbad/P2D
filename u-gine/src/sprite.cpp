@@ -23,7 +23,7 @@ Sprite::Sprite(Image* image) {
 	this->radius = 0;
 	this->animFPS = 0;
 	this->firstFrame = 0;
-	this->lastFrame = this->image->GetNumFrames();
+	this->lastFrame = (this->image? this->image->GetNumFrames():0);
 	this->currentFrame = 0;
 	this->blendMode = Renderer::SOLID;
 	this->r = 255;
@@ -112,7 +112,7 @@ void Sprite::Update(double elapsed, const Map* map) {
 	if (this->currentFrame > this->lastFrame) {
 		this->currentFrame -= (this->lastFrame - this->firstFrame);
 	}
-	if (this->currentFrame < this->lastFrame) {
+	if (this->currentFrame < this->firstFrame) {
 		this->currentFrame += (this->lastFrame - this->firstFrame);
 	}
 

@@ -110,11 +110,29 @@ void Bone::ScaleForFrame(int32 f, double* x, double* y) const {
 }
 
 void Bone::Update(int32 currentFrame) {
-	// TAREA: Implementar la especificacion del enunciado
+	TranslationForFrame(currentFrame, &(this->currentX), &(this->currentY));
+	this->currentRotation=RotationForFrame(currentFrame);
+	ScaleForFrame(currentFrame, &(this->currentScaleX), &(this->currentScaleY));
+	for (uint32 i = 0; i < children.Size(); i++)
+	{
+		this->GetChild(i)->Update(currentFrame);
+	}
 }
 
 void Bone::Render() {
-	// TAREA: Implementar la especificacion del enunciado
+	Renderer::Instance().PushMatrix();
+	Renderer::Instance().TranslateMatrix(this->currentX, this->currentY, 0);
+	Renderer::Instance().RotateMatrix(this->currentRotation,0, 0, -1);
+	if (this->image) {
+		this->image->SetHandle(this->handleX*this->image->GetWidth(), this->handleY*this->image->GetHeight());
+		Renderer::Instance().DrawImage(this->image, 0, 0, 0, this->currentScaleX*this->image->GetWidth(), this->currentScaleY*this->image->GetHeight());
+		Renderer::Instance().TranslateMatrix(this->pivotX*this->image->GetWidth(), this->pivotY*this->image->GetHeight(), 0);
+	}
+	for (uint32 i = 0; i < children.Size(); i++)
+	{
+		this->GetChild(i)->Render();
+	}
+	Renderer::Instance().PopMatrix();
 }
 
 void Bone::GetFrame(int32 f, const Frame** frame, const Frame** prevFrame, const Frame** nextFrame) const {
@@ -132,6 +150,6 @@ void Bone::GetFrame(int32 f, const Frame** frame, const Frame** prevFrame, const
 }
 
 double Bone::Interpolate(int32 id, int32 prevId, int32 nextId, double prevVal, double nextVal) const {
-	return NULL;
-	// TAREA: Implementar la especificacion del enunciado
+	return prevVal + (nextVal - prevVal)*(static_cast<double>(id - prevId)) / (nextId - prevId);
+	
 }
