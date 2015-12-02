@@ -129,7 +129,7 @@ int main(int argc, char* argv[]) {
 	//String *fileName = new String();
 	//int32 mouseX, mouseY;
 
-	//*fileName = "../data/alienanim.png";
+	//*fileName = "data/alienanim.png";
 	//Image * alienTex = ResourceManager::Instance().LoadImage(*fileName,8,1);
 	//alienTex->SetMidHandle();
 
@@ -165,7 +165,7 @@ int main(int argc, char* argv[]) {
 #pragma region Practica 5-2 INIT
 int32 mouseX, mouseY;
 String *fileName = new String();
-*fileName = "../data/animation.xml";
+*fileName = "data/animation.xml";
 SkeletonSprite *skeleton = new SkeletonSprite(*fileName);
 skeleton->SetBlendMode(Renderer::ALPHA);
 skeleton->SetFPS(32);
