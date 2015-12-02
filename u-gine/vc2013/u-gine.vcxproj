@@ -94,6 +94,8 @@
     <ClInclude Include="..\include\skeletondata.h" />
     <ClInclude Include="..\include\skeletonsprite.h" />
     <ClInclude Include="..\include\sprite.h" />
+    <ClInclude Include="..\include\stb_image_write.h" />
+    <ClInclude Include="..\include\stb_truetype.h" />
     <ClInclude Include="..\include\string.h" />
     <ClInclude Include="..\include\types.h" />
     <ClInclude Include="..\include\u-gine.h" />
@@ -114,10 +116,12 @@
   <ItemGroup>
     <Image Include="..\data\alien.png" />
     <Image Include="..\data\alienanim.png" />
+    <Image Include="..\data\arial16.png" />
     <Image Include="..\data\ball.png" />
     <Image Include="..\data\bone.png" />
     <Image Include="..\data\box.jpg" />
     <Image Include="..\data\light.png" />
+    <Image Include="..\data\monospaced.png" />
     <Image Include="..\data\soccer_npot.png" />
   </ItemGroup>
   <ItemGroup>

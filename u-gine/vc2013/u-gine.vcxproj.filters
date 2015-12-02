@@ -66,6 +66,12 @@
     <ClInclude Include="..\include\skeletonsprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\stb_image_write.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\stb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -122,6 +128,12 @@
       <Filter>data</Filter>
     </Image>
     <Image Include="..\data\alienanim.png">
+      <Filter>data</Filter>
+    </Image>
+    <Image Include="..\data\arial16.png">
+      <Filter>data</Filter>
+    </Image>
+    <Image Include="..\data\monospaced.png">
       <Filter>data</Filter>
     </Image>
   </ItemGroup>
