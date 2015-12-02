@@ -84,6 +84,7 @@
     <ClInclude Include="..\include\array.h" />
     <ClInclude Include="..\include\bone.h" />
     <ClInclude Include="..\include\bonedata.h" />
+    <ClInclude Include="..\include\font.h" />
     <ClInclude Include="..\include\frame.h" />
     <ClInclude Include="..\include\glinclude.h" />
     <ClInclude Include="..\include\image.h" />
@@ -103,6 +104,7 @@
   <ItemGroup>
     <ClCompile Include="..\lib\stb_image.c" />
     <ClCompile Include="..\src\bone.cpp" />
+    <ClCompile Include="..\src\font.cpp" />
     <ClCompile Include="..\src\image.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\math.cpp" />

@@ -35,7 +35,7 @@ public:
 	void TranslateMatrix(double x, double y, double z) const;
 	void RotateMatrix(double rotation, double x, double y, double z)const;
     //virtual void DrawTiledImage(const Image* image, double x, double y, double width, double height, double offsetx = 0, double offsety = 0) const;
-    //virtual void DrawText(const Font* font, const String& text, double x, double y) const;
+    virtual void DrawText(const Font* font, const String& text, double x, double y) const;
 protected:
     Renderer() {}
 private:

@@ -163,13 +163,28 @@ int main(int argc, char* argv[]) {
 #pragma endregion
 
 #pragma region Practica 5-2 INIT
-int32 mouseX, mouseY;
-String *fileName = new String();
-*fileName = "data/animation.xml";
-SkeletonSprite *skeleton = new SkeletonSprite(*fileName);
-skeleton->SetBlendMode(Renderer::ALPHA);
-skeleton->SetFPS(32);
+//int32 mouseX, mouseY;
+//String *fileName = new String();
+//*fileName = "data/animation.xml";
+//SkeletonSprite *skeleton = new SkeletonSprite(*fileName);
+//skeleton->SetBlendMode(Renderer::ALPHA);
+//skeleton->SetFPS(32);
 #pragma endregion
+
+#pragma region 6-1 INIT
+	String *fileName = new String();
+	*fileName = "data/monospaced.png";
+	String *text = new String();
+	Font *font = ResourceManager::Instance().LoadFont(*fileName);
+	*text = "Hola, Mundo";
+	int32 speedX, speedY;
+	speedX = rand() % 127 + 128;
+	speedY = rand() % 127 + 128;
+	uint32 x, y;
+	x = y = 0;
+	uint16 r, g, b, a;
+	r = g = b = 255;
+#pragma endregion 
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
 
 #pragma region Practica 1 
@@ -534,28 +549,28 @@ skeleton->SetFPS(32);
 #pragma endregion
 
 #pragma region Practica 4-2
-//mouseX = Screen::Instance().GetMouseX();
-//mouseY = Screen::Instance().GetMouseY();
-//
-//for (unsigned int i = 0; i < spriteArray->Size(); i++) {
-//		currentSprite = (*spriteArray)[i];
-//		currentSprite->MoveTo(mouseX, mouseY, 100+(i*100));
-//
-//		if (currentSprite->GetX() == mouseX && currentSprite->GetY() == mouseY) {
-//			currentSprite->RotateTo(0, 30);
-//		}
-//		else {
-//			if (currentSprite->GetX() < mouseX) {
-//				currentSprite->RotateTo(-15, 30);
-//			}
-//			else {
-//				currentSprite->RotateTo(15, 30);
-//			}
-//		}
-//
-//		currentSprite->Update(Screen::Instance().ElapsedTime());
-//		currentSprite->Render();
-//}
+		//mouseX = Screen::Instance().GetMouseX();
+		//mouseY = Screen::Instance().GetMouseY();
+		//
+		//for (unsigned int i = 0; i < spriteArray->Size(); i++) {
+		//		currentSprite = (*spriteArray)[i];
+		//		currentSprite->MoveTo(mouseX, mouseY, 100+(i*100));
+		//
+		//		if (currentSprite->GetX() == mouseX && currentSprite->GetY() == mouseY) {
+		//			currentSprite->RotateTo(0, 30);
+		//		}
+		//		else {
+		//			if (currentSprite->GetX() < mouseX) {
+		//				currentSprite->RotateTo(-15, 30);
+		//			}
+		//			else {
+		//				currentSprite->RotateTo(15, 30);
+		//			}
+		//		}
+		//
+		//		currentSprite->Update(Screen::Instance().ElapsedTime());
+		//		currentSprite->Render();
+		//}
 
 #pragma endregion
 
@@ -585,17 +600,41 @@ skeleton->SetFPS(32);
 #pragma endregion
 
 #pragma region Practica 5-2
-mouseX = Screen::Instance().GetMouseX();
-mouseY = Screen::Instance().GetMouseY();
-skeleton->SetPosition(mouseX, mouseY);
-skeleton->Update(Screen::Instance().ElapsedTime());
-skeleton->Render();
+//mouseX = Screen::Instance().GetMouseX();
+//mouseY = Screen::Instance().GetMouseY();
+//skeleton->SetPosition(mouseX, mouseY);
+//skeleton->Update(Screen::Instance().ElapsedTime());
+//skeleton->Render();
+#pragma endregion
+
+#pragma region Practica 6-1
+		x += speedX*Screen::Instance().ElapsedTime();
+		y += speedY*Screen::Instance().ElapsedTime();
+		if (x<0 || x + font->GetTextWidth(*text) > Screen::Instance().GetWidth()) {
+			x = Screen::Instance().GetWidth() - font->GetTextWidth(*text);
+			speedX *= -1;
+			r = rand() % 255;
+			g = rand() % 255;
+			b = rand() % 255;
+		}
+		else {
+
+		}
+		if (y<=0 || y + font->GetTextHeight(*text) >= Screen::Instance().GetHeight()) {
+			y = Screen::Instance().GetHeight() - font->GetTextHeight(*text);
+			speedY *= -1;
+			r = rand() % 255;
+			g = rand() % 255;
+			b = rand() % 255;
+		}
+		Renderer::Instance().SetColor(r, g, b, 225);
+		Renderer::Instance().DrawText(font, *text, x, y);
 #pragma endregion
 		// Refrescamos la pantalla
 		Screen::Instance().Refresh();
 		Renderer::Instance().Clear(0, 0, 0);
 	}
-	
+
 	ResourceManager::Instance().FreeResources();
 	//delete(title);
 	/*for (unsigned int i = 0; i < spriteArray->Size(); i++) {
