@@ -173,7 +173,7 @@ int main(int argc, char* argv[]) {
 
 #pragma region 6-1 INIT
 	String *fileName = new String();
-	*fileName = "../data/monospaced.png";
+	*fileName = "data/arial16.png";
 	String *text = new String();
 	Font *font = ResourceManager::Instance().LoadFont(*fileName);
 	*text = "Hola, Mundo";
@@ -185,6 +185,7 @@ int main(int argc, char* argv[]) {
 	uint16 r, g, b, a;
 	r = g = b = 255;
 #pragma endregion 
+
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
 
 #pragma region Practica 1 

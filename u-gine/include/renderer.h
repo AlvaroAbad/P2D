@@ -27,6 +27,7 @@ public:
     virtual void DrawRect(double x, double y, double width, double height) const;
     virtual void DrawEllipse(double x, double y, double xradius, double yradius) const;
 	virtual uint32 GenImage(uint8* buffer, uint16 width, uint16 height)const;
+	virtual void setTexPixeles(uint8 * buffer, uint16 width, uint16 height)const;
 	virtual void BindImage(uint32 glhandle)const;
 	virtual void DeleteImage(uint32 glhandle)const;
     virtual void DrawImage(const Image* image, double x, double y, uint32 frame = 0, double width = 0.0f, double height = 0.0f, double ang = 0) const;
