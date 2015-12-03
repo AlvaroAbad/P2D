@@ -173,14 +173,14 @@ int main(int argc, char* argv[]) {
 
 #pragma region 6-1 INIT
 	String *fileName = new String();
-	*fileName = "data/monospaced.png";
+	*fileName = "../data/monospaced.png";
 	String *text = new String();
 	Font *font = ResourceManager::Instance().LoadFont(*fileName);
 	*text = "Hola, Mundo";
-	int32 speedX, speedY;
+	double speedX, speedY;
 	speedX = rand() % 127 + 128;
 	speedY = rand() % 127 + 128;
-	uint32 x, y;
+	double x, y;
 	x = y = 0;
 	uint16 r, g, b, a;
 	r = g = b = 255;
@@ -610,18 +610,29 @@ int main(int argc, char* argv[]) {
 #pragma region Practica 6-1
 		x += speedX*Screen::Instance().ElapsedTime();
 		y += speedY*Screen::Instance().ElapsedTime();
-		if (x<0 || x + font->GetTextWidth(*text) > Screen::Instance().GetWidth()) {
+		if (x + font->GetTextWidth(*text) > Screen::Instance().GetWidth()) {
 			x = Screen::Instance().GetWidth() - font->GetTextWidth(*text);
 			speedX *= -1;
 			r = rand() % 255;
 			g = rand() % 255;
 			b = rand() % 255;
 		}
-		else {
-
+		else if(x<=0) {
+			x =0;
+			speedX *= -1;
+			r = rand() % 255;
+			g = rand() % 255;
+			b = rand() % 255;
 		}
-		if (y<=0 || y + font->GetTextHeight(*text) >= Screen::Instance().GetHeight()) {
+		if ( y + font->GetTextHeight(*text) >= Screen::Instance().GetHeight()) {
 			y = Screen::Instance().GetHeight() - font->GetTextHeight(*text);
+			speedY *= -1;
+			r = rand() % 255;
+			g = rand() % 255;
+			b = rand() % 255;
+		}
+		else if (y <= 0) {
+			y = 0;
 			speedY *= -1;
 			r = rand() % 255;
 			g = rand() % 255;
