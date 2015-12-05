@@ -78,6 +78,15 @@
     <ClInclude Include="..\include\glyph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parallaxscene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -119,6 +128,12 @@
     <ClCompile Include="..\src\Glyph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\data\ball.png">
@@ -146,6 +161,15 @@
       <Filter>data</Filter>
     </Image>
     <Image Include="..\data\monospaced.png">
+      <Filter>data</Filter>
+    </Image>
+    <Image Include="..\data\background.png">
+      <Filter>data</Filter>
+    </Image>
+    <Image Include="..\data\backlayer.png">
+      <Filter>data</Filter>
+    </Image>
+    <Image Include="..\data\frontlayer.png">
       <Filter>data</Filter>
     </Image>
   </ItemGroup>

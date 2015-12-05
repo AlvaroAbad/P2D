@@ -1,0 +1,3 @@
+#ifndef UGINE_PARALAXSCENE_H
+#define UGINE_PARALAXSCENE_H
+#endif

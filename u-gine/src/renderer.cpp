@@ -92,8 +92,9 @@ uint32 Renderer::GenImage(uint8 * buffer, uint16 width, uint16 height)const
 
 	return texId;
 }
-void Renderer::setTexPixeles(uint8 * buffer, uint16 width, uint16 height)const
+void Renderer::setTexPixeles(uint8 * buffer, uint32 gltex, uint16 width, uint16 height)const
 {
+	glBindTexture(GL_TEXTURE_2D, gltex);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 }
 void Renderer::BindImage(uint32 glhandle)const
