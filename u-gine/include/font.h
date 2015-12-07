@@ -12,6 +12,6 @@ public:
 	virtual uint32 GetTextHeight(const String& text) const;
 	virtual void Render(const String& text, double x, double y) const;
 private:
-	Array<Glyph *> *glyphs;
+	Array<Glyph> *glyphs;
 };
 #endif

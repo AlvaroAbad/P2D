@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P7_1
+#define P6
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
