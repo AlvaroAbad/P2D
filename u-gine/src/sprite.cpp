@@ -25,7 +25,7 @@ Sprite::Sprite(Image* image) {
 	this->firstFrame = 0;
 	this->lastFrame = (this->image? this->image->GetNumFrames():0);
 	this->currentFrame = 0;
-	this->blendMode = Renderer::SOLID;
+	this->blendMode = Renderer::ALPHA;
  	this->r = 255;
 	this->g = 255;
 	this->b = 255;

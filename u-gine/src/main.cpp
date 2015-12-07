@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P7
+#define P7_1
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -205,7 +205,33 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 7 INIT
 #ifdef P7_1
+	String * title = new String();
 
+	int32 incX, incY, angle;
+	String *fileName = new String();
+	*fileName = "../data/background.png";
+	Image *backgroundImage=ResourceManager::Instance().LoadImage(*fileName);
+	Scene *scene = new Scene(backgroundImage);
+	*fileName = "../data/alienanim.png";
+	Image *alienImage = ResourceManager::Instance().LoadImage(*fileName,8,1);
+	alienImage->SetMidHandle();
+	Sprite *alien=scene->CreateSprite(alienImage, Scene::LAYER_FRONT);
+	alien->SetPosition(Screen::Instance().GetWidth()/2, Screen::Instance().GetHeight()/2);
+	alien->SetScale(4, 4);
+	alien->SetFPS(16);
+	Camera *camera = &scene->GetCamera();
+	camera->SetBounds(0, 0, backgroundImage->GetWidth(), backgroundImage->GetHeight());
+	camera->FollowSprite(alien);
+	*title = "Alien[";
+	*title += title->FromInt(alien->GetX());
+	*title += ",";
+	*title += title->FromInt(alien->GetY());
+	*title += "]";
+	*title += " Camera[";
+	*title += title->FromInt(camera->GetX());
+	*title += ",";
+	*title += title->FromInt(camera->GetY());
+	*title += "]";
 #endif
 #pragma endregion
 
@@ -682,7 +708,36 @@ for (unsigned int i = 0; i < spriteArray->Size(); i++) {
 
 #pragma region Practica 7-1
 #ifdef P7_1
-
+		Screen::Instance().SetTitle(*title);
+		incX = incY = angle= 0;
+		if (Screen::Instance().KeyPressed(GLFW_KEY_UP) && alien->GetY()-alien->GetImage()->GetHeight()*alien->GetScaleY()/2>0) {
+			incY--;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN) && alien->GetY() + alien->GetImage()->GetHeight()*alien->GetScaleY()/ 2<backgroundImage->GetHeight()) {
+			incY++;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT) && alien->GetX() - alien->GetImage()->GetWidth()*alien->GetScaleX() / 2>0) {
+			incX--;
+			angle += 15;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT) && alien->GetX() + alien->GetImage()->GetWidth()*alien->GetScaleX() / 2<backgroundImage->GetWidth()) {
+			incX++;
+			angle -= 15;
+		}
+		alien->MoveTo(alien->GetX() + incX, alien->GetY() + incY, 100);
+		alien->RotateTo(angle, 30);
+		scene->Update(Screen::Instance().ElapsedTime());
+		scene->Render();
+		*title = "Alien[";
+		*title += title->FromInt(alien->GetX());
+		*title += ",";
+		*title += title->FromInt(alien->GetY());
+		*title += "]";
+		*title += " Camera[";
+		*title += title->FromInt(camera->GetX());
+		*title += ",";
+		*title += title->FromInt(camera->GetY());
+		*title += "]";
 #endif
 #pragma endregion
 		// Refrescamos la pantalla

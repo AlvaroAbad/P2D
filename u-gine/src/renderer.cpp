@@ -30,7 +30,7 @@ void Renderer::SetColor(uint8 r, uint8 g, uint8 b, uint8 a) const {
 }
 
 void Renderer::SetOrigin(double x, double y) const {
-	// TAREA: Configurar matriz de modelado
+	glTranslated(-x, -y, 0);
 }
 
 void Renderer::Clear(uint8 r, uint8 g, uint8 b) const {

@@ -62,21 +62,25 @@ void Scene::Update(double elapsed, Map* map) {
 }
 
 void Scene::Render() const {
+	Renderer::Instance().PushMatrix();
 	Renderer::Instance().Clear(backr, backg, backb);
     Renderer::Instance().SetOrigin(GetCamera().GetX(), GetCamera().GetY());
 	if ( backgroundImg ) Renderer::Instance().DrawImage(backgroundImg, 0, 0);
 	Renderer::Instance().SetOrigin(0, 0);
 	RenderBackground();
     Renderer::Instance().SetOrigin(GetCamera().GetX(), GetCamera().GetY());
-	RenderAfterBackground();
+	RenderAfterBackground();	
 	for ( int i = 0; i < LAYER_COUNT; i++ ) {
 		RenderSprites((Layer)i);
-		RenderEmitters((Layer)i);
+		//RenderEmitters((Layer)i);
 	}
+	Renderer::Instance().PopMatrix();
 }
 
 void Scene::RenderSprites(Layer layer) const {
-    for ( uint32 i = 0; i < sprites[layer].Size(); i++ ) sprites[layer][i]->Render();
+	for (uint32 i = 0; i < sprites[layer].Size(); i++) {
+		sprites[layer][i]->Render();
+	}
 }
 
 /*void Scene::RenderEmitters(Layer layer) const {
