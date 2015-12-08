@@ -10,10 +10,10 @@ Font::Font(const String & filename) :Image(filename, 16, 16) {
 	glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 	for (uint32 i = 0; i < 256; i++)
 	{
-		row = i / this->GetHFrames();
-		row = row*(this->GetHeight()*rowOffset);//Calculo cuantos p
-		column = i % this->GetHFrames();
-		column = column * this->GetWidth();
+		row = i / this->GetHFrames();//get row of frame
+		row = row*(this->GetHeight()*rowOffset);//get numbers of pixels above frame
+		column = i % this->GetHFrames();// get column frame
+		column = column * this->GetWidth();// get numbers of pixels from border to current frame
 		beginX = beginY = 0;
 		endX = endY = this->GetWidth();
 		for (uint32 pixelRow = 0; pixelRow <this->GetHeight(); pixelRow++) {
@@ -61,7 +61,7 @@ uint32 Font::GetTextHeight(const String & text) const {
 }
 
 void Font::Render(const String & text, double x, double y) const {
-	const char * chars = text.ToCString();
+	const unsigned char * chars = (unsigned char *)text.ToCString();
 	uint32 textPosition = x;
 	uint32 width;
 	for (uint32 i = 0; i < text.Length(); i++) {

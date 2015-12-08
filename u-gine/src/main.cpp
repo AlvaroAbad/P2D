@@ -671,7 +671,25 @@ for (unsigned int i = 0; i < spriteArray->Size(); i++) {
 
 #pragma region Practica 6
 #ifdef P6
-		x += speedX*Screen::Instance().ElapsedTime();
+	int row, columns;
+	row = columns = 0;
+	unsigned char letra;
+	Renderer::Instance().SetBlendMode(Renderer::ALPHA);
+	for (size_t i = 0; i < 256; i++)
+	{
+		/*Renderer::Instance().DrawImage(font, columns*font->GetWidth(), row*font->GetHeight(), i);*/
+		letra = i;
+		*text = letra;
+		Renderer::Instance().DrawText(font, *text, columns*font->GetWidth(), row*font->GetHeight());
+		if (columns < 15) {
+			columns++;
+		}
+		else {
+			columns = 0;
+			row++;
+		}
+	}
+		/*x += speedX*Screen::Instance().ElapsedTime();
 		y += speedY*Screen::Instance().ElapsedTime();
 		if (x + font->GetTextWidth(*text) > Screen::Instance().GetWidth()) {
 			x = Screen::Instance().GetWidth() - font->GetTextWidth(*text);
@@ -702,7 +720,7 @@ for (unsigned int i = 0; i < spriteArray->Size(); i++) {
 			b = rand() % 255;
 		}
 		Renderer::Instance().SetColor(r, g, b, 225);
-		Renderer::Instance().DrawText(font, *text, x, y);
+		Renderer::Instance().DrawText(font, *text, x, y);*/
 #endif
 #pragma endregion
 
