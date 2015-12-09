@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P7_1
+#define P7_2
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -732,6 +732,40 @@ for (unsigned int i = 0; i < spriteArray->Size(); i++) {
 			incY--;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN) && alien->GetY() + alien->GetImage()->GetHeight()*alien->GetScaleY()/ 2<backgroundImage->GetHeight()) {
+			incY++;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT) && alien->GetX() - alien->GetImage()->GetWidth()*alien->GetScaleX() / 2>0) {
+			incX--;
+			angle += 15;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT) && alien->GetX() + alien->GetImage()->GetWidth()*alien->GetScaleX() / 2<backgroundImage->GetWidth()) {
+			incX++;
+			angle -= 15;
+		}
+		alien->MoveTo(alien->GetX() + incX, alien->GetY() + incY, 100);
+		alien->RotateTo(angle, 30);
+		scene->Update(Screen::Instance().ElapsedTime());
+		scene->Render();
+		*title = "Alien[";
+		*title += title->FromInt(alien->GetX());
+		*title += ",";
+		*title += title->FromInt(alien->GetY());
+		*title += "]";
+		*title += " Camera[";
+		*title += title->FromInt(camera->GetX());
+		*title += ",";
+		*title += title->FromInt(camera->GetY());
+		*title += "]";
+#endif
+#pragma endregion
+#pragma region Practica 7-2
+#ifdef P7_2
+		Screen::Instance().SetTitle(*title);
+		incX = incY = angle = 0;
+		if (Screen::Instance().KeyPressed(GLFW_KEY_UP) && alien->GetY() - alien->GetImage()->GetHeight()*alien->GetScaleY() / 2>0) {
+			incY--;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN) && alien->GetY() + alien->GetImage()->GetHeight()*alien->GetScaleY() / 2<backgroundImage->GetHeight()) {
 			incY++;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT) && alien->GetX() - alien->GetImage()->GetWidth()*alien->GetScaleX() / 2>0) {
