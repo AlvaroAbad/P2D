@@ -62,7 +62,6 @@ void Scene::Update(double elapsed, Map* map) {
 }
 
 void Scene::Render() const {
-	Renderer::Instance().PushMatrix();
 	Renderer::Instance().Clear(backr, backg, backb);
     Renderer::Instance().SetOrigin(GetCamera().GetX(), GetCamera().GetY());
 	if ( backgroundImg ) Renderer::Instance().DrawImage(backgroundImg, 0, 0);
@@ -74,7 +73,6 @@ void Scene::Render() const {
 		RenderSprites((Layer)i);
 		//RenderEmitters((Layer)i);
 	}
-	Renderer::Instance().PopMatrix();
 }
 
 void Scene::RenderSprites(Layer layer) const {

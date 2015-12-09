@@ -30,6 +30,7 @@ void Renderer::SetColor(uint8 r, uint8 g, uint8 b, uint8 a) const {
 }
 
 void Renderer::SetOrigin(double x, double y) const {
+	glLoadIdentity();
 	glTranslated(-x, -y, 0);
 }
 
