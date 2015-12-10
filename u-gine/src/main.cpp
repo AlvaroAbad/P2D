@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 #pragma endregion
 
 #pragma region Practica 3 INIT
-#ifdef P3_1 or P3_2
+#if defined(P3_1) || defined(P3_2)
 	uint32 blendModeSRC;
 	uint32 blendModeDST;
 	String *boxFileName = new String();
@@ -209,10 +209,10 @@ int main(int argc, char* argv[]) {
 
 	int32 incX, incY, angle;
 	String *fileName = new String();
-	*fileName = "../data/background.png";
+	*fileName = "data/background.png";
 	Image *backgroundImage=ResourceManager::Instance().LoadImage(*fileName);
 	Scene *scene = new Scene(backgroundImage);
-	*fileName = "../data/alienanim.png";
+	*fileName = "data/alienanim.png";
 	Image *alienImage = ResourceManager::Instance().LoadImage(*fileName,8,1);
 	alienImage->SetMidHandle();
 	Sprite *alien=scene->CreateSprite(alienImage, Scene::LAYER_FRONT);
@@ -235,6 +235,42 @@ int main(int argc, char* argv[]) {
 #endif
 #pragma endregion
 
+#pragma region Practica 7 INIT
+#ifdef P7_2
+	String * title = new String();
+
+	int32 incX, incY, angle;
+	String *fileName = new String();
+	*fileName = "data/backlayer.png";
+	Image *backLayerImage = ResourceManager::Instance().LoadImage(*fileName);
+	*fileName = "data/frontlayer.png";
+	Image *frontLayerImage = ResourceManager::Instance().LoadImage(*fileName);
+	ParallaxScene *scene = new ParallaxScene(backLayerImage, frontLayerImage);
+	*fileName = "data/alienanim.png";
+	Image *alienImage = ResourceManager::Instance().LoadImage(*fileName, 8, 1);
+	alienImage->SetMidHandle();
+	Sprite *alien = scene->CreateSprite(alienImage, Scene::LAYER_FRONT);
+	alien->SetPosition(Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight() / 2);
+	alien->SetScale(4, 4);
+	alien->SetFPS(16);
+	scene->SetAutoBackSpeed(32, 32);
+	scene->SetRelativeBackSpeed(0.8, 0.8);
+	scene->SetAutoFrontSpeed(-32, 32);
+	scene->SetRelativeFrontSpeed(1,1);
+	Camera *camera = &scene->GetCamera();
+	camera->FollowSprite(alien);
+	*title = "Alien[";
+	*title += title->FromInt(alien->GetX());
+	*title += ",";
+	*title += title->FromInt(alien->GetY());
+	*title += "]";
+	*title += " Camera[";
+	*title += title->FromInt(camera->GetX());
+	*title += ",";
+	*title += title->FromInt(camera->GetY());
+	*title += "]";
+#endif
+#pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
 
 #pragma region Practica 1 
@@ -758,21 +794,22 @@ for (unsigned int i = 0; i < spriteArray->Size(); i++) {
 		*title += "]";
 #endif
 #pragma endregion
+
 #pragma region Practica 7-2
 #ifdef P7_2
 		Screen::Instance().SetTitle(*title);
 		incX = incY = angle = 0;
-		if (Screen::Instance().KeyPressed(GLFW_KEY_UP) && alien->GetY() - alien->GetImage()->GetHeight()*alien->GetScaleY() / 2>0) {
+		if (Screen::Instance().KeyPressed(GLFW_KEY_UP) && alien->GetY()) {
 			incY--;
 		}
-		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN) && alien->GetY() + alien->GetImage()->GetHeight()*alien->GetScaleY() / 2<backgroundImage->GetHeight()) {
+		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN) && alien->GetY()) {
 			incY++;
 		}
-		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT) && alien->GetX() - alien->GetImage()->GetWidth()*alien->GetScaleX() / 2>0) {
+		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT) && alien->GetX()) {
 			incX--;
 			angle += 15;
 		}
-		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT) && alien->GetX() + alien->GetImage()->GetWidth()*alien->GetScaleX() / 2<backgroundImage->GetWidth()) {
+		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT) && alien->GetX()) {
 			incX++;
 			angle -= 15;
 		}

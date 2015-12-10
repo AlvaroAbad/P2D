@@ -155,7 +155,7 @@ void Renderer::RotateMatrix(double rotation, double x, double y, double z) const
 {
 	glRotated(rotation, x, y, z);
 }
-/*
+
 void Renderer::DrawTiledImage(const Image* image, double x, double y, double width, double height, double offsetx, double offsety) const {
 	GLdouble ubegin = offsetx / image->GetWidth();
 	GLdouble vbegin = offsety / image->GetHeight();
@@ -172,7 +172,7 @@ void Renderer::DrawTiledImage(const Image* image, double x, double y, double wid
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	glPopMatrix();
 }
-*/
+
 void Renderer::DrawText(const Font* font, const String &text, double x, double y) const {
 	font->Render(text, x, y);
 }

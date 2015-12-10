@@ -1,5 +1,5 @@
 #include "../include/parallaxscene.h"
-ParallaxScene::ParallaxScene(Image * imageBack, Image * imageFront) :Scene(imageFront) {
+ParallaxScene::ParallaxScene(Image * imageBack, Image * imageFront){
 	this->backLayer = imageBack;
 	this->frontLayer = imageFront;
 	this->backX=0;
@@ -17,6 +17,14 @@ ParallaxScene::ParallaxScene(Image * imageBack, Image * imageFront) :Scene(image
 }
 void ParallaxScene::Update(double elapsed, Map * map){
 	Scene::Update(elapsed, map);
+	this->backX += this->autoBackSpeedX*elapsed;
+	this->backY += this->autoBackSpeedY*elapsed;
+	this->frontX += this->autoFrontSpeedX*elapsed;
+	this->frontX += this->autoFrontSpeedX*elapsed;
+
 }
 void ParallaxScene::RenderBackground() const{
+	Renderer::Instance().SetBlendMode(Renderer::ALPHA);
+	Renderer::Instance().DrawTiledImage(this->backLayer,0, 0, Screen::Instance().GetWidth(), Screen::Instance().GetHeight(), this->backX+this->GetCamera().GetX()*this->relBackSpeedX, this->backY+ this->GetCamera().GetY()*this->relBackSpeedY);
+	Renderer::Instance().DrawTiledImage(this->frontLayer,0, 0, Screen::Instance().GetWidth(), Screen::Instance().GetHeight(), this->frontX+this->GetCamera().GetX()*this->relFrontSpeedX, this->frontY+ this->GetCamera().GetY()*this->relFrontSpeedY);
 }
