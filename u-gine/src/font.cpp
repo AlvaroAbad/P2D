@@ -57,6 +57,8 @@ uint32 Font::GetTextWidth(const String & text) const {
 }
 
 uint32 Font::GetTextHeight(const String & text) const {
+	const unsigned char * chars = (unsigned char *)text.ToCString();
+
 	return this->GetHeight();
 }
 

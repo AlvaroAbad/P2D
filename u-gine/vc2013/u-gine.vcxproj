@@ -92,6 +92,7 @@
     <ClInclude Include="..\include\image.h" />
     <ClInclude Include="..\include\math.h" />
     <ClInclude Include="..\include\parallaxscene.h" />
+    <ClInclude Include="..\include\particle.h" />
     <ClInclude Include="..\include\renderer.h" />
     <ClInclude Include="..\include\resourcemanager.h" />
     <ClInclude Include="..\include\scene.h" />
@@ -136,6 +137,7 @@
     <Image Include="..\data\light.png" />
     <Image Include="..\data\monospaced.png" />
     <Image Include="..\data\soccer_npot.png" />
+    <Image Include="..\data\star.png" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\data\animation.xml" />
