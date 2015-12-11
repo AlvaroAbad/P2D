@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P7_2
+#define P8_1
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -7,7 +7,15 @@
 
 int main(int argc, char* argv[]) {
 	Screen::Instance().Open(800, 600, false);
-
+	String *fontFileName = new String();
+	*fontFileName = "../data/arial16.png";
+	String *text = new String();
+	Font *font = ResourceManager::Instance().LoadFont(*fontFileName);
+	*text = "FPS: 0";
+	int frames;
+	double seconds;
+	frames = seconds = 0;
+	srand(0);
 #pragma region Practica 1 INIT
 #ifdef P1
 	int16 centerHeight, centerWidth, mouseX, mouseY, circleCenterX, circleCenterY, trueAngle;
@@ -21,7 +29,7 @@ int main(int argc, char* argv[]) {
 #ifdef P2
 	String *fileName = new String();
 	*fileName = "../data/soccer_npot.png";
-	Image * ballTex=ResourceManager::Instance().LoadImage(*fileName);
+	Image * ballTex = ResourceManager::Instance().LoadImage(*fileName);
 	ballTex->SetMidHandle();
 	double rotation = 0;
 	double scale = 0;
@@ -68,8 +76,8 @@ int main(int argc, char* argv[]) {
 	bBallTex->SetMidHandle();
 	spriteArray->Add(new Sprite(bBallTex));
 	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - bBallTex->GetWidth())) + bBallTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- bBallTex->GetHeight()))+ bBallTex->GetHeight() / 2);
-	spriteArray->Last()->SetUserData(new spriteSpeed((rand()%100)+100, (rand() % 100) + 100));
+	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - bBallTex->GetWidth())) + bBallTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight() - bBallTex->GetHeight())) + bBallTex->GetHeight() / 2);
+	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
 
 	//Football
 	*fileName = "data/soccer_npot.png";
@@ -77,25 +85,25 @@ int main(int argc, char* argv[]) {
 	fBallTex->SetMidHandle();
 	spriteArray->Add(new Sprite(fBallTex));
 	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - fBallTex->GetWidth())) + fBallTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- fBallTex->GetHeight())) + fBallTex->GetHeight() / 2);
+	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - fBallTex->GetWidth())) + fBallTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight() - fBallTex->GetHeight())) + fBallTex->GetHeight() / 2);
 	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
-	
+
 	//Box
 	*fileName = "data/box.jpg";
 	Image * boxTex = ResourceManager::Instance().LoadImage(*fileName);
 	boxTex->SetMidHandle();
 	spriteArray->Add(new Sprite(boxTex));
 	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth()- boxTex->GetWidth())) + boxTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- boxTex->GetHeight())) + boxTex->GetHeight() / 2);
+	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - boxTex->GetWidth())) + boxTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight() - boxTex->GetHeight())) + boxTex->GetHeight() / 2);
 	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
-	
+
 	//Alien
 	*fileName = "data/alien.png";
 	Image * alienTex = ResourceManager::Instance().LoadImage(*fileName);
 	alienTex->SetMidHandle();
 	spriteArray->Add(new Sprite(alienTex));
 	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth()- alienTex->GetWidth())) + alienTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight()- alienTex->GetHeight())) + alienTex->GetHeight() / 2);
+	spriteArray->Last()->SetPosition((rand() % (Screen::Instance().GetWidth() - alienTex->GetWidth())) + alienTex->GetWidth() / 2, (rand() % (Screen::Instance().GetHeight() - alienTex->GetHeight())) + alienTex->GetHeight() / 2);
 	spriteArray->Last()->SetUserData(new spriteSpeed((rand() % 100) + 100, (rand() % 100) + 100));
 #endif
 #pragma endregion
@@ -115,7 +123,7 @@ int main(int argc, char* argv[]) {
 	//Alien 1
 	spriteArray->Add(new Sprite(alienTex));
 	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition(0 + alienTex->GetWidth()/2,0 + alienTex->GetHeight() / 2);
+	spriteArray->Last()->SetPosition(0 + alienTex->GetWidth() / 2, 0 + alienTex->GetHeight() / 2);
 
 	//Alien 2
 	spriteArray->Add(new Sprite(alienTex));
@@ -142,13 +150,13 @@ int main(int argc, char* argv[]) {
 	int32 mouseX, mouseY;
 
 	*fileName = "data/alienanim.png";
-	Image * alienTex = ResourceManager::Instance().LoadImage(*fileName,8,1);
+	Image * alienTex = ResourceManager::Instance().LoadImage(*fileName, 8, 1);
 	alienTex->SetMidHandle();
 
 	//Alien 1
 	spriteArray->Add(new Sprite(alienTex));
 	spriteArray->Last()->SetBlendMode(Renderer::ALPHA);
-	spriteArray->Last()->SetPosition(0 + alienTex->GetWidth()/2,0 + alienTex->GetHeight() / 2);
+	spriteArray->Last()->SetPosition(0 + alienTex->GetWidth() / 2, 0 + alienTex->GetHeight() / 2);
 	spriteArray->Last()->SetFPS(16);
 	spriteArray->Last()->SetScale(4, 4);
 
@@ -203,20 +211,20 @@ int main(int argc, char* argv[]) {
 #endif
 #pragma endregion 
 
-#pragma region Practica 7 INIT
+#pragma region Practica 7-1 INIT
 #ifdef P7_1
 	String * title = new String();
 
 	int32 incX, incY, angle;
 	String *fileName = new String();
 	*fileName = "data/background.png";
-	Image *backgroundImage=ResourceManager::Instance().LoadImage(*fileName);
+	Image *backgroundImage = ResourceManager::Instance().LoadImage(*fileName);
 	Scene *scene = new Scene(backgroundImage);
 	*fileName = "data/alienanim.png";
-	Image *alienImage = ResourceManager::Instance().LoadImage(*fileName,8,1);
+	Image *alienImage = ResourceManager::Instance().LoadImage(*fileName, 8, 1);
 	alienImage->SetMidHandle();
-	Sprite *alien=scene->CreateSprite(alienImage, Scene::LAYER_FRONT);
-	alien->SetPosition(Screen::Instance().GetWidth()/2, Screen::Instance().GetHeight()/2);
+	Sprite *alien = scene->CreateSprite(alienImage, Scene::LAYER_FRONT);
+	alien->SetPosition(Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight() / 2);
 	alien->SetScale(4, 4);
 	alien->SetFPS(16);
 	Camera *camera = &scene->GetCamera();
@@ -235,7 +243,7 @@ int main(int argc, char* argv[]) {
 #endif
 #pragma endregion
 
-#pragma region Practica 7 INIT
+#pragma region Practica 7-2 INIT
 #ifdef P7_2
 	String * title = new String();
 
@@ -256,7 +264,7 @@ int main(int argc, char* argv[]) {
 	scene->SetAutoBackSpeed(32, 32);
 	scene->SetRelativeBackSpeed(0.8, 0.8);
 	scene->SetAutoFrontSpeed(-32, 32);
-	scene->SetRelativeFrontSpeed(1,1);
+	scene->SetRelativeFrontSpeed(1, 1);
 	Camera *camera = &scene->GetCamera();
 	camera->FollowSprite(alien);
 	*title = "Alien[";
@@ -271,8 +279,34 @@ int main(int argc, char* argv[]) {
 	*title += "]";
 #endif
 #pragma endregion
-	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
 
+#pragma region Practica 8-1 INIT
+#ifdef P8_1
+	String *fileName = new String();
+	*fileName = "../data/star.png";
+	Image *starImage = ResourceManager::Instance().LoadImage(*fileName);
+	starImage->SetMidHandle();
+	Sprite *star = new Sprite(starImage);
+	star->SetColor(255, 0, 0);
+	Emitter *starEmitter = new Emitter(starImage, true);
+	starEmitter->SetRate(500, 1000);
+	starEmitter->SetAngularVelocity(0, 360);
+	starEmitter->SetLifetime(1, 2);
+	starEmitter->SetVelocityX(-128, 128);
+	starEmitter->SetVelocityY(-128, 128);
+#endif
+#pragma endregion
+	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
+		if (seconds >= 1) {
+			*text = "FPS: ";
+			*text += text->FromInt(frames);
+			frames = seconds = 0;
+		}
+		else {
+			frames++;
+			seconds += Screen::Instance().ElapsedTime();
+		}
+		Renderer::Instance().DrawText(font, *text, 0, 0);
 #pragma region Practica 1 
 #ifdef P1
 		angle++;
@@ -282,24 +316,24 @@ int main(int argc, char* argv[]) {
 		mouseY = Screen::Instance().GetMouseY(); //get mouse position X
 		mouseX = Screen::Instance().GetMouseX(); //get mouse position Y
 
-		circleCenterY = Screen::Instance().GetMouseY()+(20*DegSin(angle)*-1); //calc center Y of circle orbiting square
-		circleCenterX = Screen::Instance().GetMouseX() +(20*DegCos(angle)); //calc center X of circle orbiting square
-		
+		circleCenterY = Screen::Instance().GetMouseY() + (20 * DegSin(angle)*-1); //calc center Y of circle orbiting square
+		circleCenterX = Screen::Instance().GetMouseX() + (20 * DegCos(angle)); //calc center X of circle orbiting square
+
 		*title = "Angle: ";
 		trueAngle = Angle(mouseX, mouseY, circleCenterX, circleCenterY);
 		*title += String::FromInt(trueAngle);
 		*title += "º-Distance: ";
 		distance = Distance(centerWidth, centerHeight, mouseX, mouseY);
 		*title += String::FromInt(distance);
-		
+
 		Screen::Instance().SetTitle(*title);
 
-		Renderer::Instance().SetColor(255,0,0,0);
-		Renderer::Instance().DrawRect(centerWidth - 10, centerHeight - 10,20,20);
-		
+		Renderer::Instance().SetColor(255, 0, 0, 0);
+		Renderer::Instance().DrawRect(centerWidth - 10, centerHeight - 10, 20, 20);
+
 		Renderer::Instance().SetColor(0, 255, 0, 0);
 		Renderer::Instance().DrawRect(mouseX - 5, mouseY - 5, 10, 10);
-		
+
 		Renderer::Instance().SetColor(0, 0, 255, 0);
 		Renderer::Instance().DrawEllipse(circleCenterX, circleCenterY, 5, 5);
 
@@ -311,66 +345,66 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 2
 #ifdef P2
-	scale += ((2 * increment) * Screen::Instance().ElapsedTime());
-	rotation += (30 * Screen::Instance().ElapsedTime());
-	if (scale >= 5) {
-		increment = -1;
-	}
-	else if (scale <= 0.5) {
-		increment = 1;
-	}
-	Renderer::Instance().DrawImage(ballTex, Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY(),0, ballTex->GetWidth()*scale, ballTex->GetHeight()*scale,rotation);
+		scale += ((2 * increment) * Screen::Instance().ElapsedTime());
+		rotation += (30 * Screen::Instance().ElapsedTime());
+		if (scale >= 5) {
+			increment = -1;
+		}
+		else if (scale <= 0.5) {
+			increment = 1;
+		}
+		Renderer::Instance().DrawImage(ballTex, Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY(), 0, ballTex->GetWidth()*scale, ballTex->GetHeight()*scale, rotation);
 #endif
 #pragma endregion
 
 #pragma region Practica 3-1
 #ifdef P3_1
-	Renderer::Instance().SetBlendMode(Renderer::SOLID);
-	Renderer::Instance().SetColor(255, 255, 255, 255);
-	Renderer::Instance().DrawRect(thirdOfWidth, 0, thirdOfWidth, Screen::Instance().GetHeight());
-	//SOLID
-		//RED
-	Renderer::Instance().SetColor(255, 0, 0, 255);
-	Renderer::Instance().DrawEllipse(3 * sixthdOfWidth, eighthOfHeight, 37, 37);
+		Renderer::Instance().SetBlendMode(Renderer::SOLID);
+		Renderer::Instance().SetColor(255, 255, 255, 255);
+		Renderer::Instance().DrawRect(thirdOfWidth, 0, thirdOfWidth, Screen::Instance().GetHeight());
+		//SOLID
+			//RED
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(3 * sixthdOfWidth, eighthOfHeight, 37, 37);
 		//GREEN
-	Renderer::Instance().SetColor(0, 255, 0, 255);
-	Renderer::Instance().DrawEllipse(3 * sixthdOfWidth-18, eighthOfHeight + 37, 37, 37);
+		Renderer::Instance().SetColor(0, 255, 0, 255);
+		Renderer::Instance().DrawEllipse(3 * sixthdOfWidth - 18, eighthOfHeight + 37, 37, 37);
 		//BLUE
-	Renderer::Instance().SetColor(0, 0, 255, 255);
-	Renderer::Instance().DrawEllipse(3 * sixthdOfWidth + 18, eighthOfHeight + 37, 37, 37);
-	//ALPHA
-	Renderer::Instance().SetBlendMode(Renderer::ALPHA);
+		Renderer::Instance().SetColor(0, 0, 255, 255);
+		Renderer::Instance().DrawEllipse(3 * sixthdOfWidth + 18, eighthOfHeight + 37, 37, 37);
+		//ALPHA
+		Renderer::Instance().SetBlendMode(Renderer::ALPHA);
 		//RED
-	Renderer::Instance().SetColor(255, 0, 0, 255);
-	Renderer::Instance().DrawEllipse(sixthdOfWidth, 4*eighthOfHeight-37, 37, 37);
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(sixthdOfWidth, 4 * eighthOfHeight - 37, 37, 37);
 		//GREEN
-	Renderer::Instance().SetColor(0, 255, 0, 128);
-	Renderer::Instance().DrawEllipse(sixthdOfWidth - 18, 4 * eighthOfHeight, 37, 37);
+		Renderer::Instance().SetColor(0, 255, 0, 128);
+		Renderer::Instance().DrawEllipse(sixthdOfWidth - 18, 4 * eighthOfHeight, 37, 37);
 		//BLUE
-	Renderer::Instance().SetColor(0, 0, 255, 128);
-	Renderer::Instance().DrawEllipse(sixthdOfWidth + 18, 4 * eighthOfHeight, 37, 37);
-	//MULTIPLICATIVE
-	Renderer::Instance().SetBlendMode(Renderer::MULTIPLICATIVE);
+		Renderer::Instance().SetColor(0, 0, 255, 128);
+		Renderer::Instance().DrawEllipse(sixthdOfWidth + 18, 4 * eighthOfHeight, 37, 37);
+		//MULTIPLICATIVE
+		Renderer::Instance().SetBlendMode(Renderer::MULTIPLICATIVE);
 		//RED
-	Renderer::Instance().SetColor(255, 0, 0, 255);
-	Renderer::Instance().DrawEllipse(3*sixthdOfWidth, 7 * eighthOfHeight-37, 37, 37);
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(3 * sixthdOfWidth, 7 * eighthOfHeight - 37, 37, 37);
 		//GREEN
-	Renderer::Instance().SetColor(0, 255, 0, 255);
-	Renderer::Instance().DrawEllipse(3*sixthdOfWidth - 18, 7 * eighthOfHeight, 37, 37);
+		Renderer::Instance().SetColor(0, 255, 0, 255);
+		Renderer::Instance().DrawEllipse(3 * sixthdOfWidth - 18, 7 * eighthOfHeight, 37, 37);
 		//BLUE
-	Renderer::Instance().SetColor(0, 0, 255, 255);
-	Renderer::Instance().DrawEllipse(3*sixthdOfWidth + 18, 7 * eighthOfHeight , 37, 37);
-	//ADDITIVE
-	Renderer::Instance().SetBlendMode(Renderer::ADDITIVE);
+		Renderer::Instance().SetColor(0, 0, 255, 255);
+		Renderer::Instance().DrawEllipse(3 * sixthdOfWidth + 18, 7 * eighthOfHeight, 37, 37);
+		//ADDITIVE
+		Renderer::Instance().SetBlendMode(Renderer::ADDITIVE);
 		//RED
-	Renderer::Instance().SetColor(255, 0, 0, 255);
-	Renderer::Instance().DrawEllipse(5*sixthdOfWidth, 4 * eighthOfHeight-37, 37, 37);
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(5 * sixthdOfWidth, 4 * eighthOfHeight - 37, 37, 37);
 		//GREEN
-	Renderer::Instance().SetColor(0, 255, 0, 255);
-	Renderer::Instance().DrawEllipse(5 * sixthdOfWidth - 18, 4 * eighthOfHeight, 37, 37);
+		Renderer::Instance().SetColor(0, 255, 0, 255);
+		Renderer::Instance().DrawEllipse(5 * sixthdOfWidth - 18, 4 * eighthOfHeight, 37, 37);
 		//BLUE
-	Renderer::Instance().SetColor(0, 0, 255, 255);
-	Renderer::Instance().DrawEllipse(5 * sixthdOfWidth + 18, 4 * eighthOfHeight , 37, 37);
+		Renderer::Instance().SetColor(0, 0, 255, 255);
+		Renderer::Instance().DrawEllipse(5 * sixthdOfWidth + 18, 4 * eighthOfHeight, 37, 37);
 #endif
 #pragma endregion
 
@@ -617,7 +651,7 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 4-1
 #ifdef P4_1
-		for (unsigned int i = 0; i < spriteArray->Size(); i++){
+		for (unsigned int i = 0; i < spriteArray->Size(); i++) {
 			currentSprite = (*spriteArray)[i];
 			userData = static_cast<spriteSpeed *>(currentSprite->GetUserData());
 			incX = userData->x*Screen::Instance().ElapsedTime();
@@ -645,86 +679,86 @@ int main(int argc, char* argv[]) {
 #ifdef P4_2
 		mouseX = Screen::Instance().GetMouseX();
 		mouseY = Screen::Instance().GetMouseY();
-		
+
 		for (unsigned int i = 0; i < spriteArray->Size(); i++) {
-				currentSprite = (*spriteArray)[i];
-				currentSprite->MoveTo(mouseX, mouseY, 100+(i*100));
-		
-				if (currentSprite->GetX() == mouseX && currentSprite->GetY() == mouseY) {
-					currentSprite->RotateTo(0, 30);
+			currentSprite = (*spriteArray)[i];
+			currentSprite->MoveTo(mouseX, mouseY, 100 + (i * 100));
+
+			if (currentSprite->GetX() == mouseX && currentSprite->GetY() == mouseY) {
+				currentSprite->RotateTo(0, 30);
+			}
+			else {
+				if (currentSprite->GetX() < mouseX) {
+					currentSprite->RotateTo(-15, 30);
 				}
 				else {
-					if (currentSprite->GetX() < mouseX) {
-						currentSprite->RotateTo(-15, 30);
-					}
-					else {
-						currentSprite->RotateTo(15, 30);
-					}
+					currentSprite->RotateTo(15, 30);
 				}
-		
-				currentSprite->Update(Screen::Instance().ElapsedTime());
-				currentSprite->Render();
+			}
+
+			currentSprite->Update(Screen::Instance().ElapsedTime());
+			currentSprite->Render();
 		}
 #endif
 #pragma endregion
 
 #pragma region Practica 5-1
 #ifdef P5_1 
-mouseX = Screen::Instance().GetMouseX();
-mouseY = Screen::Instance().GetMouseY();
+		mouseX = Screen::Instance().GetMouseX();
+		mouseY = Screen::Instance().GetMouseY();
 
-for (unsigned int i = 0; i < spriteArray->Size(); i++) {
-		currentSprite = (*spriteArray)[i];
-		currentSprite->MoveTo(mouseX, mouseY, 100+(i*100));
+		for (unsigned int i = 0; i < spriteArray->Size(); i++) {
+			currentSprite = (*spriteArray)[i];
+			currentSprite->MoveTo(mouseX, mouseY, 100 + (i * 100));
 
-		if (currentSprite->GetX() == mouseX && currentSprite->GetY() == mouseY) {
-			currentSprite->RotateTo(0, 30);
-		}
-		else {
-			if (currentSprite->GetX() < mouseX) {
-				currentSprite->RotateTo(-15, 30);
+			if (currentSprite->GetX() == mouseX && currentSprite->GetY() == mouseY) {
+				currentSprite->RotateTo(0, 30);
 			}
 			else {
-				currentSprite->RotateTo(15, 30);
+				if (currentSprite->GetX() < mouseX) {
+					currentSprite->RotateTo(-15, 30);
+				}
+				else {
+					currentSprite->RotateTo(15, 30);
+				}
 			}
-		}
 
-		currentSprite->Update(Screen::Instance().ElapsedTime());
-		currentSprite->Render();
-}
+			currentSprite->Update(Screen::Instance().ElapsedTime());
+			currentSprite->Render();
+		}
 #endif
 #pragma endregion
 
 #pragma region Practica 5-2
 #ifdef P5_2
-	mouseX = Screen::Instance().GetMouseX();
-	mouseY = Screen::Instance().GetMouseY();
-	skeleton->SetPosition(mouseX, mouseY);
-	skeleton->Update(Screen::Instance().ElapsedTime());
-	skeleton->Render();
+		mouseX = Screen::Instance().GetMouseX();
+		mouseY = Screen::Instance().GetMouseY();
+		skeleton->SetPosition(mouseX, mouseY);
+		skeleton->Update(Screen::Instance().ElapsedTime());
+		skeleton->Render();
 #endif
 #pragma endregion
 
 #pragma region Practica 6
 #ifdef P6
-	int row, columns;
-	row = columns = 0;
-	unsigned char letra;
-	Renderer::Instance().SetBlendMode(Renderer::ALPHA);
-	for (size_t i = 0; i < 256; i++)
-	{
-		/*Renderer::Instance().DrawImage(font, columns*font->GetWidth(), row*font->GetHeight(), i);*/
-		letra = i;
-		*text = letra;
-		Renderer::Instance().DrawText(font, *text, columns*font->GetWidth(), row*font->GetHeight());
-		if (columns < 15) {
-			columns++;
+		int row, columns;
+		row = columns = 0;
+		unsigned char letra;
+		Renderer::Instance().SetBlendMode(Renderer::ALPHA);
+		for (size_t i = 0; i < 256; i++)
+		{
+			/*Renderer::Instance().DrawImage(font, columns*font->GetWidth(), row*font->GetHeight(), i);*/
+			letra = i;
+			*text = letra;
+			Renderer::Instance().DrawText(font, *text, columns*font->GetWidth(), row*font->GetHeight());
+			if (columns < 15) {
+				columns++;
+			}
+			else {
+				columns = 0;
+				row++;
+			}
 		}
-		else {
-			columns = 0;
-			row++;
-		}
-	}
 		/*x += speedX*Screen::Instance().ElapsedTime();
 		y += speedY*Screen::Instance().ElapsedTime();
 		if (x + font->GetTextWidth(*text) > Screen::Instance().GetWidth()) {
@@ -763,18 +797,18 @@ for (unsigned int i = 0; i < spriteArray->Size(); i++) {
 #pragma region Practica 7-1
 #ifdef P7_1
 		Screen::Instance().SetTitle(*title);
-		incX = incY = angle= 0;
-		if (Screen::Instance().KeyPressed(GLFW_KEY_UP) && alien->GetY()-alien->GetImage()->GetHeight()*alien->GetScaleY()/2>0) {
+		incX = incY = angle = 0;
+		if (Screen::Instance().KeyPressed(GLFW_KEY_UP) && alien->GetY() - alien->GetImage()->GetHeight()*alien->GetScaleY() / 2 > 0) {
 			incY--;
 		}
-		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN) && alien->GetY() + alien->GetImage()->GetHeight()*alien->GetScaleY()/ 2<backgroundImage->GetHeight()) {
+		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN) && alien->GetY() + alien->GetImage()->GetHeight()*alien->GetScaleY() / 2 < backgroundImage->GetHeight()) {
 			incY++;
 		}
-		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT) && alien->GetX() - alien->GetImage()->GetWidth()*alien->GetScaleX() / 2>0) {
+		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT) && alien->GetX() - alien->GetImage()->GetWidth()*alien->GetScaleX() / 2 > 0) {
 			incX--;
 			angle += 15;
 		}
-		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT) && alien->GetX() + alien->GetImage()->GetWidth()*alien->GetScaleX() / 2<backgroundImage->GetWidth()) {
+		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT) && alien->GetX() + alien->GetImage()->GetWidth()*alien->GetScaleX() / 2 < backgroundImage->GetWidth()) {
 			incX++;
 			angle -= 15;
 		}
@@ -827,6 +861,23 @@ for (unsigned int i = 0; i < spriteArray->Size(); i++) {
 		*title += ",";
 		*title += title->FromInt(camera->GetY());
 		*title += "]";
+#endif
+#pragma endregion
+
+#pragma region Practica 8-1
+#ifdef P8_1
+		if (Screen::Instance().MouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
+			starEmitter->Start();
+		}
+		else {
+			starEmitter->Stop();
+		}
+		star->MoveTo(Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY(), 500);
+		starEmitter->SetPosition(star->GetX(), star->GetY());
+		star->Update(Screen::Instance().ElapsedTime());
+		starEmitter->Update(Screen::Instance().ElapsedTime());
+		starEmitter->Render();
+		star->Render();
 #endif
 #pragma endregion
 		// Refrescamos la pantalla

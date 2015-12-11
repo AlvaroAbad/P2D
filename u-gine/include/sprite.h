@@ -67,7 +67,7 @@ public:
 		this->r = r;
 		this->g = g;
 		this->b = b;
-		this->a = a;
+		this->a = alpha;
 	}
     virtual uint8 GetRed() const { return this->r;}
     virtual uint8 GetGreen() const { return this->g;}
