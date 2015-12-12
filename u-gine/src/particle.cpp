@@ -26,9 +26,15 @@ void Particle::Update(double elapsed)
 	this->SetAngle(angle);
 
 	if (this->autofade) {
-		uint8 alpha = this->GetAlpha();
+		double alpha = this->GetAlpha();
 		double alphaDecrement=255/ this->initialLifetime;
-		alpha -= alphaDecrement*elapsed;
+		alphaDecrement = alphaDecrement*elapsed;
+		if (alpha - alphaDecrement > 0) {
+			alpha -= alphaDecrement*elapsed;
+		}
+		else {
+			alpha = 0;
+		}
 		this->SetColor(this->GetRed(), this->GetGreen(), this->GetBlue(), alpha);
 	}
 	this->lifetime -= elapsed;
