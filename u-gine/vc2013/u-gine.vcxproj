@@ -81,6 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\affector.h" />
     <ClInclude Include="..\include\array.h" />
     <ClInclude Include="..\include\bone.h" />
     <ClInclude Include="..\include\bonedata.h" />
@@ -109,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\stb_image.c" />
+    <ClCompile Include="..\src\affector.cpp" />
     <ClCompile Include="..\src\bone.cpp" />
     <ClCompile Include="..\src\camera.cpp" />
     <ClCompile Include="..\src\emitter.cpp" />

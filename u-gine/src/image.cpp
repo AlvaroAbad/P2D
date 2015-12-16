@@ -33,12 +33,12 @@ Image::Image(const String &filename, uint16 hframes, uint16 vframes) {
 		}
 		else {
 			uint8 * newBuffer = (uint8 *)malloc(newWidth*newHeight * 4);
-			memset(newBuffer, 0, newWidth*newHeight * 4);
-			uint16 newBuffermargin = 0;
-			uint16 bufferMargin = 0;
-			for (uint32 h = 0; h < height; h++)
+			memset(newBuffer, 128, newWidth*newHeight * 4);
+			uint64 newBuffermargin = 0;
+			uint64 bufferMargin = 0;
+			for (uint64 h = 0; h < height; h++)
 			{
-				for (uint32 w = 0; w < width * 4; w++)
+				for (uint64 w = 0; w < width * 4; w++)
 				{
 					newBuffer[w + newBuffermargin] = buffer[w + bufferMargin];
 				}
@@ -48,8 +48,8 @@ Image::Image(const String &filename, uint16 hframes, uint16 vframes) {
 			stbi_image_free(static_cast<void *>(buffer));
 			gltex = Renderer::Instance().GenImage(newBuffer, newWidth, newHeight);
 			stbi_image_free(static_cast<void *>(newBuffer));
-			lastU = static_cast<double>(width) / static_cast<double>(newWidth);
-			lastV = static_cast<double>(height) / static_cast<double>(newHeight);
+			//lastU = static_cast<double>(width) / static_cast<double>(newWidth);
+			//lastV = static_cast<double>(height) / static_cast<double>(newHeight);
 		}
 
 	}

@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P8_1
+#define P2
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
 #pragma region Practica 2 INIT
 #ifdef P2
 	String *fileName = new String();
-	*fileName = "../data/soccer_npot.png";
+	*fileName = "../data/test.png";
 	Image * ballTex = ResourceManager::Instance().LoadImage(*fileName);
 	ballTex->SetMidHandle();
 	double rotation = 0;
@@ -345,14 +345,15 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 2
 #ifdef P2
-		scale += ((2 * increment) * Screen::Instance().ElapsedTime());
+		/*scale += ((2 * increment) * Screen::Instance().ElapsedTime());
 		rotation += (30 * Screen::Instance().ElapsedTime());
 		if (scale >= 5) {
 			increment = -1;
 		}
 		else if (scale <= 0.5) {
 			increment = 1;
-		}
+		}*/
+		//Renderer::Instance().SetBlendMode(Renderer::ALPHA);
 		Renderer::Instance().DrawImage(ballTex, Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY(), 0, ballTex->GetWidth()*scale, ballTex->GetHeight()*scale, rotation);
 #endif
 #pragma endregion

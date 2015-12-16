@@ -10,6 +10,7 @@ Particle::Particle(Image * image, double velx, double vely, double angularVel, d
 	this->initialLifetime = lifetime;
 	this->lifetime = lifetime;
 	this->autofade = autofade;
+	//this->posibleAffectors = posibleAffectors;
 }
 void Particle::Update(double elapsed)
 {
@@ -41,4 +42,8 @@ void Particle::Update(double elapsed)
 	if (this->lifetime<=0) {
 		this->SetColor(0, 0,0, 0);
 	}
+}
+
+void Particle::affect(Affector affector)
+{
 }
