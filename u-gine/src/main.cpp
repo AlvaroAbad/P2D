@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P2
+#define P8_2
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -294,6 +294,38 @@ int main(int argc, char* argv[]) {
 	starEmitter->SetLifetime(1, 2);
 	starEmitter->SetVelocityX(-128, 128);
 	starEmitter->SetVelocityY(-128, 128);
+#endif
+#pragma endregion
+
+#pragma region Practica 8-2 INIT
+#ifdef P8_2
+	String *fileName = new String();
+	*fileName = "../data/star.png";
+	Image *starImage = ResourceManager::Instance().LoadImage(*fileName);
+	starImage->SetMidHandle();
+	Sprite *star = new Sprite(starImage);
+	star->SetColor(255, 0, 0);
+	Emitter *starEmitter = new Emitter(starImage, true,2);
+	Affector *affector;
+	starEmitter->SetRate(500, 1000);
+	starEmitter->SetAngularVelocity(0, 360);
+	starEmitter->SetLifetime(1, 2);
+	starEmitter->SetVelocityX(-128, 128);
+	starEmitter->SetVelocityY(-128, 128);
+	starEmitter->AddAffector("left", 0, 0, Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight());
+	affector = starEmitter->getAffector("left");
+		if (affector) {
+			affector->SetMinColor(0, 0, 0);
+			affector->SetMaxColor(255, 255, 0);
+			affector->setAngularVelocity(0, 360);
+		}
+		starEmitter->AddAffector("right", (Screen::Instance().GetWidth() / 2) + 1,0, Screen::Instance().GetWidth(), Screen::Instance().GetHeight());
+		affector = starEmitter->getAffector("right");
+		if (affector) {
+			affector->SetMinColor(0, 0, 0);
+			affector->SetMaxColor(0, 255, 255);
+			affector->setAngularVelocity(360, 720);
+		}
 #endif
 #pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
@@ -865,8 +897,10 @@ int main(int argc, char* argv[]) {
 #endif
 #pragma endregion
 
-#pragma region Practica 8-1
-#ifdef P8_1
+#pragma region Practica 8
+#if defined(P8_1) || defined(P8_2)
+		Renderer::Instance().SetColor(255, 255, 255, 255);
+		Renderer::Instance().DrawLine(Screen::Instance().GetWidth()/2, 0, Screen::Instance().GetWidth()/2, Screen::Instance().GetHeight());
 		if (Screen::Instance().MouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
 			starEmitter->Start();
 		}

@@ -48,8 +48,8 @@ Image::Image(const String &filename, uint16 hframes, uint16 vframes) {
 			stbi_image_free(static_cast<void *>(buffer));
 			gltex = Renderer::Instance().GenImage(newBuffer, newWidth, newHeight);
 			stbi_image_free(static_cast<void *>(newBuffer));
-			//lastU = static_cast<double>(width) / static_cast<double>(newWidth);
-			//lastV = static_cast<double>(height) / static_cast<double>(newHeight);
+			lastU = static_cast<double>(width) / static_cast<double>(newWidth);
+			lastV = static_cast<double>(height) / static_cast<double>(newHeight);
 		}
 
 	}

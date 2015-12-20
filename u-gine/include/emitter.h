@@ -4,7 +4,7 @@
 #include "particle.h"
 class Emitter {
 public:
-	Emitter(Image* image, bool autofade);
+	Emitter(Image* image, bool autofade, uint32 particlesMaxAffectors =0);
 	virtual void SetPosition(double x, double y) {
 		this->x = x;
 		this->y = y;
@@ -46,6 +46,11 @@ public:
 	virtual void SetBlendMode(Renderer::BlendMode mode) {
 		this->blendMode = mode;
 	}
+	virtual void AddAffector(String id,double bound0X, double bound0Y, double bound1X, double bound1Y) {
+		this->affectors.Add(Affector(id, bound0X, bound0Y, bound1X, bound1Y));
+	}
+	virtual Array<Affector> * getAffectors() { return &this->affectors; }
+	virtual Affector * getAffector(String id);
 	virtual void Start() { this->emitting = true; }
 	virtual void Stop() { this->emitting = false; }
 	virtual bool IsEmitting()const { return this->emitting; }
@@ -64,6 +69,8 @@ private:
 	uint8 maxr, maxg, maxb;
 	Renderer::BlendMode blendMode;
 	bool emitting;
+	uint32 particlesMaxAffectors;
 	Array<Particle> particles;
+	Array<Affector> affectors;
 };
 #endif

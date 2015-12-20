@@ -2,7 +2,7 @@
 Particle::Particle(): Sprite(nullptr)
 {
 }
-Particle::Particle(Image * image, double velx, double vely, double angularVel, double lifetime, bool autofade): Sprite(image)
+Particle::Particle(Image * image, double velx, double vely, double angularVel, double lifetime, bool autofade, uint32 posibleAffectors): Sprite(image)
 {
 	this->velocityx = velx;
 	this->velocityy = vely;
@@ -10,7 +10,7 @@ Particle::Particle(Image * image, double velx, double vely, double angularVel, d
 	this->initialLifetime = lifetime;
 	this->lifetime = lifetime;
 	this->autofade = autofade;
-	//this->posibleAffectors = posibleAffectors;
+	this->posibleAffectors = posibleAffectors;
 }
 void Particle::Update(double elapsed)
 {
@@ -43,7 +43,17 @@ void Particle::Update(double elapsed)
 		this->SetColor(0, 0,0, 0);
 	}
 }
-
-void Particle::affect(Affector affector)
+bool Particle::hasbeenAffectedBy(String * id)
 {
+	uint32 numAffector = 0;
+	if (affectedBy.Size() == 0) {
+		return false;
+	}
+	while (affectedBy.Size()>numAffector && affectedBy[numAffector] != *id) {
+		numAffector++;
+	}
+	if (affectedBy.Size() == numAffector) {
+		return false;
+	}
+	return true;
 }
