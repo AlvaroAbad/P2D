@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P8_2
+#define P6
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -7,14 +7,14 @@
 
 int main(int argc, char* argv[]) {
 	Screen::Instance().Open(800, 600, false);
-	String *fontFileName = new String();
+	/*String *fontFileName = new String();
 	*fontFileName = "../data/arial16.png";
 	String *text = new String();
 	Font *font = ResourceManager::Instance().LoadFont(*fontFileName);
 	*text = "FPS: 0";
 	int frames;
 	double seconds;
-	frames = seconds = 0;
+	frames = seconds = 0;*/
 	srand(0);
 #pragma region Practica 1 INIT
 #ifdef P1
@@ -329,7 +329,7 @@ int main(int argc, char* argv[]) {
 #endif
 #pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
-		if (seconds >= 1) {
+	/*	if (seconds >= 1) {
 			*text = "FPS: ";
 			*text += text->FromInt(frames);
 			frames = seconds = 0;
@@ -338,7 +338,7 @@ int main(int argc, char* argv[]) {
 			frames++;
 			seconds += Screen::Instance().ElapsedTime();
 		}
-		Renderer::Instance().DrawText(font, *text, 0, 0);
+		Renderer::Instance().DrawText(font, *text, 0, 0);*/
 #pragma region Practica 1 
 #ifdef P1
 		angle++;
@@ -774,25 +774,25 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 6
 #ifdef P6
-		int row, columns;
-		row = columns = 0;
-		unsigned char letra;
-		Renderer::Instance().SetBlendMode(Renderer::ALPHA);
-		for (size_t i = 0; i < 256; i++)
-		{
-			/*Renderer::Instance().DrawImage(font, columns*font->GetWidth(), row*font->GetHeight(), i);*/
-			letra = i;
-			*text = letra;
-			Renderer::Instance().DrawText(font, *text, columns*font->GetWidth(), row*font->GetHeight());
-			if (columns < 15) {
-				columns++;
-			}
-			else {
-				columns = 0;
-				row++;
-			}
-		}
-		/*x += speedX*Screen::Instance().ElapsedTime();
+		//int row, columns;
+		//row = columns = 0;
+		//unsigned char letra;
+		//Renderer::Instance().SetBlendMode(Renderer::ALPHA);
+		//for (size_t i = 0; i < 256; i++)
+		//{
+		//	/*Renderer::Instance().DrawImage(font, columns*font->GetWidth(), row*font->GetHeight(), i);*/
+		//	letra = i;
+		//	*text = letra;
+		//	Renderer::Instance().DrawText(font, *text, columns*font->GetWidth(), row*font->GetHeight());
+		//	if (columns < 15) {
+		//		columns++;
+		//	}
+		//	else {
+		//		columns = 0;
+		//		row++;
+		//	}
+		//}
+		x += speedX*Screen::Instance().ElapsedTime();
 		y += speedY*Screen::Instance().ElapsedTime();
 		if (x + font->GetTextWidth(*text) > Screen::Instance().GetWidth()) {
 			x = Screen::Instance().GetWidth() - font->GetTextWidth(*text);
@@ -823,7 +823,7 @@ int main(int argc, char* argv[]) {
 			b = rand() % 255;
 		}
 		Renderer::Instance().SetColor(r, g, b, 225);
-		Renderer::Instance().DrawText(font, *text, x, y);*/
+		Renderer::Instance().DrawText(font, *text, x, y);
 #endif
 #pragma endregion
 

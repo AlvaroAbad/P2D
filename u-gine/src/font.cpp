@@ -58,8 +58,14 @@ uint32 Font::GetTextWidth(const String & text) const {
 
 uint32 Font::GetTextHeight(const String & text) const {
 	const unsigned char * chars = (unsigned char *)text.ToCString();
-
-	return this->GetHeight();
+	uint32 ret=0;
+	for (size_t i = 0; i < text.Length(); i++)
+	{
+			if ((*glyphs)[chars[i]].getHeight()>ret) {
+				ret = (*glyphs)[chars[i]].getHeight();
+			}
+	}
+	return ret;
 }
 
 void Font::Render(const String & text, double x, double y) const {
@@ -67,7 +73,7 @@ void Font::Render(const String & text, double x, double y) const {
 	uint32 textPosition = x;
 	uint32 width;
 	for (uint32 i = 0; i < text.Length(); i++) {
-		Renderer::Instance().DrawImage(this, textPosition, y, chars[i], this->GetWidth(), this->GetHeight(), 0);
+		Renderer::Instance().DrawImage(this, textPosition - (*this->glyphs)[chars[i]].getOffsetX(), y, chars[i], this->GetWidth(), this->GetHeight(), 0);
 		uint32 width = (*this->glyphs)[chars[i]].getWidth();
 		textPosition += (*this->glyphs)[chars[i]].getWidth();
 	}
