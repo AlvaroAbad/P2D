@@ -9,7 +9,10 @@ public:
 	virtual void setVelocityX(double velocityx) {this->velocityx = velocityx;}
 	virtual void setVelocityY(double velocityy) { this->velocityy = velocityy; }
 	virtual void setAngularVelocity(double angularVelocity) { this->angularVelocity = angularVelocity; }
-	virtual void setLifetime(double lifetime) { this->initialLifetime = lifetime; }
+	virtual void setLifetime(double lifetime) { 
+		this->lifetime = lifetime-(this->initialLifetime-this->lifetime);
+		this->initialLifetime = lifetime; 
+	}
 	virtual double GetLifetime()const { return this->lifetime; };
 	virtual void Update(double elapsed);
 	virtual bool isAffectable() {

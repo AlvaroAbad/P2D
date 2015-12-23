@@ -61,6 +61,7 @@ void Emitter::Update(double elapsed)
 						}
 						if (affectors[affector].lifeTimeAffected()) {
 							LifeTime = affectors[affector].getLifeTime();
+
 							particles[i].setLifetime(LifeTime);
 						}
 						if (affectors[affector].colorAffected()) {
@@ -147,7 +148,6 @@ void Emitter::Update(double elapsed)
 			this->particles.Last().SetColor(r, g, b, 255);
 			this->particles.Last().SetBlendMode(this->blendMode);
 		}
-		printf("stop");
 	}
 }
 

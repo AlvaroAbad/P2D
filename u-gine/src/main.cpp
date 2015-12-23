@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P6
+#define P7_2
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -7,14 +7,14 @@
 
 int main(int argc, char* argv[]) {
 	Screen::Instance().Open(800, 600, false);
-	/*String *fontFileName = new String();
+	String *fontFileName = new String();
 	*fontFileName = "../data/arial16.png";
 	String *text = new String();
 	Font *font = ResourceManager::Instance().LoadFont(*fontFileName);
 	*text = "FPS: 0";
 	int frames;
 	double seconds;
-	frames = seconds = 0;*/
+	frames = seconds = 0;
 	srand(0);
 #pragma region Practica 1 INIT
 #ifdef P1
@@ -249,12 +249,12 @@ int main(int argc, char* argv[]) {
 
 	int32 incX, incY, angle;
 	String *fileName = new String();
-	*fileName = "data/backlayer.png";
+	*fileName = "../data/backlayer.png";
 	Image *backLayerImage = ResourceManager::Instance().LoadImage(*fileName);
-	*fileName = "data/frontlayer.png";
+	*fileName = "../data/frontlayer.png";
 	Image *frontLayerImage = ResourceManager::Instance().LoadImage(*fileName);
 	ParallaxScene *scene = new ParallaxScene(backLayerImage, frontLayerImage);
-	*fileName = "data/alienanim.png";
+	*fileName = "../data/alienanim.png";
 	Image *alienImage = ResourceManager::Instance().LoadImage(*fileName, 8, 1);
 	alienImage->SetMidHandle();
 	Sprite *alien = scene->CreateSprite(alienImage, Scene::LAYER_FRONT);
@@ -329,7 +329,7 @@ int main(int argc, char* argv[]) {
 #endif
 #pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
-	/*	if (seconds >= 1) {
+		if (seconds >= 1) {
 			*text = "FPS: ";
 			*text += text->FromInt(frames);
 			frames = seconds = 0;
@@ -338,7 +338,7 @@ int main(int argc, char* argv[]) {
 			frames++;
 			seconds += Screen::Instance().ElapsedTime();
 		}
-		Renderer::Instance().DrawText(font, *text, 0, 0);*/
+		Renderer::Instance().DrawText(font, *text, 0, 0);
 #pragma region Practica 1 
 #ifdef P1
 		angle++;
@@ -866,17 +866,17 @@ int main(int argc, char* argv[]) {
 #ifdef P7_2
 		Screen::Instance().SetTitle(*title);
 		incX = incY = angle = 0;
-		if (Screen::Instance().KeyPressed(GLFW_KEY_UP) && alien->GetY()) {
+		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
 			incY--;
 		}
-		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN) && alien->GetY()) {
+		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN)) {
 			incY++;
 		}
-		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT) && alien->GetX()) {
+		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT)) {
 			incX--;
 			angle += 15;
 		}
-		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT) && alien->GetX()) {
+		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT)) {
 			incX++;
 			angle -= 15;
 		}
