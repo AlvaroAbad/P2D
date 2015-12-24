@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P7_2
+#define P8_2
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -286,9 +286,10 @@ int main(int argc, char* argv[]) {
 	*fileName = "../data/star.png";
 	Image *starImage = ResourceManager::Instance().LoadImage(*fileName);
 	starImage->SetMidHandle();
-	Sprite *star = new Sprite(starImage);
+	Scene scene;
+	Sprite *star = scene.CreateSprite(starImage,Scene::LAYER_FRONT);
 	star->SetColor(255, 0, 0);
-	Emitter *starEmitter = new Emitter(starImage, true);
+	Emitter *starEmitter = scene.CreateEmitter(starImage, true);
 	starEmitter->SetRate(500, 1000);
 	starEmitter->SetAngularVelocity(0, 360);
 	starEmitter->SetLifetime(1, 2);
@@ -303,9 +304,10 @@ int main(int argc, char* argv[]) {
 	*fileName = "../data/star.png";
 	Image *starImage = ResourceManager::Instance().LoadImage(*fileName);
 	starImage->SetMidHandle();
-	Sprite *star = new Sprite(starImage);
+	Scene scene;
+	Sprite *star = scene.CreateSprite(starImage, Scene::LAYER_FRONT);
 	star->SetColor(255, 0, 0);
-	Emitter *starEmitter = new Emitter(starImage, true,2);
+	Emitter *starEmitter = scene.CreateEmitter(starImage, true);
 	Affector *affector;
 	starEmitter->SetRate(500, 1000);
 	starEmitter->SetAngularVelocity(0, 360);
@@ -899,8 +901,7 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 8
 #if defined(P8_1) || defined(P8_2)
-		Renderer::Instance().SetColor(255, 255, 255, 255);
-		Renderer::Instance().DrawLine(Screen::Instance().GetWidth()/2, 0, Screen::Instance().GetWidth()/2, Screen::Instance().GetHeight());
+		
 		if (Screen::Instance().MouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
 			starEmitter->Start();
 		}
@@ -909,10 +910,10 @@ int main(int argc, char* argv[]) {
 		}
 		star->MoveTo(Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY(), 500);
 		starEmitter->SetPosition(star->GetX(), star->GetY());
-		star->Update(Screen::Instance().ElapsedTime());
-		starEmitter->Update(Screen::Instance().ElapsedTime());
-		starEmitter->Render();
-		star->Render();
+		scene.Update(Screen::Instance().ElapsedTime());
+		scene.Render();
+		Renderer::Instance().SetColor(255, 255, 255, 255);
+		Renderer::Instance().DrawLine(Screen::Instance().GetWidth() / 2, 0, Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight());
 #endif
 #pragma endregion
 		// Refrescamos la pantalla

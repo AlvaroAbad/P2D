@@ -45,10 +45,8 @@ void Emitter::Update(double elapsed)
 	for (uint32 i = 0;i < this->particles.Size();i++) {
 		affector = 0;
 		while (affectors.Size() > affector && particles[i].isAffectable()) {
-			if (!particles[i].hasbeenAffectedBy(&affectors[affector].getId())) {
 				if (particles[i].GetX() >= affectors[affector].getBound0X() && particles[i].GetX() <= affectors[affector].getBound1X()) {
 					if (particles[i].GetY() >= affectors[affector].getBound0Y() && particles[i].GetY() <= affectors[affector].getBound1Y()) {
-						
 						double LifeTime;
 						if (affectors[affector].velocityXAffected()) {
 							particles[i].setVelocityX(affectors[affector].getVelocityX());
@@ -77,10 +75,9 @@ void Emitter::Update(double elapsed)
 							
 							particles[i].SetColor(r,g,b,a);
 						}
-						particles[i].affect(&affectors[affector].getId());
+						particles[i].affect();
 					}
 				}
-			}
 			affector++;
 		}
 		this->particles[i].Update(elapsed);
@@ -143,7 +140,7 @@ void Emitter::Update(double elapsed)
 			else {
 				b = (rand() % static_cast<unsigned int>(this->maxb - this->minb)) + this->minb;
 			}
-			this->particles.Add(Particle(this->image, velX, velY, angVel, lifeTime, this->autofade,this->particlesMaxAffectors));
+			this->particles.Add(Particle(this->image, velX, velY, angVel, lifeTime, this->autofade));
 			this->particles.Last().SetPosition(this->x, this->y);
 			this->particles.Last().SetColor(r, g, b, 255);
 			this->particles.Last().SetBlendMode(this->blendMode);

@@ -5,7 +5,7 @@
 class Particle: public Sprite{
 public:
 	Particle();
-	Particle(Image* image, double velx, double vely, double angularVel, double lifetime, bool autofade, uint32 posibleAffectors = 0);
+	Particle(Image* image, double velx, double vely, double angularVel, double lifetime, bool autofade);
 	virtual void setVelocityX(double velocityx) {this->velocityx = velocityx;}
 	virtual void setVelocityY(double velocityy) { this->velocityy = velocityy; }
 	virtual void setAngularVelocity(double angularVelocity) { this->angularVelocity = angularVelocity; }
@@ -16,18 +16,16 @@ public:
 	virtual double GetLifetime()const { return this->lifetime; };
 	virtual void Update(double elapsed);
 	virtual bool isAffectable() {
-		return this->posibleAffectors > this->affectedBy.Size();	
+		return !this->affected;
 	}
-	virtual bool hasbeenAffectedBy(String *id);
-	virtual void affect(String * id) { this->affectedBy.Add(*id); };
+	virtual void affect() { this->affected=true; };
 private:
 	double velocityx,velocityy;
 	double angularVelocity;
 	double lifetime;
 	double initialLifetime;
 	bool autofade;
-	uint32 posibleAffectors;
-	Array<String> affectedBy;
+	bool affected;
 };
 
 #endif

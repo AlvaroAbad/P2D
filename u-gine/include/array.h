@@ -82,7 +82,9 @@ void Array<T>::Add(const T& elem) {
 
 template <typename T>
 void Array<T>::RemoveAt(int index) {
-    for ( uint32 i = index+1; i < size; i++ ) buffer[i-1] = buffer[i];
+	for (uint32 i = index + 1; i < size; i++) {
+		buffer[i - 1] = buffer[i];
+	}
     size--;
 }
 
