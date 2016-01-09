@@ -16,7 +16,7 @@ uint8 Affector::getR()
 		return this->maxR;
 	}
 	else {
-		return (rand() % static_cast<unsigned int>(this->maxR - this->minR)) + this->minR;
+		return (rand() % static_cast<unsigned int>(this->maxR + 1 - this->minR)) + this->minR;
 	}
 }
 uint8 Affector::getG()
@@ -25,7 +25,7 @@ uint8 Affector::getG()
 		return this->maxG;
 	}
 	else {
-		return (rand() % static_cast<unsigned int>(this->maxG - this->minG)) + this->minG;
+		return (rand() % static_cast<unsigned int>(this->maxG + 1 - this->minG)) + this->minG;
 	}
 }
 uint8 Affector::getB()
@@ -34,7 +34,7 @@ uint8 Affector::getB()
 		return this->maxB;
 	}
 	else {
-		return (rand() % static_cast<unsigned int>(this->maxB - this->minB)) + this->minB;
+		return (rand() % static_cast<unsigned int>(this->maxB + 1 - this->minB)) + this->minB;
 	}
 }
 double Affector::getVelocityX()
@@ -43,7 +43,7 @@ double Affector::getVelocityX()
 		return this->maxVelocityX;
 	}
 	else {
-		return (rand() % static_cast<unsigned int>(this->maxVelocityX - this->minVelocityX)) + this->minVelocityX;
+		return (rand() % static_cast<unsigned int>(this->maxVelocityX + 1 - this->minVelocityX)) + this->minVelocityX;
 	}
 }
 double Affector::getVelocityY()
@@ -52,7 +52,7 @@ double Affector::getVelocityY()
 		return this->maxVelocityY;
 	}
 	else {
-		return (rand() % static_cast<unsigned int>(this->maxVelocityY - this->minVelocityY)) + this->minVelocityY;
+		return (rand() % static_cast<unsigned int>(this->maxVelocityY + 1 - this->minVelocityY)) + this->minVelocityY;
 	}
 }
 
@@ -63,7 +63,7 @@ double Affector::getAngularVelocity()
 		return this->maxAngularVelocity;
 	}
 	else {
-		return (rand() % static_cast<unsigned int>(this->maxAngularVelocity - this->minAangularVelocity)) + this->minAangularVelocity;
+		return (rand() % static_cast<unsigned int>(this->maxAngularVelocity + 1 - this->minAangularVelocity)) + this->minAangularVelocity;
 	}
 }
 double Affector::getLifeTime()
@@ -72,6 +72,6 @@ double Affector::getLifeTime()
 		return this->maxLifetime;
 	}
 	else {
-		return (rand() % static_cast<unsigned int>(this->maxLifetime - this->minLifetime)) + this->minLifetime;
+		return (rand() % static_cast<unsigned int>(this->maxLifetime + 1 - this->minLifetime)) + this->minLifetime;
 	}
 }

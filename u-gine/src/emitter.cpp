@@ -91,7 +91,7 @@ void Emitter::Update(double elapsed)
 			rate = this->maxrate;
 		}
 		else {
-			rate = (rand() % static_cast<unsigned int>(this->maxrate - this->minrate)) + this->minrate;
+			rate = (rand() % static_cast<unsigned int>(this->maxrate + 1 - this->minrate)) + this->minrate;
 		}
 
 		rate = rate*elapsed;
@@ -101,44 +101,44 @@ void Emitter::Update(double elapsed)
 				velX = this->maxvelx;
 			}
 			else {
-				velX = (rand() % static_cast<unsigned int>(this->maxvelx - this->minvelx)) + this->minvelx;
+				velX = (rand() % static_cast<unsigned int>(this->maxvelx+1 - this->minvelx)) + this->minvelx;
 			}
 			if (this->maxvely == this->minvely) {
 				velY = this->maxvely;
 			}
 			else {
-				velY = (rand() % static_cast<unsigned int>(this->maxvely - this->minvely)) + this->minvely;
+				velY = (rand() % static_cast<unsigned int>(this->maxvely + 1 - this->minvely)) + this->minvely;
 			}
 
 			if (this->maxangvel == this->minangvel) {
 				angVel = this->maxangvel;
 			}
 			else {
-				angVel = (rand() % static_cast<unsigned int>(this->maxangvel - this->minangvel)) + this->minangvel;
+				angVel = (rand() % static_cast<unsigned int>(this->maxangvel + 1 - this->minangvel)) + this->minangvel;
 			}
 			if (this->maxlifetime == this->minlifetime) {
 				lifeTime = this->maxlifetime;
 			}
 			else {
-				lifeTime = (rand() % static_cast<unsigned int>(this->maxlifetime - this->minlifetime)) + this->minlifetime;
+				lifeTime = (rand() % static_cast<unsigned int>(this->maxlifetime + 1 - this->minlifetime)) + this->minlifetime;
 			}
 			if (this->maxr == this->minr) {
 				r = this->maxr;
 			}
 			else {
-				r = (rand() % static_cast<unsigned int>(this->maxr - this->minr)) + this->minr;
+				r = (rand() % static_cast<unsigned int>(this->maxr + 1 - this->minr)) + this->minr;
 			}
 			if (this->maxg == this->ming) {
 				g = this->maxg;
 			}
 			else {
-				g = (rand() % static_cast<unsigned int>(this->maxg - this->ming)) + this->ming;
+				g = (rand() % static_cast<unsigned int>(this->maxg + 1 - this->ming)) + this->ming;
 			}
 			if (this->maxb == this->minb) {
 				b = this->maxb;
 			}
 			else {
-				b = (rand() % static_cast<unsigned int>(this->maxb - this->minb)) + this->minb;
+				b = (rand() % static_cast<unsigned int>(this->maxb + 1 - this->minb)) + this->minb;
 			}
 			this->particles.Add(Particle(this->image, velX, velY, angVel, lifeTime, this->autofade));
 			this->particles.Last().SetPosition(this->x, this->y);
