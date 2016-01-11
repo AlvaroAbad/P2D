@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P7_1
+#define P7_2
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -8,7 +8,7 @@
 int main(int argc, char* argv[]) {
 	Screen::Instance().Open(800, 600, false);
 	String *fontFileName = new String();
-	*fontFileName = "../data/arial16.png";
+	*fontFileName = "data/arial16.png";
 	String *text = new String();
 	Font *font = ResourceManager::Instance().LoadFont(*fontFileName);
 	*text = "FPS: 0";
@@ -197,9 +197,7 @@ int main(int argc, char* argv[]) {
 #pragma region Practica 6 INIT
 #ifdef P6
 	String *fileName = new String();
-	*fileName = "../data/arial16.png";
-	String *text = new String();
-	Font *font = ResourceManager::Instance().LoadFont(*fileName);
+	*fileName = "data/arial16.png";
 	*text = "Hola, Mundo";
 	double speedX, speedY;
 	speedX = rand() % 127 + 128;
@@ -249,12 +247,12 @@ int main(int argc, char* argv[]) {
 
 	int32 incX, incY, angle;
 	String *fileName = new String();
-	*fileName = "../data/backlayer.png";
+	*fileName = "data/backlayer.png";
 	Image *backLayerImage = ResourceManager::Instance().LoadImage(*fileName);
-	*fileName = "../data/frontlayer.png";
+	*fileName = "data/frontlayer.png";
 	Image *frontLayerImage = ResourceManager::Instance().LoadImage(*fileName);
 	ParallaxScene *scene = new ParallaxScene(backLayerImage, frontLayerImage);
-	*fileName = "../data/alienanim.png";
+	*fileName = "data/alienanim.png";
 	Image *alienImage = ResourceManager::Instance().LoadImage(*fileName, 8, 1);
 	alienImage->SetMidHandle();
 	Sprite *alien = scene->CreateSprite(alienImage, Scene::LAYER_FRONT);
@@ -283,7 +281,7 @@ int main(int argc, char* argv[]) {
 #pragma region Practica 8-1 INIT
 #ifdef P8_1
 	String *fileName = new String();
-	*fileName = "../data/star.png";
+	*fileName = "data/star.png";
 	Image *starImage = ResourceManager::Instance().LoadImage(*fileName);
 	starImage->SetMidHandle();
 	Scene scene;
@@ -301,7 +299,7 @@ int main(int argc, char* argv[]) {
 #pragma region Practica 8-2 INIT
 #ifdef P8_2
 	String *fileName = new String();
-	*fileName = "../data/star.png";
+	*fileName = "data/star.png";
 	Image *starImage = ResourceManager::Instance().LoadImage(*fileName);
 	starImage->SetMidHandle();
 	Scene scene;
