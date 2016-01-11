@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P8_2
+#define P7_1
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -331,16 +331,6 @@ int main(int argc, char* argv[]) {
 #endif
 #pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
-		if (seconds >= 1) {
-			*text = "FPS: ";
-			*text += text->FromInt(frames);
-			frames = seconds = 0;
-		}
-		else {
-			frames++;
-			seconds += Screen::Instance().ElapsedTime();
-		}
-		Renderer::Instance().DrawText(font, *text, 0, 0);
 #pragma region Practica 1 
 #ifdef P1
 		angle++;

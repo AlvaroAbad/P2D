@@ -96,6 +96,15 @@
     <ClInclude Include="..\include\affector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\circlecollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rectcollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -194,6 +203,12 @@
       <Filter>data</Filter>
     </Image>
     <Image Include="..\data\star.png">
+      <Filter>data</Filter>
+    </Image>
+    <Image Include="..\data\circle.png">
+      <Filter>data</Filter>
+    </Image>
+    <Image Include="..\data\rect.png">
       <Filter>data</Filter>
     </Image>
   </ItemGroup>
