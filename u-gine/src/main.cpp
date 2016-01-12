@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P7_2
+#define P8_2
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -299,7 +299,7 @@ int main(int argc, char* argv[]) {
 #pragma region Practica 8-2 INIT
 #ifdef P8_2
 	String *fileName = new String();
-	*fileName = "data/star.png";
+	*fileName = "../data/star.png";
 	Image *starImage = ResourceManager::Instance().LoadImage(*fileName);
 	starImage->SetMidHandle();
 	Scene scene;
@@ -307,7 +307,7 @@ int main(int argc, char* argv[]) {
 	star->SetColor(255, 0, 0);
 	Emitter *starEmitter = scene.CreateEmitter(starImage, true);
 	Affector *affector;
-	starEmitter->SetRate(500, 1000);
+	starEmitter->SetRate(1, 10);
 	starEmitter->SetAngularVelocity(0, 360);
 	starEmitter->SetLifetime(1, 2);
 	starEmitter->SetVelocityX(-128, 128);
@@ -367,15 +367,15 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 2
 #ifdef P2
-		/*scale += ((2 * increment) * Screen::Instance().ElapsedTime());
+		scale += ((2 * increment) * Screen::Instance().ElapsedTime());
 		rotation += (30 * Screen::Instance().ElapsedTime());
 		if (scale >= 5) {
 			increment = -1;
 		}
 		else if (scale <= 0.5) {
 			increment = 1;
-		}*/
-		//Renderer::Instance().SetBlendMode(Renderer::ALPHA);
+		}
+		Renderer::Instance().SetBlendMode(Renderer::ALPHA);
 		Renderer::Instance().DrawImage(ballTex, Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY(), 0, ballTex->GetWidth()*scale, ballTex->GetHeight()*scale, rotation);
 #endif
 #pragma endregion
@@ -764,24 +764,24 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 6
 #ifdef P6
-		//int row, columns;
-		//row = columns = 0;
-		//unsigned char letra;
-		//Renderer::Instance().SetBlendMode(Renderer::ALPHA);
-		//for (size_t i = 0; i < 256; i++)
-		//{
-		//	/*Renderer::Instance().DrawImage(font, columns*font->GetWidth(), row*font->GetHeight(), i);*/
-		//	letra = i;
-		//	*text = letra;
-		//	Renderer::Instance().DrawText(font, *text, columns*font->GetWidth(), row*font->GetHeight());
-		//	if (columns < 15) {
-		//		columns++;
-		//	}
-		//	else {
-		//		columns = 0;
-		//		row++;
-		//	}
-		//}
+		int row, columns;
+		row = columns = 0;
+		unsigned char letra;
+		Renderer::Instance().SetBlendMode(Renderer::ALPHA);
+		for (size_t i = 0; i < 256; i++)
+		{
+			/*Renderer::Instance().DrawImage(font, columns*font->GetWidth(), row*font->GetHeight(), i);*/
+			letra = i;
+			*text = letra;
+			Renderer::Instance().DrawText(font, *text, columns*font->GetWidth(), row*font->GetHeight());
+			if (columns < 15) {
+				columns++;
+			}
+			else {
+				columns = 0;
+				row++;
+			}
+		}
 		x += speedX*Screen::Instance().ElapsedTime();
 		y += speedY*Screen::Instance().ElapsedTime();
 		if (x + font->GetTextWidth(*text) > Screen::Instance().GetWidth()) {
@@ -891,7 +891,9 @@ int main(int argc, char* argv[]) {
 #if defined(P8_1) || defined(P8_2)
 		
 		if (Screen::Instance().MouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
-			starEmitter->Start();
+			if (!starEmitter->IsEmitting()) {
+				starEmitter->Start();
+			}
 		}
 		else {
 			starEmitter->Stop();

@@ -51,7 +51,7 @@ public:
 	}
 	virtual Array<Affector> * getAffectors() { return &this->affectors; }
 	virtual Affector * getAffector(String id);
-	virtual void Start() { this->emitting = true; }
+	virtual void Start() { this->emitting = true; this->acumulative = 0; }
 	virtual void Stop() { this->emitting = false; }
 	virtual bool IsEmitting()const { return this->emitting; }
 	virtual void Update(double elapsed);
@@ -72,5 +72,6 @@ private:
 	uint32 particlesMaxAffectors;
 	Array<Particle> particles;
 	Array<Affector> affectors;
+	double acumulative;
 };
 #endif
