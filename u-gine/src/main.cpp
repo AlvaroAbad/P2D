@@ -8,7 +8,7 @@
 int main(int argc, char* argv[]) {
 	Screen::Instance().Open(800, 600, false);
 	String *fontFileName = new String();
-	*fontFileName = "data/arial16.png";
+	*fontFileName = "../data/monospaced.png";
 	String *text = new String();
 	Font *font = ResourceManager::Instance().LoadFont(*fontFileName);
 	*text = "FPS: 0";
@@ -196,9 +196,9 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 6 INIT
 #ifdef P6
-	String *fileName = new String();
-	*fileName = "data/arial16.png";
+	*fontFileName = "../data/arial16.png";
 	*text = "Hola, Mundo";
+	font = ResourceManager::Instance().LoadFont(*fontFileName);
 	double speedX, speedY;
 	speedX = rand() % 127 + 128;
 	speedY = rand() % 127 + 128;
@@ -215,10 +215,10 @@ int main(int argc, char* argv[]) {
 
 	int32 incX, incY, angle;
 	String *fileName = new String();
-	*fileName = "data/background.png";
+	*fileName = "../data/background.png";
 	Image *backgroundImage = ResourceManager::Instance().LoadImage(*fileName);
 	Scene *scene = new Scene(backgroundImage);
-	*fileName = "data/alienanim.png";
+	*fileName = "../data/alienanim.png";
 	Image *alienImage = ResourceManager::Instance().LoadImage(*fileName, 8, 1);
 	alienImage->SetMidHandle();
 	Sprite *alien = scene->CreateSprite(alienImage, Scene::LAYER_FRONT);
@@ -247,12 +247,12 @@ int main(int argc, char* argv[]) {
 
 	int32 incX, incY, angle;
 	String *fileName = new String();
-	*fileName = "data/backlayer.png";
+	*fileName = "../data/backlayer.png";
 	Image *backLayerImage = ResourceManager::Instance().LoadImage(*fileName);
-	*fileName = "data/frontlayer.png";
+	*fileName = "../data/frontlayer.png";
 	Image *frontLayerImage = ResourceManager::Instance().LoadImage(*fileName);
 	ParallaxScene *scene = new ParallaxScene(backLayerImage, frontLayerImage);
-	*fileName = "data/alienanim.png";
+	*fileName = "../data/alienanim.png";
 	Image *alienImage = ResourceManager::Instance().LoadImage(*fileName, 8, 1);
 	alienImage->SetMidHandle();
 	Sprite *alien = scene->CreateSprite(alienImage, Scene::LAYER_FRONT);
@@ -281,7 +281,7 @@ int main(int argc, char* argv[]) {
 #pragma region Practica 8-1 INIT
 #ifdef P8_1
 	String *fileName = new String();
-	*fileName = "data/star.png";
+	*fileName = "../data/star.png";
 	Image *starImage = ResourceManager::Instance().LoadImage(*fileName);
 	starImage->SetMidHandle();
 	Scene scene;
@@ -307,19 +307,19 @@ int main(int argc, char* argv[]) {
 	star->SetColor(255, 0, 0);
 	Emitter *starEmitter = scene.CreateEmitter(starImage, true);
 	Affector *affector;
-	starEmitter->SetRate(1, 10);
+	starEmitter->SetRate(500, 1000);
 	starEmitter->SetAngularVelocity(0, 360);
 	starEmitter->SetLifetime(1, 2);
 	starEmitter->SetVelocityX(-128, 128);
 	starEmitter->SetVelocityY(-128, 128);
-	starEmitter->AddAffector("left", 0, 0, Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight());
+	starEmitter->AddAffector("left", 0, 0, Screen::Instance().GetWidth() / 3, Screen::Instance().GetHeight());
 	affector = starEmitter->getAffector("left");
 		if (affector) {
 			affector->SetMinColor(0, 0, 0);
 			affector->SetMaxColor(255, 255, 0);
 			affector->setAngularVelocity(0, 360);
 		}
-		starEmitter->AddAffector("right", (Screen::Instance().GetWidth() / 2) + 1,0, Screen::Instance().GetWidth(), Screen::Instance().GetHeight());
+		starEmitter->AddAffector("right", 2*(Screen::Instance().GetWidth() / 3) + 1,0, Screen::Instance().GetWidth(), Screen::Instance().GetHeight());
 		affector = starEmitter->getAffector("right");
 		if (affector) {
 			affector->SetMinColor(0, 0, 0);
@@ -764,24 +764,6 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 6
 #ifdef P6
-		int row, columns;
-		row = columns = 0;
-		unsigned char letra;
-		Renderer::Instance().SetBlendMode(Renderer::ALPHA);
-		for (size_t i = 0; i < 256; i++)
-		{
-			/*Renderer::Instance().DrawImage(font, columns*font->GetWidth(), row*font->GetHeight(), i);*/
-			letra = i;
-			*text = letra;
-			Renderer::Instance().DrawText(font, *text, columns*font->GetWidth(), row*font->GetHeight());
-			if (columns < 15) {
-				columns++;
-			}
-			else {
-				columns = 0;
-				row++;
-			}
-		}
 		x += speedX*Screen::Instance().ElapsedTime();
 		y += speedY*Screen::Instance().ElapsedTime();
 		if (x + font->GetTextWidth(*text) > Screen::Instance().GetWidth()) {
@@ -822,17 +804,17 @@ int main(int argc, char* argv[]) {
 		Screen::Instance().SetTitle(*title);
 		incX = incY = angle = 0;
 		if (Screen::Instance().KeyPressed(GLFW_KEY_UP) && alien->GetY() - alien->GetImage()->GetHeight()*alien->GetScaleY() / 2 > 0) {
-			incY--;
+			incY-=100;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN) && alien->GetY() + alien->GetImage()->GetHeight()*alien->GetScaleY() / 2 < backgroundImage->GetHeight()) {
-			incY++;
+			incY+=100;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT) && alien->GetX() - alien->GetImage()->GetWidth()*alien->GetScaleX() / 2 > 0) {
-			incX--;
+			incX-=100;
 			angle += 15;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT) && alien->GetX() + alien->GetImage()->GetWidth()*alien->GetScaleX() / 2 < backgroundImage->GetWidth()) {
-			incX++;
+			incX+=100;
 			angle -= 15;
 		}
 		alien->MoveTo(alien->GetX() + incX, alien->GetY() + incY, 100);

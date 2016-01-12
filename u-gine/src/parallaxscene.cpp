@@ -20,7 +20,7 @@ void ParallaxScene::Update(double elapsed, Map * map){
 	this->backX += this->autoBackSpeedX*elapsed;
 	this->backY += this->autoBackSpeedY*elapsed;
 	this->frontX += this->autoFrontSpeedX*elapsed;
-	this->frontX += this->autoFrontSpeedX*elapsed;
+	this->frontY += this->autoFrontSpeedY*elapsed;
 
 }
 void ParallaxScene::RenderBackground() const{
