@@ -1,6 +1,8 @@
 #include "..\include\collisionmanager.h"
 #include "..\include\math.h"
+
 CollisionManager* CollisionManager::manager = nullptr;
+
 CollisionManager & CollisionManager::Instance()
 {
 	if (!manager) {
@@ -26,23 +28,34 @@ bool CollisionManager::CircleToCircle(double x1, double y1, double r1, double x2
 	}
 }
 
+bool CollisionManager::CircleToPixels(double cx, double cy, double cr, const CollisionPixelData * pixels, double px, double py) const
+{
+
+	return false;
+}
+
 bool CollisionManager::CircleToRect(double cx, double cy, double cr, double rx, double ry, double rw, double rh) const
 {
-	double cCenterX, cCenterY;
-	cCenterX = cx + cr;
-	cCenterY = cy + cr;
-	double dist1, dist2, dist3, dist4;
-	dist1 = Distance(cCenterX, cCenterY, rx, ry);
-	dist2 = Distance(cCenterX, cCenterY, rx+rw, ry);
-	dist3 = Distance(cCenterX, cCenterY, rx, ry+rh);
-	dist4 = Distance(cCenterX, cCenterY, rx+rw, ry+rh);
-	if (cr >= dist1 || cr >= dist2 || cr >= dist3 || cr >= dist4) {
+	double closestX, closestY;
+	ClosestPointToRect(cx + cr, cy + cr, rx, ry, rw, rh, &closestX, &closestY);
+	if (Distance(cx + cr, cy + cr, closestX, closestY) <= cr) {
 		return true;
 	}
 	else {
-
-		return RectsOverlap(cx,cy,cr*2,cr*2,rx,ry,rw,rh);
+		return false;
 	}
+}
+
+bool CollisionManager::PixelsToPixels(const CollisionPixelData * p1, double x1, double y1, const CollisionPixelData * p2, double x2, double y2) const
+{
+	double overlapRectX, overlapRectY, overlapRectW, overlapRectH;
+	OverlappingRect(x1, y1, p1->GetWidth(), p1->GetHeight(), x2, y2, p2->GetWidth(), p2->GetHeight(), overlapRectX, overlapRectY, overlapRectW, overlapRectH);
+	return false;
+}
+
+bool CollisionManager::PixelsToRect(const CollisionPixelData * pixels, double px, double py, double rx, double ry, double rw, double rh) const
+{
+	return false;
 }
 
 bool CollisionManager::RectToRect(double x1, double y1, double w1, double h1, double x2, double y2, double w2, double h2) const

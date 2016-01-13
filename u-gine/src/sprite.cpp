@@ -52,7 +52,6 @@ Sprite::~Sprite() {
 	if (this->collision) {
 		delete this->collision;
 	}
-	// TAREA: Implementar
 }
 
 void Sprite::SetCollision(CollisionMode mode) {
@@ -67,9 +66,9 @@ void Sprite::SetCollision(CollisionMode mode) {
 	case Sprite::COLLISION_CIRCLE:
 		this->collision = new CircleCollision(&this->colx, &this->coly, &this->radius);
 		break;
-	/*case Sprite::COLLISION_PIXEL:
-		this->collision = new PixelCollision(this->image->GetFilename, &this->x, &this->y);
-		break;*/
+	case Sprite::COLLISION_PIXEL:
+		this->collision = new PixelCollision(this->image->GetFilename().StripDir()+"Col"+ this->image->GetFilename().ExtractDir(), &this->x, &this->y);
+		break;
 	case Sprite::COLLISION_RECT:
 		this->collision = new RectCollision(&this->colx, &this->coly, &this->colwidth, &this->colheight);
 		break;
