@@ -21,7 +21,7 @@ public:
 	Sprite(Image* image);
 	virtual ~Sprite();
 
-	virtual void SetImage(Image* image) { this->image = image; }
+	virtual void SetImage(Image* image) {this->image = image;}
     virtual const Image* GetImage() const { return this->image;}
 
 	virtual void SetPosition(double x, double y, double z = 0) { 
@@ -79,11 +79,11 @@ public:
 
 	virtual void SetCollision(CollisionMode mode);
 	virtual void SetCollisionPixelData(const CollisionPixelData* colPixelData) { this->colPixelData = colPixelData;}
-    virtual const Collision* GetCollision() const { return this->collision; /* TAREA: Implementar */ }
+    virtual const Collision* GetCollision() const { return this->collision;}
     virtual bool CheckCollision(Sprite* sprite);
     virtual bool CheckCollision(const Map* map);
-    virtual const Sprite* CollisionSprite() const { return NULL; /* TAREA: Implementar */ }
-    virtual bool DidCollide() const { return false; /* TAREA: Implementar */ }
+    virtual Sprite* CollisionSprite() const { return this->colSprite;}//removed const Sprite*
+    virtual bool DidCollide() const { return this->collided;  }
 
     virtual void RotateTo(int32 angle, double speed);
     virtual void MoveTo(double x, double y, double speed);

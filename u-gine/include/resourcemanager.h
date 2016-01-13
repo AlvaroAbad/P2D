@@ -32,7 +32,7 @@ protected:
 private:
     static ResourceManager* manager;
 
-    //Array<CollisionPixelData*> collisionPixelDatas;
+    Array<CollisionPixelData*> collisionPixelDatas;
     Array<Font*> fonts;
     Array<Image*> images;
     //Array<Map*> maps;

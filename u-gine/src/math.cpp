@@ -70,7 +70,22 @@ void ClosestPointToRect(double x, double y, double rectx, double recty, double w
 
 bool RectsOverlap(double x1, double y1, double width1, double height1, double x2, double y2, double width2, double height2) {
 	// TAREA: Implementar funcion
-	return false;
+	if (ValueInRange(x1, x2, x2 + width2)|| ValueInRange(x1 + width1, x2, x2 + width2)) {
+		if (ValueInRange(y1, y2, y2 + height2) || ValueInRange(y1 + height1, y2, y2 + height2)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}else if (ValueInRange(y1, y2, y2 + height2) || ValueInRange(y1 + height1, y2, y2 + height2)) {
+		if (ValueInRange(x1, x2, x2 + width2) || ValueInRange(x1 + width1, x2, x2 + width2)) {
+			return true;
+		}else { 
+			return false; 
+		}
+	}else {
+		return false;
+	}
 }
 
 void OverlappingRect(double x1, double y1, double width1, double height1, double x2, double y2, double width2, double height2, double* outx, double* outy, double* outwidth, double* outheight) {

@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P8_2
+#define P9
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -326,6 +326,40 @@ int main(int argc, char* argv[]) {
 			affector->SetMaxColor(0, 255, 255);
 			affector->setAngularVelocity(360, 720);
 		}
+#endif
+#pragma endregion
+#pragma region Practica 9 INIT
+#ifdef P9
+		double forthHeight, forthWidth;
+		forthHeight = Screen::Instance().GetHeight() / 4;
+		forthWidth= Screen::Instance().GetWidth() / 4;
+		Array<Sprite *> objects;
+		String *fileName = new String();
+		*fileName = "../data/box.jpg";
+		Image *boxImage = ResourceManager::Instance().LoadImage(*fileName);
+		boxImage->SetMidHandle();
+		*fileName = "../data/ball.png";
+		Image *ballImage = ResourceManager::Instance().LoadImage(*fileName);
+		ballImage->SetMidHandle();
+		*fileName = "../data/circle.png";
+		Image *circleImage = ResourceManager::Instance().LoadImage(*fileName);
+		circleImage->SetMidHandle();
+		*fileName = "../data/rect.png";
+		Image *rectImage = ResourceManager::Instance().LoadImage(*fileName);
+		rectImage->SetMidHandle();
+		Scene scene;
+		Sprite *box = scene.CreateSprite(boxImage);
+		box->SetPosition(forthWidth * 3, forthHeight * 3);
+		box->SetCollision(Sprite::COLLISION_RECT);
+		objects.Add(box);
+		Sprite *ball = scene.CreateSprite(ballImage);
+		ball->SetPosition(forthWidth, forthHeight);
+		ball->SetCollision(Sprite::COLLISION_CIRCLE);
+		objects.Add(ball);
+		Sprite *collider = scene.CreateSprite(circleImage);
+		collider->SetCollision(Sprite::COLLISION_CIRCLE);
+		//collider->SetCollision(Sprite::COLLISION_RECT);
+		objects.Add(collider);
 #endif
 #pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
@@ -880,12 +914,44 @@ int main(int argc, char* argv[]) {
 		else {
 			starEmitter->Stop();
 		}
-		star->MoveTo(Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY(), 500);
+		star->SetPosition(Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY());
 		starEmitter->SetPosition(star->GetX(), star->GetY());
 		scene.Update(Screen::Instance().ElapsedTime());
 		scene.Render();
 		Renderer::Instance().SetColor(255, 255, 255, 255);
 		Renderer::Instance().DrawLine(Screen::Instance().GetWidth() / 2, 0, Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight());
+#endif
+#pragma endregion
+
+#pragma region Practica 9
+#ifdef P9
+		if (Screen::Instance().MouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
+			collider->SetImage(circleImage);
+			collider->SetRadius(circleImage->GetHeight() / 2);
+			collider->SetCollision(Sprite::COLLISION_CIRCLE);
+
+		}
+		else if (Screen::Instance().MouseButtonPressed(GLFW_MOUSE_BUTTON_RIGHT)) {
+			collider->SetImage(rectImage);
+			collider->SetRadius(rectImage->GetHeight() / 2);
+			collider->SetCollision(Sprite::COLLISION_RECT);
+		}
+		else if (Screen::Instance().MouseButtonPressed(GLFW_MOUSE_BUTTON_MIDDLE)) {
+
+		}
+		for (uint32 i = 0; i < objects.Size(); i++)
+		{
+			if (objects[i]->DidCollide()) {
+				objects[i]->SetColor(255, 0, 0, 255);
+			}
+			else {
+				objects[i]->SetColor(255, 255, 255, 255);
+			}
+		}
+		collider->SetPosition(Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY());
+		scene.Update(Screen::Instance().ElapsedTime());
+		scene.Render();
+			
 #endif
 #pragma endregion
 		// Refrescamos la pantalla
