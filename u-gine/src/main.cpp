@@ -334,20 +334,25 @@ int main(int argc, char* argv[]) {
 		forthHeight = Screen::Instance().GetHeight() / 4;
 		forthWidth= Screen::Instance().GetWidth() / 4;
 		Array<Sprite *> objects;
+		//Images
 		String *fileName = new String();
-		*fileName = "data/box.jpg";
+		*fileName = "../data/box.jpg";
 		Image *boxImage = ResourceManager::Instance().LoadImage(*fileName);
 		boxImage->SetMidHandle();
-		*fileName = "data/ball.png";
+		*fileName = "../data/ball.png";
 		Image *ballImage = ResourceManager::Instance().LoadImage(*fileName);
 		ballImage->SetMidHandle();
-		*fileName = "data/circle.png";
+		*fileName = "../data/circle.png";
 		Image *circleImage = ResourceManager::Instance().LoadImage(*fileName);
 		circleImage->SetMidHandle();
-		*fileName = "data/rect.png";
+		*fileName = "../data/rect.png";
 		Image *rectImage = ResourceManager::Instance().LoadImage(*fileName);
 		rectImage->SetMidHandle();
+		*fileName = "../data/alien.png";
+		Image *alienImage = ResourceManager::Instance().LoadImage(*fileName);
+		rectImage->SetMidHandle();
 		Scene scene;
+		//Sprites
 		Sprite *box = scene.CreateSprite(boxImage);
 		box->SetPosition(forthWidth * 3, forthHeight * 3);
 		box->SetCollision(Sprite::COLLISION_RECT);
@@ -356,10 +361,14 @@ int main(int argc, char* argv[]) {
 		ball->SetPosition(forthWidth, forthHeight);
 		ball->SetCollision(Sprite::COLLISION_CIRCLE);
 		objects.Add(ball);
+		Sprite *alien = scene.CreateSprite(alienImage);
+		alien->SetPosition(forthWidth, forthHeight * 3);
+		alien->SetCollision(Sprite::COLLISION_PIXEL);
+		objects.Add(alien);
 		Sprite *collider = scene.CreateSprite(circleImage);
 		collider->SetCollision(Sprite::COLLISION_CIRCLE);
-		//collider->SetCollision(Sprite::COLLISION_RECT);
 		objects.Add(collider);
+		
 #endif
 #pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
@@ -937,7 +946,9 @@ int main(int argc, char* argv[]) {
 			collider->SetCollision(Sprite::COLLISION_RECT);
 		}
 		else if (Screen::Instance().MouseButtonPressed(GLFW_MOUSE_BUTTON_MIDDLE)) {
-
+			collider->SetImage(alienImage);
+			collider->SetRadius(alienImage->GetHeight() / 2);
+			collider->SetCollision(Sprite::COLLISION_PIXEL);
 		}
 		for (uint32 i = 0; i < objects.Size(); i++)
 		{

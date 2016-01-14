@@ -82,7 +82,7 @@ public:
     virtual const Collision* GetCollision() const { return this->collision;}
     virtual bool CheckCollision(Sprite* sprite);
     virtual bool CheckCollision(const Map* map);
-    virtual Sprite* CollisionSprite() const { return this->colSprite;}//removed const Sprite*
+    virtual const Sprite*  CollisionSprite() const { return this->colSprite;}
     virtual bool DidCollide() const { return this->collided;  }
 
     virtual void RotateTo(int32 angle, double speed);

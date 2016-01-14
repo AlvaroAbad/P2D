@@ -67,7 +67,7 @@ void Sprite::SetCollision(CollisionMode mode) {
 		this->collision = new CircleCollision(&this->colx, &this->coly, &this->radius);
 		break;
 	case Sprite::COLLISION_PIXEL:
-		this->collision = new PixelCollision(this->image->GetFilename().StripDir()+"Col"+ this->image->GetFilename().ExtractDir(), &this->x, &this->y);
+		this->collision = new PixelCollision(this->image->GetFilename().StripExt()+"Col."+ this->image->GetFilename().ExtractExt(), &this->x, &this->y);
 		break;
 	case Sprite::COLLISION_RECT:
 		this->collision = new RectCollision(&this->colx, &this->coly, &this->colwidth, &this->colheight);
@@ -79,6 +79,8 @@ bool Sprite::CheckCollision(Sprite* sprite) {
 	this->collided=this->collision->DoesCollide(sprite->GetCollision());
 	if (this->collided) {
 		this->colSprite = sprite;
+		sprite->collided = true;
+		sprite->colSprite = this;
 	}
 	return this->collided;
 }
@@ -139,7 +141,7 @@ void Sprite::Update(double elapsed, const Map* map) {
 	}
 	//Actualizar angulo
 	if (this->rotating) {
-		this->degreesToRotate -= abs(this->rotatingSpeed)*elapsed;
+		this->degreesToRotate -= fabs(this->rotatingSpeed)*elapsed;
 		this->angle += this->rotatingSpeed*elapsed;
 		if (degreesToRotate <= 0) {
 			this->angle = this->toAngle;

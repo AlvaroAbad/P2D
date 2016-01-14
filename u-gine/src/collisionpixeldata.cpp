@@ -16,6 +16,7 @@ CollisionPixelData::CollisionPixelData(const String & filename)
 		width = static_cast<uint16>(w);
 		height = static_cast<uint16>(h);
 		data = static_cast<bool *>(malloc(w*h*sizeof(bool)));
+		memset(data, false, w*h*sizeof(bool));
 		for (uint32 i = 3; i < w*h*4; i+=4)
 		{
 			if (buffer[i]) {
