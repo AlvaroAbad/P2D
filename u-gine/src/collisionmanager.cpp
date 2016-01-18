@@ -41,21 +41,18 @@ bool CollisionManager::CircleToPixels(double cx, double cy, double cr, const Col
 		y = overlapRectY;
 
 		//cicle through pixels
-		while ((!pixels->GetData(x -px, y -py) || Distance(x, y, cx + cr, cy + cr) > cr) && ((x <overlapRectX + overlapRectW || y < overlapRectY + overlapRectH))) {
-			if (x == overlapRectX + overlapRectW) {
-				x = overlapRectX;
-				y++;
-			}
-			else {
+		bool collision = false;
+		while (!collision && y < (overlapRectY + overlapRectH))
+		{
+			while (!collision && x <(overlapRectX + overlapRectW))
+			{
+				collision = pixels->GetData(x - px, y - py) && Distance(x, y, cx + cr, cy + cr) < cr;
 				x++;
 			}
+			y++;
+			x = overlapRectX;
 		}
-		if (x < overlapRectX + overlapRectW || y < overlapRectY + overlapRectH) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return collision;
 	}
 	else {
 return false;
@@ -79,36 +76,24 @@ bool CollisionManager::CircleToRect(double cx, double cy, double cr, double rx, 
 bool CollisionManager::PixelsToPixels(const CollisionPixelData * p1, double x1, double y1, const CollisionPixelData * p2, double x2, double y2) const
 {
 	double overlapRectX, overlapRectY, overlapRectW, overlapRectH;
-	double controlX, constrolY, p1x, p1y, p2x, p2y;
+	double x, y, p1x, p1y, p2x, p2y;
 	if(RectsOverlap(x1, y1, p1->GetWidth(), p1->GetHeight(), x2, y2, p2->GetWidth(), p2->GetHeight())){
 	OverlappingRect(x1, y1, p1->GetWidth(), p1->GetHeight(), x2, y2, p2->GetWidth(), p2->GetHeight(), &overlapRectX, &overlapRectY, &overlapRectW, &overlapRectH);
-	controlX = overlapRectX;
-	constrolY = overlapRectY;
-	p1x = overlapRectX- x1;
-	p1y = overlapRectY- y1;
-	p2x = overlapRectX - x2;
-	p2y= overlapRectY - y2;
-	while ((!p1->GetData(p1x, p1y) || !p2->GetData(p2x, p2y)) && (controlX <overlapRectX + overlapRectW || constrolY < overlapRectY + overlapRectH)) {
-		if (controlX == overlapRectX + overlapRectW) {
-			p1x = overlapRectX - x1;
-			p2x = overlapRectX - x2;
-			controlX = overlapRectX;
-			p1y++;
-			p2y++;
-			constrolY++;
+	x = overlapRectX;
+	y = overlapRectY;
+
+	bool collision = false;
+	while (!collision && y < (overlapRectY + overlapRectH))
+	{
+		while (!collision && x <(overlapRectX + overlapRectW))
+		{
+			collision = (p1->GetData(x - x1, y - y1) && p2->GetData(x - x2, y - y2));
+			x++;
 		}
-		else {
-			p1x++;
-			p2x++;
-			controlX++;
-		}
+		y++;
+		x = overlapRectX;
 	}
-	if (controlX <= overlapRectX + overlapRectW || constrolY <= overlapRectY + overlapRectH) {
-		return true;
-	}
-	else {
-		return false;
-	}
+	return collision;
 	}
 	else {
 		return false;
@@ -122,21 +107,19 @@ bool CollisionManager::PixelsToRect(const CollisionPixelData * pixels, double px
 		OverlappingRect(px, py, pixels->GetWidth(), pixels->GetHeight(), rx, ry, rw, rh, &overlapRectX, &overlapRectY, &overlapRectW, &overlapRectH);
 		x = overlapRectX;
 		y = overlapRectY;
-		while (pixels->GetData(x - px, y - py) && (x-px<overlapRectW || y-py<overlapRectH)) {
-			if (x == overlapRectX + overlapRectW) {
-				x = overlapRectX;
-				y++;
-			}
-			else {
+
+		bool collision = false;
+		while (!collision && y < (overlapRectY + overlapRectH))
+		{
+			while (!collision && x <(overlapRectX + overlapRectW))
+			{
+				collision = pixels->GetData(x - px, y - py);
 				x++;
 			}
+			y++;
+			x = overlapRectX;
 		}
-		if (x < overlapRectX + overlapRectW || y < overlapRectY + overlapRectH) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return collision;
 	}
 	else {
 return false;

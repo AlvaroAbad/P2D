@@ -1,5 +1,6 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P9
+#define P10
+
 
 #include "../include/u-gine.h"
 #include <stdlib.h>     /* srand, rand */
@@ -328,6 +329,7 @@ int main(int argc, char* argv[]) {
 		}
 #endif
 #pragma endregion
+
 #pragma region Practica 9 INIT
 #ifdef P9
 		double forthHeight, forthWidth;
@@ -350,7 +352,7 @@ int main(int argc, char* argv[]) {
 		rectImage->SetMidHandle();
 		*fileName = "../data/alien.png";
 		Image *alienImage = ResourceManager::Instance().LoadImage(*fileName);
-		rectImage->SetMidHandle();
+		alienImage->SetMidHandle();
 		Scene scene;
 		//Sprites
 		Sprite *box = scene.CreateSprite(boxImage);
@@ -369,6 +371,26 @@ int main(int argc, char* argv[]) {
 		collider->SetCollision(Sprite::COLLISION_CIRCLE);
 		objects.Add(collider);
 		
+#endif
+#pragma endregion
+
+#pragma region Practica 10 INIT
+#ifdef P10
+		int32 incX, incY, angle;
+		String *fileName = new String();
+		*fileName = "../data/alien.png";
+		Image *alienImage = ResourceManager::Instance().LoadImage(*fileName);
+		alienImage->SetMidHandle();
+		*fileName = "../data/map.tmx";
+		Map *map = ResourceManager::Instance().LoadMap(*fileName);
+		MapScene *scene = new MapScene(map);
+		Sprite *alien=scene->CreateSprite(alienImage);
+		alien->SetPosition(Screen::Instance().GetWidth(), Screen::Instance().GetHeight());
+		alien->SetCollision(Sprite::COLLISION_PIXEL);
+		Camera *camera = &scene->GetCamera();
+		camera->SetBounds(0, 0, map->GetWidth(), map->GetHeight());
+		camera->FollowSprite(alien);
+
 #endif
 #pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
@@ -963,6 +985,30 @@ int main(int argc, char* argv[]) {
 		scene.Update(Screen::Instance().ElapsedTime());
 		scene.Render();
 			
+#endif
+#pragma endregion
+
+#pragma region Practica 10
+#ifdef P10
+		incX = incY = angle = 0;
+		if (Screen::Instance().KeyPressed(GLFW_KEY_UP) && alien->GetY() - alien->GetImage()->GetHeight()*alien->GetScaleY() / 2 > 0) {
+			incY -= 100;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN) && alien->GetY() + alien->GetImage()->GetHeight()*alien->GetScaleY() / 2 < map->GetHeight()) {
+			incY += 100;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT) && alien->GetX() - alien->GetImage()->GetWidth()*alien->GetScaleX() / 2 > 0) {
+			incX -= 100;
+			angle += 15;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT) && alien->GetX() + alien->GetImage()->GetWidth()*alien->GetScaleX() / 2 < map->GetWidth()) {
+			incX += 100;
+			angle -= 15;
+		}
+		alien->MoveTo(alien->GetX() + incX, alien->GetY() + incY, 100);
+		alien->RotateTo(angle, 30);
+		scene->Update(Screen::Instance().ElapsedTime());
+		scene->Render();
 #endif
 #pragma endregion
 		// Refrescamos la pantalla

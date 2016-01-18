@@ -1,7 +1,7 @@
 #include "../include/sprite.h"
 #include "../include/rectcollision.h"
 #include "../include/image.h"
-//#include "../include/map.h"
+#include "../include/map.h"
 #include "../include/math.h"
 #include "../include/pixelcollision.h"
 #include "../include/renderer.h"
@@ -67,7 +67,13 @@ void Sprite::SetCollision(CollisionMode mode) {
 		this->collision = new CircleCollision(&this->colx, &this->coly, &this->radius);
 		break;
 	case Sprite::COLLISION_PIXEL:
-		this->collision = new PixelCollision(this->image->GetFilename().StripExt()+"Col."+ this->image->GetFilename().ExtractExt(), &this->x, &this->y);
+		if (colPixelData) {
+
+		}
+		else {
+			this->collision = new PixelCollision(colPixelData, &this->colx, &this->coly);
+		}
+		this->collision = new PixelCollision(this->image->GetFilename().StripExt()+"Col."+ this->image->GetFilename().ExtractExt(), &this->colx, &this->coly);
 		break;
 	case Sprite::COLLISION_RECT:
 		this->collision = new RectCollision(&this->colx, &this->coly, &this->colwidth, &this->colheight);
@@ -76,6 +82,7 @@ void Sprite::SetCollision(CollisionMode mode) {
 }
 
 bool Sprite::CheckCollision(Sprite* sprite) {
+	if(this->collision){
 	this->collided=this->collision->DoesCollide(sprite->GetCollision());
 	if (this->collided) {
 		this->colSprite = sprite;
@@ -83,11 +90,45 @@ bool Sprite::CheckCollision(Sprite* sprite) {
 		sprite->colSprite = this;
 	}
 	return this->collided;
+	}
+	else {
+		return false;
+	}
 }
 
 bool Sprite::CheckCollision(const Map* map) {
-	return false;
-	// TAREA: Implementar
+	uint32 rowTL, rowTR, rowBL,rowBR,colTL,colTR, colBL,colBR;
+	bool collisionTL, collisionTR, collisionBL, collisionBR;
+	collisionTL = collisionTR = collisionBL = collisionBR = false;
+	if (this->collision) {
+		colTL = colx / map->GetTileWidth();
+		rowTL = coly / map->GetTileHeight();
+
+		colTR = (colx + colwidth) / map->GetTileWidth();
+		rowTR = rowTL;
+
+		colBL = colTL;
+		rowBL = (coly + colheight) / map->GetTileHeight();
+
+		colBR = colTR;
+		rowBR = rowBL;
+		if (map->GetTileId(colTR, rowTR) >= map->GetFirstColId()) {
+			collisionTR = this->collision->DoesCollide(colTR*map->GetTileWidth(), rowTR* map->GetTileHeight(), map->GetTileWidth(), map->GetTileHeight());
+		}
+		if (map->GetTileId(colBR, rowBR) >= map->GetFirstColId()) {
+			collisionBR = this->collision->DoesCollide(colBR*map->GetTileWidth(), rowBR* map->GetTileHeight(), map->GetTileWidth(), map->GetTileHeight());
+		}
+		if (map->GetTileId(colTL, rowTL) >= map->GetFirstColId()) {
+			collisionTL = this->collision->DoesCollide(colTL*map->GetTileWidth(), rowTL* map->GetTileHeight(), map->GetTileWidth(), map->GetTileHeight());
+		}
+		if (map->GetTileId(colBL, rowBL) >= map->GetFirstColId()) {
+			collisionBL = this->collision->DoesCollide(colBL*map->GetTileWidth(), rowBL* map->GetTileHeight(), map->GetTileWidth(), map->GetTileHeight());
+		}
+		return collisionTL || collisionTR || collisionBL || collisionBR;
+	}
+	else {
+		return false;
+	}
 }
 
 void Sprite::RotateTo(int32 angle, double speed) {
@@ -150,6 +191,8 @@ void Sprite::Update(double elapsed, const Map* map) {
 	}
 	//actualizar posicion
 	if (this->moving) {
+		this->prevX = this->x;
+		this->prevY = this->y;
 		if (this->x - this->toX != 0) {
 			this->x += this->movingSpeedX*elapsed;
 			if (this->movingSpeedX>0) {
@@ -161,6 +204,10 @@ void Sprite::Update(double elapsed, const Map* map) {
 				if (this->x < this->toX) {
 					this->x = this->toX;
 				}
+			}
+			UpdateCollisionBox();
+			if (CheckCollision(map)) {
+				this->x = prevX;
 			}
 		}
 
@@ -176,6 +223,10 @@ void Sprite::Update(double elapsed, const Map* map) {
 					this->y = this->toY;
 
 				}
+			}
+			UpdateCollisionBox();
+			if (CheckCollision(map)) {
+				this->y = prevY;
 			}
 		}
 

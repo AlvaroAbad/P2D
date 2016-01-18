@@ -114,6 +114,12 @@
     <ClInclude Include="..\include\collisionpixeldata.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\mapscene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -177,6 +183,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\collisionpixeldata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mapscene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
