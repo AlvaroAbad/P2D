@@ -46,6 +46,8 @@ Sprite::Sprite(Image* image) {
 	this->prevX = 0;
 	this->prevY = 0;
 	this->userData = nullptr;
+	this->centerX = 0;
+	this->centerY = 0;
 }
 
 Sprite::~Sprite() {
@@ -64,7 +66,7 @@ void Sprite::SetCollision(CollisionMode mode) {
 		this->collision = nullptr;
 		break;
 	case Sprite::COLLISION_CIRCLE:
-		this->collision = new CircleCollision(&this->colx, &this->coly, &this->radius);
+		this->collision = new CircleCollision(&this->centerX, &this->centerY, &this->radius);
 		break;
 	case Sprite::COLLISION_PIXEL:
 		if (colPixelData) {
@@ -249,11 +251,15 @@ void Sprite::UpdateCollisionBox() {
 	this->coly = this->y - this->image->GetHandleY()*fabs(this->scaley);
 	this->colheight = this->image->GetHeight() * fabs(this->scaley);
 	this->colwidth = this->image->GetWidth() * fabs(this->scalex);
+	this->centerX = colx + this->image->GetWidth() / 2;
+	this->centerY= coly + this->image->GetHeight() / 2;
 }
 
-void Sprite::UpdateCollisionBox(double x, double y, double w, double h) {
+void Sprite::UpdateCollisionBox(double x, double y, double w, double h, double cX, double cY) {
 	this->colx = x;
 	this->coly = y;
 	this->colheight =h;
 	this->colwidth = w;
+	this->centerX = cX;
+	this->centerY = cY;
 }

@@ -98,11 +98,11 @@ public:
 	virtual const void* GetUserData() const { return userData; }
 protected:
     virtual void UpdateCollisionBox();
-    virtual void UpdateCollisionBox(double x, double y, double w, double h);
+    virtual void UpdateCollisionBox(double x, double y, double w, double h, double cX, double cY);
 private:
     Image* image;
     double x, y, z;
-    double colx, coly, colwidth, colheight;
+    double colx, coly, colwidth, colheight, centerX, centerY;
     double angle;
     double scalex, scaley;
     double radius;

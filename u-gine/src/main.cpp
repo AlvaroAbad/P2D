@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P10
+#define P9
 
 
 #include "../include/u-gine.h"

@@ -14,12 +14,8 @@ CollisionManager & CollisionManager::Instance()
 bool CollisionManager::CircleToCircle(double x1, double y1, double r1, double x2, double y2, double r2) const
 {
 	double centerX1, centerY1, centerX2, centerY2;
-	centerX1 = x1 + r1;
-	centerY1 = y1 + r1;
-	centerX2 = x2 + r2;
-	centerY2 = y2 + r2;
 	double distC;
-	distC=Distance(centerX1, centerY1, centerX2, centerY2);
+	distC=Distance(x1, y1, x2, y2);
 	if (r1 + r2 >= distC) {
 		return true;
 	}
@@ -33,9 +29,9 @@ bool CollisionManager::CircleToPixels(double cx, double cy, double cr, const Col
 	double overlapRectX, overlapRectY, overlapRectW, overlapRectH;
 	double x, y;
 	//check overlap
-	if (RectsOverlap(cx, cy, cr*2, cr*2, px, py, pixels->GetWidth(), pixels->GetHeight())) {
+	if (RectsOverlap(cx-cr, cy-cr, cr*2, cr*2, px, py, pixels->GetWidth(), pixels->GetHeight())) {
 		//get overlapingRect
-		OverlappingRect(cx, cy, cr * 2, cr * 2, px, py, pixels->GetWidth(), pixels->GetHeight(), &overlapRectX, &overlapRectY, &overlapRectW, &overlapRectH);
+		OverlappingRect(cx-cr, cy-cr, cr * 2, cr * 2, px, py, pixels->GetWidth(), pixels->GetHeight(), &overlapRectX, &overlapRectY, &overlapRectW, &overlapRectH);
 		//reference coords
 		x = overlapRectX;
 		y = overlapRectY;
@@ -46,7 +42,7 @@ bool CollisionManager::CircleToPixels(double cx, double cy, double cr, const Col
 		{
 			while (!collision && x <(overlapRectX + overlapRectW))
 			{
-				collision = pixels->GetData(x - px, y - py) && Distance(x, y, cx + cr, cy + cr) < cr;
+				collision = pixels->GetData(x - px, y - py) && Distance(x, y, cx, cy) < cr;
 				x++;
 			}
 			y++;
@@ -64,8 +60,8 @@ return false;
 bool CollisionManager::CircleToRect(double cx, double cy, double cr, double rx, double ry, double rw, double rh) const
 {
 	double closestX, closestY;
-	ClosestPointToRect(cx + cr, cy + cr, rx, ry, rw, rh, &closestX, &closestY);
-	if (Distance(cx + cr, cy + cr, closestX, closestY) <= cr) {
+	ClosestPointToRect(cx, cy, rx, ry, rw, rh, &closestX, &closestY);
+	if (Distance(cx, cy, closestX, closestY) <= cr) {
 		return true;
 	}
 	else {
