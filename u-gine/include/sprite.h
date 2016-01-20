@@ -58,7 +58,7 @@ public:
 	}
     virtual uint16 GetFirstFrame() const { return this->firstFrame;}
     virtual uint16 GetLastFrame() { return this->lastFrame;}
-	virtual void SetCurrentFrame(uint16 frame) { this->currentFrame = currentFrame;}
+	virtual void SetCurrentFrame(uint16 frame) { this->currentFrame = frame;}
     virtual uint16 GetCurrentFrame() const { return this->currentFrame;}
 
 	virtual void SetBlendMode(Renderer::BlendMode blend) { this->blendMode = blend;}

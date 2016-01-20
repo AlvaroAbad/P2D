@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P9
+#define P11
 
 
 #include "../include/u-gine.h"
@@ -391,6 +391,25 @@ int main(int argc, char* argv[]) {
 		camera->SetBounds(0, 0, map->GetWidth(), map->GetHeight());
 		camera->FollowSprite(alien);
 
+#endif
+#pragma endregion
+#pragma region Practica 11 INIT
+#ifdef P11
+		int32 incX, incY;
+		String *fileName = new String();
+		*fileName = "../data/isoplayer.png";
+		Image *isoPlayerImage = ResourceManager::Instance().LoadImage(*fileName,8,8);
+		isoPlayerImage->SetMidHandle();
+		*fileName = "../data/isometric.tmx";
+		IsometricMap *map = ResourceManager::Instance().LoadIsometricMap(*fileName);
+		IsometricScene *scene = new IsometricScene(map);
+		IsometricSprite *isoPlayer = scene->CreateSprite(isoPlayerImage);
+		isoPlayer->SetFPS(16);
+		isoPlayer->SetFrameRange(0, 4);
+		isoPlayer->SetPosition(map->GetTileWidth()*1.5, map->GetTileHeight()*1.5,0);
+		isoPlayer->SetCollision(Sprite::COLLISION_PIXEL);
+		Camera *camera = &scene->GetCamera();
+		camera->FollowSprite(isoPlayer);
 #endif
 #pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
@@ -1007,6 +1026,31 @@ int main(int argc, char* argv[]) {
 		}
 		alien->MoveTo(alien->GetX() + incX, alien->GetY() + incY, 100);
 		alien->RotateTo(angle, 30);
+		scene->Update(Screen::Instance().ElapsedTime());
+		scene->Render();
+#endif
+#pragma endregion
+		
+#pragma region Practica 11
+#ifdef P11
+		incX = incY = 0;
+		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
+			isoPlayer->SetFrameRange(24, 28);
+			incY -= 100;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN)) {
+			isoPlayer->SetFrameRange(56, 60);
+			incY += 100;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT)) {
+			isoPlayer->SetFrameRange(0, 4);
+			incX -= 100;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT)) {
+			isoPlayer->SetFrameRange(40, 44);
+			incX += 100;
+		}
+		isoPlayer->MoveTo(isoPlayer->GetX() + incX, isoPlayer->GetY() + incY, 100);
 		scene->Update(Screen::Instance().ElapsedTime());
 		scene->Render();
 #endif

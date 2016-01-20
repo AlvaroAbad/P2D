@@ -251,8 +251,8 @@ void Sprite::UpdateCollisionBox() {
 	this->coly = this->y - this->image->GetHandleY()*fabs(this->scaley);
 	this->colheight = this->image->GetHeight() * fabs(this->scaley);
 	this->colwidth = this->image->GetWidth() * fabs(this->scalex);
-	this->centerX = colx + this->image->GetWidth() / 2;
-	this->centerY= coly + this->image->GetHeight() / 2;
+	this->centerX = colx + this->colwidth / 2;
+	this->centerY= coly + this->colheight / 2;
 }
 
 void Sprite::UpdateCollisionBox(double x, double y, double w, double h, double cX, double cY) {

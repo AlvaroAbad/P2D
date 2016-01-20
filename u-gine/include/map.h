@@ -20,7 +20,9 @@ public:
     virtual Image* GetImage() { return image; }
     virtual uint32 GetWidth() const { return width * tileWidth; }
     virtual uint32 GetHeight() const { return height * tileHeight; }
-    virtual uint16 GetTileWidth() const { return tileWidth; }
+    virtual uint16 GetTileWidth() const { 
+		return tileWidth; 
+	}
     virtual uint16 GetTileHeight() const { return tileHeight; }
     virtual uint16 GetColumns() const { return width; }
     virtual uint16 GetRows() const { return height; }

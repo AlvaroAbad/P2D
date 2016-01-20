@@ -99,6 +99,9 @@
     <ClInclude Include="..\include\glinclude.h" />
     <ClInclude Include="..\include\glyph.h" />
     <ClInclude Include="..\include\image.h" />
+    <ClInclude Include="..\include\isometricmap.h" />
+    <ClInclude Include="..\include\isometricscene.h" />
+    <ClInclude Include="..\include\isometricsprite.h" />
     <ClInclude Include="..\include\map.h" />
     <ClInclude Include="..\include\mapscene.h" />
     <ClInclude Include="..\include\math.h" />
@@ -130,6 +133,9 @@
     <ClCompile Include="..\src\font.cpp" />
     <ClCompile Include="..\src\Glyph.cpp" />
     <ClCompile Include="..\src\image.cpp" />
+    <ClCompile Include="..\src\isometricmap.cpp" />
+    <ClCompile Include="..\src\isometricscene.cpp" />
+    <ClCompile Include="..\src\isometricsprite.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\map.cpp" />
     <ClCompile Include="..\src\mapscene.cpp" />
