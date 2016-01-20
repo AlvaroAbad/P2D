@@ -23,7 +23,6 @@ IsometricMap::IsometricMap(const String & filename, uint16 firstColId) :Map(file
 
 	double handleX, handleY;
 
-	// TAREA: Implementar constructor
 	mapInfo = String::Read(filename);
 
 	doc.parse<0>((char*)mapInfo.ToCString());
@@ -77,7 +76,7 @@ void IsometricMap::GenerateLayerSprites(IsometricScene * scene)
 			if (id >-1) {
 				sprite = scene->CreateSprite(GetImage());
 				sprite->SetCurrentFrame(id);
-				sprite->SetPosition(row*GetTileWidth(), column*GetTileHeight(),0);
+				sprite->SetPosition(column*GetTileHeight(), row*GetTileWidth(),0);
 				if (id >= GetFirstColId()) {
 					sprite->SetCollision(IsometricSprite::COLLISION_RECT);
 				}

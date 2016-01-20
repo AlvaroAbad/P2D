@@ -55,6 +55,9 @@ public:
     virtual void SetFrameRange(uint16 firstFrame, uint16 lastFrame) { 
 		this->firstFrame = firstFrame;
 		this->lastFrame = lastFrame;
+		if (currentFrame<firstFrame || currentFrame>lastFrame) {
+			currentFrame = firstFrame;
+		}
 	}
     virtual uint16 GetFirstFrame() const { return this->firstFrame;}
     virtual uint16 GetLastFrame() { return this->lastFrame;}

@@ -395,13 +395,13 @@ int main(int argc, char* argv[]) {
 #pragma endregion
 #pragma region Practica 11 INIT
 #ifdef P11
-		int32 incX, incY;
+		int32 posX, posY;
 		String *fileName = new String();
 		*fileName = "../data/isoplayer.png";
 		Image *isoPlayerImage = ResourceManager::Instance().LoadImage(*fileName,8,8);
 		isoPlayerImage->SetMidHandle();
 		*fileName = "../data/isometric.tmx";
-		IsometricMap *map = ResourceManager::Instance().LoadIsometricMap(*fileName);
+		IsometricMap *map = ResourceManager::Instance().LoadIsometricMap(*fileName,4);
 		IsometricScene *scene = new IsometricScene(map);
 		IsometricSprite *isoPlayer = scene->CreateSprite(isoPlayerImage);
 		isoPlayer->SetFPS(16);
@@ -1033,24 +1033,28 @@ int main(int argc, char* argv[]) {
 		
 #pragma region Practica 11
 #ifdef P11
-		incX = incY = 0;
+		posX = (int)(isoPlayer->GetX()/map->GetTileWidth();
+		posY = (int)(isoPlayer->GetY()/map->GetTileHeight();
+
 		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
 			isoPlayer->SetFrameRange(24, 28);
-			incY -= 100;
+			posY -= map->GetTileHeight()*1.5;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN)) {
 			isoPlayer->SetFrameRange(56, 60);
-			incY += 100;
+			posY += map->GetTileHeight()*1.5;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT)) {
 			isoPlayer->SetFrameRange(0, 4);
-			incX -= 100;
+			posX -= map->GetTileWidth()*1.5;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT)) {
 			isoPlayer->SetFrameRange(40, 44);
-			incX += 100;
+			posX += map->GetTileWidth()*1.5;
 		}
-		isoPlayer->MoveTo(isoPlayer->GetX() + incX, isoPlayer->GetY() + incY, 100);
+		if (map->GetLayerId(posX / map->GetTileWidth(), posY / map->GetTileHeight()) < map->GetFirstColId()) {
+			isoPlayer->MoveTo(posX,posY, 100);
+		}
 		scene->Update(Screen::Instance().ElapsedTime());
 		scene->Render();
 #endif

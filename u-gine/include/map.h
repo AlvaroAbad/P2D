@@ -26,7 +26,9 @@ public:
     virtual uint16 GetTileHeight() const { return tileHeight; }
     virtual uint16 GetColumns() const { return width; }
     virtual uint16 GetRows() const { return height; }
-    virtual int32 GetTileId(uint16 column, uint16 row) const { return tileIds[row*GetColumns() + column]; }
+    virtual int32 GetTileId(uint16 column, uint16 row) const { 
+		return tileIds[row*GetColumns() + column]; 
+	}
     virtual double GetGroundY(double x, double y) const;
     virtual uint16 GetFirstColId() const { return firstColId; }
 private:
