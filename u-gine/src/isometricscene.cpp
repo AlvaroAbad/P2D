@@ -2,7 +2,7 @@
 #include "../include/array.h"
 #include "../include/isometricmap.h"
 
-IsometricScene::IsometricScene(IsometricMap * map, Image * imageBack, Image * imageFront): MapScene((Map*)map,imageBack,imageFront)
+IsometricScene::IsometricScene(IsometricMap * map, Image * imageBack, Image * imageFront): MapScene(map,imageBack,imageFront)
 {
 	map->GenerateLayerSprites(this);
 }

@@ -393,9 +393,10 @@ int main(int argc, char* argv[]) {
 
 #endif
 #pragma endregion
+
 #pragma region Practica 11 INIT
 #ifdef P11
-		int32 posX, posY;
+		uint32 posX, posY, prevX,prevY;
 		String *fileName = new String();
 		*fileName = "../data/isoplayer.png";
 		Image *isoPlayerImage = ResourceManager::Instance().LoadImage(*fileName,8,8);
@@ -404,9 +405,9 @@ int main(int argc, char* argv[]) {
 		IsometricMap *map = ResourceManager::Instance().LoadIsometricMap(*fileName,4);
 		IsometricScene *scene = new IsometricScene(map);
 		IsometricSprite *isoPlayer = scene->CreateSprite(isoPlayerImage);
-		isoPlayer->SetFPS(16);
+		isoPlayer->SetFPS(8);
 		isoPlayer->SetFrameRange(0, 4);
-		isoPlayer->SetPosition(map->GetTileWidth()*1.5, map->GetTileHeight()*1.5,0);
+		isoPlayer->SetPosition(map->GetTileWidth(), map->GetTileHeight(),0);
 		isoPlayer->SetCollision(Sprite::COLLISION_PIXEL);
 		Camera *camera = &scene->GetCamera();
 		camera->FollowSprite(isoPlayer);
@@ -1033,27 +1034,31 @@ int main(int argc, char* argv[]) {
 		
 #pragma region Practica 11
 #ifdef P11
-		posX = (int)(isoPlayer->GetX()/map->GetTileWidth();
-		posY = (int)(isoPlayer->GetY()/map->GetTileHeight();
-
+		prevX=posX = (int)isoPlayer->GetX()/map->GetTileWidth();
+		prevY=posY = (int)isoPlayer->GetY()/map->GetTileHeight();
+		if (!isoPlayer->IsMoving()) {
+			isoPlayer->SetFPS(0);
+		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
+			
 			isoPlayer->SetFrameRange(24, 28);
-			posY -= map->GetTileHeight()*1.5;
+			posY--;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN)) {
 			isoPlayer->SetFrameRange(56, 60);
-			posY += map->GetTileHeight()*1.5;
+			posY ++;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT)) {
 			isoPlayer->SetFrameRange(0, 4);
-			posX -= map->GetTileWidth()*1.5;
+			posX --;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT)) {
 			isoPlayer->SetFrameRange(40, 44);
-			posX += map->GetTileWidth()*1.5;
+			posX ++;
 		}
-		if (map->GetLayerId(posX / map->GetTileWidth(), posY / map->GetTileHeight()) < map->GetFirstColId()) {
-			isoPlayer->MoveTo(posX,posY, 100);
+		if (map->GetLayerId(posX, posY) < map->GetFirstColId() && (prevX!=posX || prevY!=posY)) {
+			isoPlayer->SetFPS(8);
+			isoPlayer->MoveTo(posX*(map->GetTileWidth()),posY*(map->GetTileHeight()), 100);
 		}
 		scene->Update(Screen::Instance().ElapsedTime());
 		scene->Render();
