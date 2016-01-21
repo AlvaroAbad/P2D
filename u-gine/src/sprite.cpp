@@ -230,7 +230,6 @@ void Sprite::Update(double elapsed, const Map* map) {
 			this->moving = false;
 		}
 	}
-	// Informacion final de colision
 	UpdateCollisionBox();
 }
 
@@ -238,6 +237,7 @@ void Sprite::Render() const {
 	Renderer::Instance().SetBlendMode(this->blendMode);
 	Renderer::Instance().SetColor(this->r, this->g, this->b, this->a);
 	Renderer::Instance().DrawImage(this->image, this->GetScreenX(), this->GetScreenY(), this->currentFrame, this->image->GetWidth()*this->scalex, this->image->GetHeight()*this->scaley, this->angle);
+
 }
 
 void Sprite::UpdateCollisionBox() {

@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -56,12 +56,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnablePREfast>true</EnablePREfast>
+      <AdditionalIncludeDirectories>../lib/openal</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw.win32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>openal32.lib;glfw.win32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../lib;../lib/openal</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -86,6 +87,9 @@
   <ItemGroup>
     <ClInclude Include="..\include\affector.h" />
     <ClInclude Include="..\include\array.h" />
+    <ClInclude Include="..\include\audiobuffer.h" />
+    <ClInclude Include="..\include\audioengine.h" />
+    <ClInclude Include="..\include\audiosource.h" />
     <ClInclude Include="..\include\bone.h" />
     <ClInclude Include="..\include\bonedata.h" />
     <ClInclude Include="..\include\camera.h" />
@@ -94,6 +98,7 @@
     <ClInclude Include="..\include\collisionmanager.h" />
     <ClInclude Include="..\include\collisionpixeldata.h" />
     <ClInclude Include="..\include\emitter.h" />
+    <ClInclude Include="..\include\file.h" />
     <ClInclude Include="..\include\font.h" />
     <ClInclude Include="..\include\frame.h" />
     <ClInclude Include="..\include\glinclude.h" />
@@ -102,6 +107,7 @@
     <ClInclude Include="..\include\isometricmap.h" />
     <ClInclude Include="..\include\isometricscene.h" />
     <ClInclude Include="..\include\isometricsprite.h" />
+    <ClInclude Include="..\include\listener.h" />
     <ClInclude Include="..\include\map.h" />
     <ClInclude Include="..\include\mapscene.h" />
     <ClInclude Include="..\include\math.h" />
@@ -125,6 +131,8 @@
   <ItemGroup>
     <ClCompile Include="..\lib\stb_image.c" />
     <ClCompile Include="..\src\affector.cpp" />
+    <ClCompile Include="..\src\audiobuffer.cpp" />
+    <ClCompile Include="..\src\audioengine.cpp" />
     <ClCompile Include="..\src\bone.cpp" />
     <ClCompile Include="..\src\camera.cpp" />
     <ClCompile Include="..\src\collisionmanager.cpp" />

@@ -60,7 +60,7 @@ IsometricMap::IsometricMap(const String & filename, uint16 firstColId) :Map(file
 	handleY = GetImage()->GetHandleY();
 
 	handleX += GetTileWidth();
-	handleY = GetImage()->GetHeight() - handleY - GetTileHeight();
+	handleY = GetImage()->GetHeight() - handleY - tileHeight;
 
 	GetImage()->SetHandle(handleX, handleY);
 }

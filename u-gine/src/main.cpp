@@ -407,7 +407,7 @@ int main(int argc, char* argv[]) {
 		IsometricSprite *isoPlayer = scene->CreateSprite(isoPlayerImage);
 		isoPlayer->SetFPS(8);
 		isoPlayer->SetFrameRange(0, 4);
-		isoPlayer->SetPosition(map->GetTileWidth(), map->GetTileHeight(),0);
+		isoPlayer->SetPosition(map->GetTileWidth()*1.5, map->GetTileHeight()*1.5,0);
 		isoPlayer->SetCollision(Sprite::COLLISION_PIXEL);
 		Camera *camera = &scene->GetCamera();
 		camera->FollowSprite(isoPlayer);
@@ -1058,7 +1058,7 @@ int main(int argc, char* argv[]) {
 		}
 		if (map->GetLayerId(posX, posY) < map->GetFirstColId() && (prevX!=posX || prevY!=posY)) {
 			isoPlayer->SetFPS(8);
-			isoPlayer->MoveTo(posX*(map->GetTileWidth()),posY*(map->GetTileHeight()), 100);
+			isoPlayer->MoveTo(posX*(map->GetTileWidth())+ map->GetTileWidth()/2,posY*(map->GetTileHeight()) + map->GetTileHeight()/2, 100);
 		}
 		scene->Update(Screen::Instance().ElapsedTime());
 		scene->Render();
