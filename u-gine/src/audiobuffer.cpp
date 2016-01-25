@@ -22,13 +22,13 @@ AudioBuffer::AudioBuffer(const String & filename)
 	ByteRate= wavFile->ReadInt();
 	BlockAlign= wavFile->ReadInt16();
 	BitsPerSample= wavFile->ReadInt16();
-	if (AudioFormat != 1 && FmtChunkSize>16) {
+	if (AudioFormat != 1 || FmtChunkSize>16) {
 		ExtraParamsSize= wavFile->ReadInt16();
 		wavFile->Seek(wavFile->Pos() + ExtraParamsSize);
 	}
 	do{
 		wavFile->ReadBytes(texto,4);
-	} while (String(texto) == "data");
+	} while (String(texto) != "data");
 	bufferSize = wavFile->ReadInt();
 	buffer = malloc(bufferSize);
 	wavFile->ReadBytes(buffer, bufferSize);
@@ -49,10 +49,12 @@ AudioBuffer::AudioBuffer(const String & filename)
 			format = AL_FORMAT_STEREO16;
 		}
 	}
+	alGenBuffers(1, &alBuffer);
 	alBufferData(alBuffer, format, buffer, bufferSize, SampleRate);
 	free(buffer);
 }
 
 AudioBuffer::~AudioBuffer()
 {
+	alDeleteBuffers(1, &alBuffer);
 }

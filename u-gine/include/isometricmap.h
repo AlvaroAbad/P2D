@@ -8,7 +8,9 @@ public:
 	virtual void GenerateLayerSprites(IsometricScene* scene);
 	virtual uint16 GetTileWidth()const { return Map::GetTileWidth() / 2; }
 	virtual void Render()const;
-	virtual int32 GetLayerId(uint16 column,uint16 row){ return topLayerIds[row*GetColumns() + column]; }
+	virtual int32 GetLayerId(uint16 column,uint16 row){ 
+		return topLayerIds[row*GetColumns() + column];
+	}
 private:
 	Array<int32> topLayerIds;
 };

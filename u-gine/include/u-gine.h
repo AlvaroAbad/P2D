@@ -25,5 +25,10 @@
 #include "sprite.h"
 #include "string.h"
 #include "types.h"
+/*AUDIO INCLUDES*/
+#include "audiobuffer.h"
+#include "audioengine.h"
+#include "audiosource.h"
+#include "listener.h"
 
 #endif

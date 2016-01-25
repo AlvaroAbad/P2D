@@ -8,9 +8,11 @@
 
 int main(int argc, char* argv[]) {
 	Screen::Instance().Open(800, 600, false);
+	AudioEngine::Instance().Init();
 	String *fontFileName = new String();
 	*fontFileName = "../data/monospaced.png";
 	String *text = new String();
+	uint32 TextHeight;
 	Font *font = ResourceManager::Instance().LoadFont(*fontFileName);
 	*text = "FPS: 0";
 	int frames;
@@ -411,6 +413,22 @@ int main(int argc, char* argv[]) {
 		isoPlayer->SetCollision(Sprite::COLLISION_PIXEL);
 		Camera *camera = &scene->GetCamera();
 		camera->FollowSprite(isoPlayer);
+#endif
+#pragma endregion
+
+#pragma region Practica A1 INIT
+#ifdef PA1
+		String *fileName = new String();
+		*fileName = "../data/music.wav";
+		AudioBuffer * audio = new AudioBuffer(*fileName);
+		AudioSource * source = new AudioSource(audio);
+		float spX, spY,spZ,pitch, gain;
+		spX =  0;
+		spY = 0;
+		spZ = 0;
+		pitch = 1;
+		gain = 1;
+		Listener::Instance().SetPosition(Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight() / 2, 0);
 #endif
 #pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
@@ -1064,11 +1082,72 @@ int main(int argc, char* argv[]) {
 		scene->Render();
 #endif
 #pragma endregion
+
+#pragma region Practica A1
+#ifdef PA1
+		if (!source->IsPlaying()) {
+			source->Play();
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
+			pitch+=0.1;
+		}else if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN)) {
+			pitch-=0.1;
+		}
+
+		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT)) {
+			spX--;
+		}
+		else if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT)) {
+			spX++;
+		}
+		if (Screen::Instance().KeyPressed('W')) {
+			spY--;
+		}
+		else if (Screen::Instance().KeyPressed('S')) {
+			spY++;
+		}
+		if (Screen::Instance().KeyPressed('A')) {
+			gain += 0.1;
+		}
+		else if (Screen::Instance().KeyPressed('D')) {
+			gain -= 0.1;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_KP_ADD)) {
+			spZ++;
+		}
+		else if (Screen::Instance().KeyPressed(GLFW_KEY_KP_SUBTRACT)) {
+			spZ--;
+		}
+		source->SetPitch(pitch);
+		source->SetGain(gain);
+		source->SetPosition(spX, spY, 0);
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(spX, spY, 10+spZ, 10+spZ);
+		Renderer::Instance().SetColor(255, 255, 255, 255);
+		Renderer::Instance().DrawEllipse(Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight() / 2, 10, 10);
+		
+		*text = "Pitch: ";
+		*text += String::FromFloat(pitch);
+		Renderer::Instance().DrawText(font, *text, 0, 0);
+		TextHeight = font->GetTextHeight(*text);
+		*text = "Gain: ";
+		*text += String::FromFloat(gain);
+		Renderer::Instance().DrawText(font, *text, 0, TextHeight);
+		TextHeight += font->GetTextHeight(*text);
+		*text = "Position: ";
+		*text += String::FromFloat(spX) + ":" + String::FromFloat(spY) + ":" + String::FromFloat(spZ);
+		Renderer::Instance().DrawText(font, *text, 0, TextHeight);
+#endif
+#pragma endregion
 		// Refrescamos la pantalla
 		Screen::Instance().Refresh();
 		Renderer::Instance().Clear(0, 0, 0);
 	}
-
+	/*if (source->IsPlaying()) {
+		source->Stop();
+	}*/
+	AudioEngine::Instance().Finish();
+	Screen::Instance().Close();
 	ResourceManager::Instance().FreeResources();
 	//delete(title);
 	/*for (unsigned int i = 0; i < spriteArray->Size(); i++) {
