@@ -22,3 +22,7 @@ void AudioEngine::Finish()
 	alcDestroyContext((ALCcontext*)context);
 	alcCloseDevice((ALCdevice*)device);
 }
+
+void AudioEngine::SetDopplerFactor(float factor) {
+	alDopplerFactor(factor);
+}

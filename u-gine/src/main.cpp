@@ -1,5 +1,5 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define P11
+#define PA2
 
 
 #include "../include/u-gine.h"
@@ -429,6 +429,30 @@ int main(int argc, char* argv[]) {
 		pitch = 1;
 		gain = 1;
 		Listener::Instance().SetPosition(Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight() / 2, 0);
+#endif
+#pragma endregion
+
+#pragma region Practica A1 INIT
+#ifdef PA2
+		float rotationCenterX, rotationCenterY, prevCircleCenterX, prevCircleCenterY, circleCenterX, circleCenterY, velX,velY,rotationRadius;
+		double angle = 0;
+		String *fileName = new String();
+		*fileName = "../data/engine.wav";
+		AudioBuffer * audio = new AudioBuffer(*fileName);
+		AudioSource * source = new AudioSource(audio);
+		source->SetGain(100);
+		source->SetLooping(true);
+		float lpX, lpY,prevLpX,prevLpY, pitch, gain;
+		prevLpX=lpX = 0;
+		prevLpY=lpY = 0;
+		pitch = 1;
+		gain = 1;
+		rotationCenterX = Screen::Instance().GetWidth() / 2;
+		rotationCenterY = Screen::Instance().GetHeight() / 2;
+		rotationRadius= Screen::Instance().GetWidth() / 4;
+		AudioEngine::Instance().SetDopplerFactor(1);
+		prevCircleCenterY = rotationCenterY + (20 * DegSin(angle)*-1); //calc center Y of circle orbiting square
+		prevCircleCenterX = rotationCenterX + (20 * DegCos(angle)); //calc center X of circle orbiting square
 #endif
 #pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
@@ -1120,7 +1144,7 @@ int main(int argc, char* argv[]) {
 		}
 		source->SetPitch(pitch);
 		source->SetGain(gain);
-		source->SetPosition(spX, spY, 0);
+		source->SetPosition(spX, spY, spz);
 		Renderer::Instance().SetColor(255, 0, 0, 255);
 		Renderer::Instance().DrawEllipse(spX, spY, 10+spZ, 10+spZ);
 		Renderer::Instance().SetColor(255, 255, 255, 255);
@@ -1137,6 +1161,51 @@ int main(int argc, char* argv[]) {
 		*text = "Position: ";
 		*text += String::FromFloat(spX) + ":" + String::FromFloat(spY) + ":" + String::FromFloat(spZ);
 		Renderer::Instance().DrawText(font, *text, 0, TextHeight);
+#endif
+#pragma endregion
+
+#pragma region Practica A1
+#ifdef PA2
+		if (!source->IsPlaying()) {
+			source->Play();
+		}
+		angle+= 30 * Screen::Instance().ElapsedTime();
+		angle = WrapValue(angle, 360); //wrap counter between [0,360)
+		
+		circleCenterY = rotationCenterY + (rotationRadius * DegSin(angle)*-1); //calc center Y of circle orbiting square
+		circleCenterX = rotationCenterX + (rotationRadius * DegCos(angle)); //calc center X of circle orbiting square
+
+		velX = circleCenterX - prevCircleCenterX;
+		velY = circleCenterY - prevCircleCenterY;
+		prevCircleCenterX = circleCenterY;
+		prevCircleCenterY = circleCenterY;
+
+		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
+			lpY-=100*Screen::Instance().ElapsedTime();
+		}
+		else if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN)) {
+			lpY+= 100 * Screen::Instance().ElapsedTime();
+		}
+
+		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT)) {
+			lpX-= 100 * Screen::Instance().ElapsedTime();
+		}
+		else if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT)) {
+			lpX+= 100 * Screen::Instance().ElapsedTime();
+		}
+
+
+		source->SetPosition(circleCenterX, circleCenterY, 0);
+		source->SetVelocity(velX, velY, 0);
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(circleCenterX, circleCenterY, 10, 10);
+		
+		velX = (Screen::Instance().GetWidth() / 2+prevLpX) - (Screen::Instance().GetWidth() / 2+lpX);
+		velX = (Screen::Instance().GetHeight()+prevLpY) - (Screen::Instance().GetHeight()+lpY);
+		Listener::Instance().SetPosition(Screen::Instance().GetWidth()/2+lpX, Screen::Instance().GetHeight()+ lpY, 0);
+		Listener::Instance().SetVelocity(velX, velX, 0);
+		Renderer::Instance().SetColor(255, 255, 255, 255);
+		Renderer::Instance().DrawEllipse(Screen::Instance().GetWidth() / 2 + lpX, Screen::Instance().GetHeight() + lpY, 10, 10);
 #endif
 #pragma endregion
 		// Refrescamos la pantalla

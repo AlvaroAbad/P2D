@@ -6,6 +6,7 @@ public:
 	static AudioEngine& Instance();
 	void Init();
 	void Finish();
+	void SetDopplerFactor(float factor);
 protected:
 	AudioEngine(void) : device(nullptr), context(nullptr) {}
 	~AudioEngine(void) {}

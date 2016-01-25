@@ -22,7 +22,7 @@ AudioBuffer::AudioBuffer(const String & filename)
 	ByteRate= wavFile->ReadInt();
 	BlockAlign= wavFile->ReadInt16();
 	BitsPerSample= wavFile->ReadInt16();
-	if (AudioFormat != 1 || FmtChunkSize>16) {
+	if (FmtChunkSize>16) {
 		ExtraParamsSize= wavFile->ReadInt16();
 		wavFile->Seek(wavFile->Pos() + ExtraParamsSize);
 	}
