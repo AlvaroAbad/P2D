@@ -144,6 +144,9 @@
     <ClInclude Include="..\include\listener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\audiostream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -234,6 +237,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\listener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\stb_vorbis.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\audiostream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

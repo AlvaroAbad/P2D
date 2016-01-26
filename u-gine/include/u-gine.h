@@ -30,5 +30,6 @@
 #include "audioengine.h"
 #include "audiosource.h"
 #include "listener.h"
+#include "audiostream.h"
 
 #endif

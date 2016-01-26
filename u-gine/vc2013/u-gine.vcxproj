@@ -90,6 +90,7 @@
     <ClInclude Include="..\include\audiobuffer.h" />
     <ClInclude Include="..\include\audioengine.h" />
     <ClInclude Include="..\include\audiosource.h" />
+    <ClInclude Include="..\include\audiostream.h" />
     <ClInclude Include="..\include\bone.h" />
     <ClInclude Include="..\include\bonedata.h" />
     <ClInclude Include="..\include\camera.h" />
@@ -129,7 +130,9 @@
     <ClInclude Include="..\include\u-gine.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\include\audiostream.cpp" />
     <ClCompile Include="..\lib\stb_image.c" />
+    <ClCompile Include="..\lib\stb_vorbis.c" />
     <ClCompile Include="..\src\affector.cpp" />
     <ClCompile Include="..\src\audiobuffer.cpp" />
     <ClCompile Include="..\src\audioengine.cpp" />
