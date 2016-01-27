@@ -39,13 +39,13 @@ void AudioStream::Update()
 	for (int32 i = 0; i < value; i++)
 	{
 		alSourceUnqueueBuffers(source->GetSource(), 1, &unquedId);
-		if (Stream(buffers[unquedId])) {
+		if (Stream(unquedId)) {
 			alSourceQueueBuffers(source->GetSource(), 1, &unquedId);
 		}
 		else if (shouldLoop) {
 			stb_vorbis_seek_start(stream);
 			samplesLeft = stb_vorbis_stream_length_in_samples(stream)*info.channels;
-			if (Stream(buffers[unquedId])) {
+			if (Stream(unquedId)) {
 				alSourceQueueBuffers(source->GetSource(), 1, &unquedId);
 			}
 		}
