@@ -1,5 +1,7 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
-#define PA3
+/*Practicas 2D 1-11 si cuenta con dos niveles añadir _1 o _2 para basica o avanzada*/
+/*Practicas de Audio A1-A3*/
+#define P11
 
 
 #include "../include/u-gine.h"

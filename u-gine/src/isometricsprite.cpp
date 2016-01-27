@@ -21,7 +21,7 @@ void IsometricSprite::UpdateCollisionBox()
 {
 	double x, y, w, h,cx,cy;
 	x = GetX() - GetImage()->GetHandleX() *fabs(GetScaleX());
-	y = GetY() - GetImage()->GetHandleY() *fabs(GetScaleY());
+	y = GetY() - GetImage()->GetHandleX() *fabs(GetScaleY());
 	w = GetImage()->GetWidth()*fabs(GetScaleX());
 	h = GetImage()->GetWidth()*fabs(GetScaleX());
 	cx = x + w / 2;
