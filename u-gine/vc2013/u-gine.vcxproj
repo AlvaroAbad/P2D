@@ -126,6 +126,7 @@
     <ClInclude Include="..\include\stb_image_write.h" />
     <ClInclude Include="..\include\stb_truetype.h" />
     <ClInclude Include="..\include\string.h" />
+    <ClInclude Include="..\include\ttffont.h" />
     <ClInclude Include="..\include\types.h" />
     <ClInclude Include="..\include\u-gine.h" />
   </ItemGroup>
@@ -162,6 +163,7 @@
     <ClCompile Include="..\src\skeletondata.cpp" />
     <ClCompile Include="..\src\skeletonsprite.cpp" />
     <ClCompile Include="..\src\sprite.cpp" />
+    <ClCompile Include="..\src\ttffont.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\data\alien.png" />

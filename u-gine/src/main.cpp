@@ -1,7 +1,7 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 /*Practicas 2D 1-11 si cuenta con dos niveles añadir _1 o _2 para basica o avanzada*/
 /*Practicas de Audio A1-A3*/
-#define P11
+#define P6_2
 
 
 #include "../include/u-gine.h"
@@ -214,6 +214,22 @@ int main(int argc, char* argv[]) {
 #endif
 #pragma endregion 
 
+#pragma region Practica 6-2 INIT
+#ifdef P6_2
+	*fontFileName = "../data/ufonts.com_computer-regular.ttf";
+	*text = "Hola, Mundo";
+	TTFFont * ttfFont = ResourceManager::Instance().LoadTTFFont(*fontFileName, 42);
+	double speedX, speedY;
+	speedX = rand() % 127 + 128;
+	speedY = rand() % 127 + 128;
+	double x, y;
+	x = y = 0;
+	uint16 r, g, b, a;
+	r = g = b = 255;
+	int32 row, columns;
+#endif
+#pragma endregion 
+
 #pragma region Practica 7-1 INIT
 #ifdef P7_1
 	String * title = new String();
@@ -290,7 +306,7 @@ int main(int argc, char* argv[]) {
 	Image *starImage = ResourceManager::Instance().LoadImage(*fileName);
 	starImage->SetMidHandle();
 	Scene scene;
-	Sprite *star = scene.CreateSprite(starImage,Scene::LAYER_FRONT);
+	Sprite *star = scene.CreateSprite(starImage, Scene::LAYER_FRONT);
 	star->SetColor(255, 0, 0);
 	Emitter *starEmitter = scene.CreateEmitter(starImage, true);
 	starEmitter->SetRate(500, 1000);
@@ -319,159 +335,159 @@ int main(int argc, char* argv[]) {
 	starEmitter->SetVelocityY(-128, 128);
 	starEmitter->AddAffector("left", 0, 0, Screen::Instance().GetWidth() / 3, Screen::Instance().GetHeight());
 	affector = starEmitter->getAffector("left");
-		if (affector) {
-			affector->SetMinColor(0, 0, 0);
-			affector->SetMaxColor(255, 255, 0);
-			affector->setAngularVelocity(0, 360);
-		}
-		starEmitter->AddAffector("right", 2*(Screen::Instance().GetWidth() / 3) + 1,0, Screen::Instance().GetWidth(), Screen::Instance().GetHeight());
-		affector = starEmitter->getAffector("right");
-		if (affector) {
-			affector->SetMinColor(0, 0, 0);
-			affector->SetMaxColor(0, 255, 255);
-			affector->setAngularVelocity(360, 720);
-		}
+	if (affector) {
+		affector->SetMinColor(0, 0, 0);
+		affector->SetMaxColor(255, 255, 0);
+		affector->setAngularVelocity(0, 360);
+	}
+	starEmitter->AddAffector("right", 2 * (Screen::Instance().GetWidth() / 3) + 1, 0, Screen::Instance().GetWidth(), Screen::Instance().GetHeight());
+	affector = starEmitter->getAffector("right");
+	if (affector) {
+		affector->SetMinColor(0, 0, 0);
+		affector->SetMaxColor(0, 255, 255);
+		affector->setAngularVelocity(360, 720);
+	}
 #endif
 #pragma endregion
 
 #pragma region Practica 9 INIT
 #ifdef P9
-		double forthHeight, forthWidth;
-		forthHeight = Screen::Instance().GetHeight() / 4;
-		forthWidth= Screen::Instance().GetWidth() / 4;
-		Array<Sprite *> objects;
-		//Images
-		String *fileName = new String();
-		*fileName = "../data/box.jpg";
-		Image *boxImage = ResourceManager::Instance().LoadImage(*fileName);
-		boxImage->SetMidHandle();
-		*fileName = "../data/ball.png";
-		Image *ballImage = ResourceManager::Instance().LoadImage(*fileName);
-		ballImage->SetMidHandle();
-		*fileName = "../data/circle.png";
-		Image *circleImage = ResourceManager::Instance().LoadImage(*fileName);
-		circleImage->SetMidHandle();
-		*fileName = "../data/rect.png";
-		Image *rectImage = ResourceManager::Instance().LoadImage(*fileName);
-		rectImage->SetMidHandle();
-		*fileName = "../data/alien.png";
-		Image *alienImage = ResourceManager::Instance().LoadImage(*fileName);
-		alienImage->SetMidHandle();
-		Scene scene;
-		//Sprites
-		Sprite *box = scene.CreateSprite(boxImage);
-		box->SetPosition(forthWidth * 3, forthHeight * 3);
-		box->SetCollision(Sprite::COLLISION_RECT);
-		objects.Add(box);
-		Sprite *ball = scene.CreateSprite(ballImage);
-		ball->SetPosition(forthWidth, forthHeight);
-		ball->SetCollision(Sprite::COLLISION_CIRCLE);
-		objects.Add(ball);
-		Sprite *alien = scene.CreateSprite(alienImage);
-		alien->SetPosition(forthWidth, forthHeight * 3);
-		alien->SetCollision(Sprite::COLLISION_PIXEL);
-		objects.Add(alien);
-		Sprite *collider = scene.CreateSprite(circleImage);
-		collider->SetCollision(Sprite::COLLISION_CIRCLE);
-		objects.Add(collider);
-		
+	double forthHeight, forthWidth;
+	forthHeight = Screen::Instance().GetHeight() / 4;
+	forthWidth = Screen::Instance().GetWidth() / 4;
+	Array<Sprite *> objects;
+	//Images
+	String *fileName = new String();
+	*fileName = "../data/box.jpg";
+	Image *boxImage = ResourceManager::Instance().LoadImage(*fileName);
+	boxImage->SetMidHandle();
+	*fileName = "../data/ball.png";
+	Image *ballImage = ResourceManager::Instance().LoadImage(*fileName);
+	ballImage->SetMidHandle();
+	*fileName = "../data/circle.png";
+	Image *circleImage = ResourceManager::Instance().LoadImage(*fileName);
+	circleImage->SetMidHandle();
+	*fileName = "../data/rect.png";
+	Image *rectImage = ResourceManager::Instance().LoadImage(*fileName);
+	rectImage->SetMidHandle();
+	*fileName = "../data/alien.png";
+	Image *alienImage = ResourceManager::Instance().LoadImage(*fileName);
+	alienImage->SetMidHandle();
+	Scene scene;
+	//Sprites
+	Sprite *box = scene.CreateSprite(boxImage);
+	box->SetPosition(forthWidth * 3, forthHeight * 3);
+	box->SetCollision(Sprite::COLLISION_RECT);
+	objects.Add(box);
+	Sprite *ball = scene.CreateSprite(ballImage);
+	ball->SetPosition(forthWidth, forthHeight);
+	ball->SetCollision(Sprite::COLLISION_CIRCLE);
+	objects.Add(ball);
+	Sprite *alien = scene.CreateSprite(alienImage);
+	alien->SetPosition(forthWidth, forthHeight * 3);
+	alien->SetCollision(Sprite::COLLISION_PIXEL);
+	objects.Add(alien);
+	Sprite *collider = scene.CreateSprite(circleImage);
+	collider->SetCollision(Sprite::COLLISION_CIRCLE);
+	objects.Add(collider);
+
 #endif
 #pragma endregion
 
 #pragma region Practica 10 INIT
 #ifdef P10
-		int32 incX, incY, angle;
-		String *fileName = new String();
-		*fileName = "../data/alien.png";
-		Image *alienImage = ResourceManager::Instance().LoadImage(*fileName);
-		alienImage->SetMidHandle();
-		*fileName = "../data/map.tmx";
-		Map *map = ResourceManager::Instance().LoadMap(*fileName);
-		MapScene *scene = new MapScene(map);
-		Sprite *alien=scene->CreateSprite(alienImage);
-		alien->SetPosition(Screen::Instance().GetWidth(), Screen::Instance().GetHeight());
-		alien->SetCollision(Sprite::COLLISION_PIXEL);
-		Camera *camera = &scene->GetCamera();
-		camera->SetBounds(0, 0, map->GetWidth(), map->GetHeight());
-		camera->FollowSprite(alien);
+	int32 incX, incY, angle;
+	String *fileName = new String();
+	*fileName = "../data/alien.png";
+	Image *alienImage = ResourceManager::Instance().LoadImage(*fileName);
+	alienImage->SetMidHandle();
+	*fileName = "../data/map.tmx";
+	Map *map = ResourceManager::Instance().LoadMap(*fileName);
+	MapScene *scene = new MapScene(map);
+	Sprite *alien = scene->CreateSprite(alienImage);
+	alien->SetPosition(Screen::Instance().GetWidth(), Screen::Instance().GetHeight());
+	alien->SetCollision(Sprite::COLLISION_PIXEL);
+	Camera *camera = &scene->GetCamera();
+	camera->SetBounds(0, 0, map->GetWidth(), map->GetHeight());
+	camera->FollowSprite(alien);
 
 #endif
 #pragma endregion
 
 #pragma region Practica 11 INIT
 #ifdef P11
-		uint32 posX, posY, prevX,prevY;
-		String *fileName = new String();
-		*fileName = "../data/isoplayer.png";
-		Image *isoPlayerImage = ResourceManager::Instance().LoadImage(*fileName,8,8);
-		isoPlayerImage->SetMidHandle();
-		*fileName = "../data/isometric.tmx";
-		IsometricMap *map = ResourceManager::Instance().LoadIsometricMap(*fileName,4);
-		IsometricScene *scene = new IsometricScene(map);
-		IsometricSprite *isoPlayer = scene->CreateSprite(isoPlayerImage);
-		isoPlayer->SetFPS(8);
-		isoPlayer->SetFrameRange(0, 4);
-		isoPlayer->SetPosition(map->GetTileWidth()*1.5, map->GetTileHeight()*1.5,0);
-		isoPlayer->SetCollision(Sprite::COLLISION_PIXEL);
-		Camera *camera = &scene->GetCamera();
-		camera->FollowSprite(isoPlayer);
+	uint32 posX, posY, prevX, prevY;
+	String *fileName = new String();
+	*fileName = "../data/isoplayer.png";
+	Image *isoPlayerImage = ResourceManager::Instance().LoadImage(*fileName, 8, 8);
+	isoPlayerImage->SetMidHandle();
+	*fileName = "../data/isometric.tmx";
+	IsometricMap *map = ResourceManager::Instance().LoadIsometricMap(*fileName, 4);
+	IsometricScene *scene = new IsometricScene(map);
+	IsometricSprite *isoPlayer = scene->CreateSprite(isoPlayerImage);
+	isoPlayer->SetFPS(8);
+	isoPlayer->SetFrameRange(0, 4);
+	isoPlayer->SetPosition(map->GetTileWidth()*1.5, map->GetTileHeight()*1.5, 0);
+	isoPlayer->SetCollision(Sprite::COLLISION_PIXEL);
+	Camera *camera = &scene->GetCamera();
+	camera->FollowSprite(isoPlayer);
 #endif
 #pragma endregion
 
 #pragma region Practica A1 INIT
 #ifdef PA1
-		String *fileName = new String();
-		*fileName = "../data/music.wav";
-		AudioBuffer * audio = new AudioBuffer(*fileName);
-		AudioSource * source = new AudioSource(audio);
-		float spX, spY,spZ,pitch, gain;
-		spX =  0;
-		spY = 0;
-		spZ = 0;
-		pitch = 1;
-		gain = 1;
-		Listener::Instance().SetPosition(Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight() / 2, 0);
+	String *fileName = new String();
+	*fileName = "../data/music.wav";
+	AudioBuffer * audio = new AudioBuffer(*fileName);
+	AudioSource * source = new AudioSource(audio);
+	float spX, spY, spZ, pitch, gain;
+	spX = 0;
+	spY = 0;
+	spZ = 0;
+	pitch = 1;
+	gain = 1;
+	Listener::Instance().SetPosition(Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight() / 2, 0);
 #endif
 #pragma endregion
 
 #pragma region Practica A2 INIT
 #ifdef PA2
-		float rotationCenterX, rotationCenterY, prevCircleCenterX, prevCircleCenterY, circleCenterX, circleCenterY, velX,velY,rotationRadius;
-		double angle = 0;
-		String *fileName = new String();
-		*fileName = "../data/engine.wav";
-		AudioBuffer * audio = new AudioBuffer(*fileName);
-		AudioSource * source = new AudioSource(audio);
-		source->SetGain(100);
-		source->SetLooping(true);
-		float lpX, lpY,prevLpX,prevLpY, pitch, gain;
-		prevLpX=lpX = 0;
-		prevLpY=lpY = 0;
-		pitch = 1;
-		gain = 1;
-		rotationCenterX = Screen::Instance().GetWidth() / 2;
-		rotationCenterY = Screen::Instance().GetHeight() / 2;
-		rotationRadius= Screen::Instance().GetWidth() / 4;
-		AudioEngine::Instance().SetDopplerFactor(1);
-		prevCircleCenterY = rotationCenterY + (20 * DegSin(angle)*-1); //calc center Y of circle orbiting square
-		prevCircleCenterX = rotationCenterX + (20 * DegCos(angle)); //calc center X of circle orbiting square
+	float rotationCenterX, rotationCenterY, prevCircleCenterX, prevCircleCenterY, circleCenterX, circleCenterY, velX, velY, rotationRadius;
+	double angle = 0;
+	String *fileName = new String();
+	*fileName = "../data/engine.wav";
+	AudioBuffer * audio = new AudioBuffer(*fileName);
+	AudioSource * source = new AudioSource(audio);
+	source->SetGain(100);
+	source->SetLooping(true);
+	float lpX, lpY, prevLpX, prevLpY, pitch, gain;
+	prevLpX = lpX = 0;
+	prevLpY = lpY = 0;
+	pitch = 1;
+	gain = 1;
+	rotationCenterX = Screen::Instance().GetWidth() / 2;
+	rotationCenterY = Screen::Instance().GetHeight() / 2;
+	rotationRadius = Screen::Instance().GetWidth() / 4;
+	AudioEngine::Instance().SetDopplerFactor(1);
+	prevCircleCenterY = rotationCenterY + (20 * DegSin(angle)*-1); //calc center Y of circle orbiting square
+	prevCircleCenterX = rotationCenterX + (20 * DegCos(angle)); //calc center X of circle orbiting square
 #endif
 #pragma endregion
 
 #pragma region Practica A3 INIT
 #ifdef PA3
-		String *fileName = new String();
-		*fileName = "../data/mutant.ogg";
-		AudioSource * source = new AudioSource(*fileName);
-		source->SetLooping(false);
-		float spX, spY, spZ, pitch, gain;
-		spX = 0;
-		spY = 0;
-		spZ = 0;
-		pitch = 1;
-		gain = 1;
-		Listener::Instance().SetPosition(Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight() / 2, 0);
-		source->Play();
+	String *fileName = new String();
+	*fileName = "../data/mutant.ogg";
+	AudioSource * source = new AudioSource(*fileName);
+	source->SetLooping(false);
+	float spX, spY, spZ, pitch, gain;
+	spX = 0;
+	spY = 0;
+	spZ = 0;
+	pitch = 1;
+	gain = 1;
+	Listener::Instance().SetPosition(Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight() / 2, 0);
+	source->Play();
 #endif
 #pragma endregion
 	while (Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC)) {
@@ -919,14 +935,14 @@ int main(int argc, char* argv[]) {
 			g = rand() % 255;
 			b = rand() % 255;
 		}
-		else if(x<=0) {
-			x =0;
+		else if (x <= 0) {
+			x = 0;
 			speedX *= -1;
 			r = rand() % 255;
 			g = rand() % 255;
 			b = rand() % 255;
 		}
-		if ( y + font->GetTextHeight(*text) >= Screen::Instance().GetHeight()) {
+		if (y + font->GetTextHeight(*text) >= Screen::Instance().GetHeight()) {
 			y = Screen::Instance().GetHeight() - font->GetTextHeight(*text);
 			speedY *= -1;
 			r = rand() % 255;
@@ -945,22 +961,60 @@ int main(int argc, char* argv[]) {
 #endif
 #pragma endregion
 
+#pragma region Practica 6-2
+#ifdef P6_2
+		
+		Renderer::Instance().SetColor(r, g, b, 225);
+		ttfFont->Render(*text, x,y);
+
+		x += speedX*Screen::Instance().ElapsedTime();
+		y += speedY*Screen::Instance().ElapsedTime();
+		if (x + ttfFont->GetTextWidth(*text) > Screen::Instance().GetWidth()) {
+			x = Screen::Instance().GetWidth() - ttfFont->GetTextWidth(*text);
+			speedX *= -1;
+			r = rand() % 255;
+			g = rand() % 255;
+			b = rand() % 255;
+		}
+		else if (x <= 0) {
+			x = 0;
+			speedX *= -1;
+			r = rand() % 255;
+			g = rand() % 255;
+			b = rand() % 255;
+		}
+		if (y + ttfFont->GetTextHeight(*text) >= Screen::Instance().GetHeight()) {
+			y = Screen::Instance().GetHeight() - ttfFont->GetTextHeight(*text);
+			speedY *= -1;
+			r = rand() % 255;
+			g = rand() % 255;
+			b = rand() % 255;
+		}
+		else if (y <= 0) {
+			y = 0;
+			speedY *= -1;
+			r = rand() % 255;
+			g = rand() % 255;
+			b = rand() % 255;
+		}
+#endif
+#pragma endregion
 #pragma region Practica 7-1
 #ifdef P7_1
 		Screen::Instance().SetTitle(*title);
 		incX = incY = angle = 0;
 		if (Screen::Instance().KeyPressed(GLFW_KEY_UP) && alien->GetY() - alien->GetImage()->GetHeight()*alien->GetScaleY() / 2 > 0) {
-			incY-=100;
+			incY -= 100;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN) && alien->GetY() + alien->GetImage()->GetHeight()*alien->GetScaleY() / 2 < backgroundImage->GetHeight()) {
-			incY+=100;
+			incY += 100;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT) && alien->GetX() - alien->GetImage()->GetWidth()*alien->GetScaleX() / 2 > 0) {
-			incX-=100;
+			incX -= 100;
 			angle += 15;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT) && alien->GetX() + alien->GetImage()->GetWidth()*alien->GetScaleX() / 2 < backgroundImage->GetWidth()) {
-			incX+=100;
+			incX += 100;
 			angle -= 15;
 		}
 		alien->MoveTo(alien->GetX() + incX, alien->GetY() + incY, 100);
@@ -1017,7 +1071,7 @@ int main(int argc, char* argv[]) {
 
 #pragma region Practica 8
 #if defined(P8_1) || defined(P8_2)
-		
+
 		if (Screen::Instance().MouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
 			if (!starEmitter->IsEmitting()) {
 				starEmitter->Start();
@@ -1065,7 +1119,7 @@ int main(int argc, char* argv[]) {
 		collider->SetPosition(Screen::Instance().GetMouseX(), Screen::Instance().GetMouseY());
 		scene.Update(Screen::Instance().ElapsedTime());
 		scene.Render();
-			
+
 #endif
 #pragma endregion
 
@@ -1092,34 +1146,34 @@ int main(int argc, char* argv[]) {
 		scene->Render();
 #endif
 #pragma endregion
-		
+
 #pragma region Practica 11
 #ifdef P11
-		prevX=posX = (int)isoPlayer->GetX()/map->GetTileWidth();
-		prevY=posY = (int)isoPlayer->GetY()/map->GetTileHeight();
+		prevX = posX = (int)isoPlayer->GetX() / map->GetTileWidth();
+		prevY = posY = (int)isoPlayer->GetY() / map->GetTileHeight();
 		if (!isoPlayer->IsMoving()) {
 			isoPlayer->SetFPS(0);
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
-			
+
 			isoPlayer->SetFrameRange(24, 28);
 			posY--;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN)) {
 			isoPlayer->SetFrameRange(56, 60);
-			posY ++;
+			posY++;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT)) {
 			isoPlayer->SetFrameRange(0, 4);
-			posX --;
+			posX--;
 		}
 		if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT)) {
 			isoPlayer->SetFrameRange(40, 44);
-			posX ++;
+			posX++;
 		}
-		if (map->GetLayerId(posX, posY) < map->GetFirstColId() && (prevX!=posX || prevY!=posY)) {
+		if (map->GetLayerId(posX, posY) < map->GetFirstColId() && (prevX != posX || prevY != posY)) {
 			isoPlayer->SetFPS(8);
-			isoPlayer->MoveTo(posX*(map->GetTileWidth())+ map->GetTileWidth()/2,posY*(map->GetTileHeight()) + map->GetTileHeight()/2, 100);
+			isoPlayer->MoveTo(posX*(map->GetTileWidth()) + map->GetTileWidth() / 2, posY*(map->GetTileHeight()) + map->GetTileHeight() / 2, 100);
 		}
 		scene->Update(Screen::Instance().ElapsedTime());
 		scene->Render();
@@ -1131,105 +1185,6 @@ int main(int argc, char* argv[]) {
 		if (!source->IsPlaying()) {
 			source->Play();
 		}
-		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
-			pitch+=0.1;
-		}else if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN)) {
-			pitch-=0.1;
-		}
-
-		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT)) {
-			spX--;
-		}
-		else if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT)) {
-			spX++;
-		}
-		if (Screen::Instance().KeyPressed('W')) {
-			spY--;
-		}
-		else if (Screen::Instance().KeyPressed('S')) {
-			spY++;
-		}
-		if (Screen::Instance().KeyPressed('A')) {
-			gain += 0.1;
-		}
-		else if (Screen::Instance().KeyPressed('D')) {
-			gain -= 0.1;
-		}
-		if (Screen::Instance().KeyPressed(GLFW_KEY_KP_ADD)) {
-			spZ++;
-		}
-		else if (Screen::Instance().KeyPressed(GLFW_KEY_KP_SUBTRACT)) {
-			spZ--;
-		}
-		source->SetPitch(pitch);
-		source->SetGain(gain);
-		source->SetPosition(spX, spY, spz);
-		Renderer::Instance().SetColor(255, 0, 0, 255);
-		Renderer::Instance().DrawEllipse(spX, spY, 10+spZ, 10+spZ);
-		Renderer::Instance().SetColor(255, 255, 255, 255);
-		Renderer::Instance().DrawEllipse(Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight() / 2, 10, 10);
-		
-		*text = "Pitch: ";
-		*text += String::FromFloat(pitch);
-		Renderer::Instance().DrawText(font, *text, 0, 0);
-		TextHeight = font->GetTextHeight(*text);
-		*text = "Gain: ";
-		*text += String::FromFloat(gain);
-		Renderer::Instance().DrawText(font, *text, 0, TextHeight);
-		TextHeight += font->GetTextHeight(*text);
-		*text = "Position: ";
-		*text += String::FromFloat(spX) + ":" + String::FromFloat(spY) + ":" + String::FromFloat(spZ);
-		Renderer::Instance().DrawText(font, *text, 0, TextHeight);
-#endif
-#pragma endregion
-
-#pragma region Practica A1
-#ifdef PA2
-		if (!source->IsPlaying()) {
-			source->Play();
-		}
-		angle+= 30 * Screen::Instance().ElapsedTime();
-		angle = WrapValue(angle, 360); //wrap counter between [0,360)
-		
-		circleCenterY = rotationCenterY + (rotationRadius * DegSin(angle)*-1); //calc center Y of circle orbiting square
-		circleCenterX = rotationCenterX + (rotationRadius * DegCos(angle)); //calc center X of circle orbiting square
-
-		velX = circleCenterX - prevCircleCenterX;
-		velY = circleCenterY - prevCircleCenterY;
-		prevCircleCenterX = circleCenterY;
-		prevCircleCenterY = circleCenterY;
-
-		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
-			lpY-=100*Screen::Instance().ElapsedTime();
-		}
-		else if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN)) {
-			lpY+= 100 * Screen::Instance().ElapsedTime();
-		}
-
-		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT)) {
-			lpX-= 100 * Screen::Instance().ElapsedTime();
-		}
-		else if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT)) {
-			lpX+= 100 * Screen::Instance().ElapsedTime();
-		}
-
-
-		source->SetPosition(circleCenterX, circleCenterY, 0);
-		source->SetVelocity(velX, velY, 0);
-		Renderer::Instance().SetColor(255, 0, 0, 255);
-		Renderer::Instance().DrawEllipse(circleCenterX, circleCenterY, 10, 10);
-		
-		velX = (Screen::Instance().GetWidth() / 2+prevLpX) - (Screen::Instance().GetWidth() / 2+lpX);
-		velX = (Screen::Instance().GetHeight()+prevLpY) - (Screen::Instance().GetHeight()+lpY);
-		Listener::Instance().SetPosition(Screen::Instance().GetWidth()/2+lpX, Screen::Instance().GetHeight()+ lpY, 0);
-		Listener::Instance().SetVelocity(velX, velX, 0);
-		Renderer::Instance().SetColor(255, 255, 255, 255);
-		Renderer::Instance().DrawEllipse(Screen::Instance().GetWidth() / 2 + lpX, Screen::Instance().GetHeight() + lpY, 10, 10);
-#endif
-#pragma endregion
-#pragma region Practica A3
-#ifdef PA3
-		
 		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
 			pitch += 0.1;
 		}
@@ -1264,7 +1219,107 @@ int main(int argc, char* argv[]) {
 		source->SetPitch(pitch);
 		source->SetGain(gain);
 		source->SetPosition(spX, spY, spZ);
-		
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(spX, spY, 10 + spZ, 10 + spZ);
+		Renderer::Instance().SetColor(255, 255, 255, 255);
+		Renderer::Instance().DrawEllipse(Screen::Instance().GetWidth() / 2, Screen::Instance().GetHeight() / 2, 10, 10);
+
+		*text = "Pitch: ";
+		*text += String::FromFloat(pitch);
+		Renderer::Instance().DrawText(font, *text, 0, 0);
+		TextHeight = font->GetTextHeight(*text);
+		*text = "Gain: ";
+		*text += String::FromFloat(gain);
+		Renderer::Instance().DrawText(font, *text, 0, TextHeight);
+		TextHeight += font->GetTextHeight(*text);
+		*text = "Position: ";
+		*text += String::FromFloat(spX) + ":" + String::FromFloat(spY) + ":" + String::FromFloat(spZ);
+		Renderer::Instance().DrawText(font, *text, 0, TextHeight);
+#endif
+#pragma endregion
+
+#pragma region Practica A1
+#ifdef PA2
+		if (!source->IsPlaying()) {
+			source->Play();
+		}
+		angle += 30 * Screen::Instance().ElapsedTime();
+		angle = WrapValue(angle, 360); //wrap counter between [0,360)
+
+		circleCenterY = rotationCenterY + (rotationRadius * DegSin(angle)*-1); //calc center Y of circle orbiting square
+		circleCenterX = rotationCenterX + (rotationRadius * DegCos(angle)); //calc center X of circle orbiting square
+
+		velX = circleCenterX - prevCircleCenterX;
+		velY = circleCenterY - prevCircleCenterY;
+		prevCircleCenterX = circleCenterY;
+		prevCircleCenterY = circleCenterY;
+
+		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
+			lpY -= 100 * Screen::Instance().ElapsedTime();
+		}
+		else if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN)) {
+			lpY += 100 * Screen::Instance().ElapsedTime();
+		}
+
+		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT)) {
+			lpX -= 100 * Screen::Instance().ElapsedTime();
+		}
+		else if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT)) {
+			lpX += 100 * Screen::Instance().ElapsedTime();
+		}
+
+
+		source->SetPosition(circleCenterX, circleCenterY, 0);
+		source->SetVelocity(velX, velY, 0);
+		Renderer::Instance().SetColor(255, 0, 0, 255);
+		Renderer::Instance().DrawEllipse(circleCenterX, circleCenterY, 10, 10);
+
+		velX = (Screen::Instance().GetWidth() / 2 + prevLpX) - (Screen::Instance().GetWidth() / 2 + lpX);
+		velX = (Screen::Instance().GetHeight() + prevLpY) - (Screen::Instance().GetHeight() + lpY);
+		Listener::Instance().SetPosition(Screen::Instance().GetWidth() / 2 + lpX, Screen::Instance().GetHeight() + lpY, 0);
+		Listener::Instance().SetVelocity(velX, velX, 0);
+		Renderer::Instance().SetColor(255, 255, 255, 255);
+		Renderer::Instance().DrawEllipse(Screen::Instance().GetWidth() / 2 + lpX, Screen::Instance().GetHeight() + lpY, 10, 10);
+#endif
+#pragma endregion
+#pragma region Practica A3
+#ifdef PA3
+
+		if (Screen::Instance().KeyPressed(GLFW_KEY_UP)) {
+			pitch += 0.1;
+		}
+		else if (Screen::Instance().KeyPressed(GLFW_KEY_DOWN)) {
+			pitch -= 0.1;
+		}
+
+		if (Screen::Instance().KeyPressed(GLFW_KEY_LEFT)) {
+			spX--;
+		}
+		else if (Screen::Instance().KeyPressed(GLFW_KEY_RIGHT)) {
+			spX++;
+		}
+		if (Screen::Instance().KeyPressed('W')) {
+			spY--;
+		}
+		else if (Screen::Instance().KeyPressed('S')) {
+			spY++;
+		}
+		if (Screen::Instance().KeyPressed('A')) {
+			gain += 0.1;
+		}
+		else if (Screen::Instance().KeyPressed('D')) {
+			gain -= 0.1;
+		}
+		if (Screen::Instance().KeyPressed(GLFW_KEY_KP_ADD)) {
+			spZ++;
+		}
+		else if (Screen::Instance().KeyPressed(GLFW_KEY_KP_SUBTRACT)) {
+			spZ--;
+		}
+		source->SetPitch(pitch);
+		source->SetGain(gain);
+		source->SetPosition(spX, spY, spZ);
+
 		Renderer::Instance().SetColor(255, 0, 0, 255);
 		Renderer::Instance().DrawEllipse(spX, spY, 10 + spZ, 10 + spZ);
 		Renderer::Instance().SetColor(255, 255, 255, 255);

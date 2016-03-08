@@ -25,6 +25,7 @@
 #include "sprite.h"
 #include "string.h"
 #include "types.h"
+#include "ttffont.h"
 /*AUDIO INCLUDES*/
 #include "audiobuffer.h"
 #include "audioengine.h"
